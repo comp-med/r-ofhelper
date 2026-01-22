@@ -6,7 +6,4 @@ This is a collection of helper functions and utilities to make working on the [O
 
 # TODO
 
-* Launch jupyter
-* use `https://github.com/dnanexus/dx-toolkit/tree/master/src/R`?
-* Fix DD to have correct type before decoding (clean_data_dict(na_meaning = TRUE, decoded_column_types))
-
+* Look for TODO tags in the functions! Most are simply place-holders for now
