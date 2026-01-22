@@ -22,6 +22,7 @@ get_workstation_worker_url <- function() {
   # TODO
   # this creates a ton of json that contains httpsApp.dns.url with the worker url
   # dx find jobs --id job-J5jvbJV2yZ8jBKvVvPy8Yg5p --json
+  # maybe util with parse_job_json() or similar
 }
 
 dx_upload <- function(
