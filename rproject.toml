@@ -17,10 +17,11 @@ repositories = [
 dependencies = [
     "data.table",
     "fs",
-    "devtools",
-    "usethis",
     "rlang",
     "vctrs",
     "glue",
     "readr",
+    "usethis",
+    "devtools",
+    "testthat",
 ]
