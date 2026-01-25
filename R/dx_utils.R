@@ -1,105 +1,156 @@
-# rlang::env_print(.pkg_env)
-.pkg_env <- rlang::env(
-  dx_binary = NULL,
-  dx_project = NULL,
-  dx_path = NULL,
-  dx_user = NULL,
-  dx_workspace = NULL,
-  dx_server_host = NULL,
-  dx_initialized = FALSE
-)
+init_dx_cache <- function() {
+  rlang::env(
+    dx_binary = NULL,
+    dx_project_id = NULL,
+    dx_project_name = NULL,
+    dx_path = NULL,
+    dx_user = NULL,
+    dx_server_host = NULL,
+    dx_initialized = FALSE
+  )
+}
+.dx_cache <- init_dx_cache()
 
+reset_dx_cache <- function() {
+  .dx_cache$dx_binary = NULL
+  .dx_cache$dx_project_id = NULL
+  .dx_cache$dx_project_name = NULL
+  .dx_cache$dx_path = NULL
+  .dx_cache$dx_user = NULL
+  .dx_cache$dx_server_host = NULL
+  .dx_cache$dx_initialized = FALSE
+}
+
+get_dx_cache <- function(dx_property = "all") {
+  dx_properties <- c(
+    "dx_binary",
+    "dx_project_id",
+    "dx_project_name",
+    "dx_path",
+    "dx_user",
+    "dx_server_host",
+    "dx_initialized"
+  )
+
+  dx_property <- match.arg(
+    dx_property,
+    c("all", dx_properties),
+    several.ok = TRUE
+  )
+  if (dx_property == "all") {
+    dx_property <- dx_properties
+  }
+
+  cache_result <- rlang::env_get_list(.dx_cache, dx_property)
+  if (length(cache_result) == 1) {
+    unlist(cache_result, use.names = FALSE)
+  } else {
+    (cache_result)
+  }
+}
+
+remove_dx_cache <- function() {
+  rlang::env_unbind(.dx_cache, rlang::env_names(.dx_cache))
+}
 
 dx_check_connection <- function() {
   dx_url <- "https://api.dnanexus.com"
   tryCatch(
     url_result <- curlGetHeaders(dx_url, timeout = 2L),
     error = function(e) {
-      rlang::abort("Connection to https://api.dnanexus.com could not be established")
+      rlang::abort(
+        "Connection to https://api.dnanexus.com could not be established"
+      )
     }
   )
   url_result <- attr(url_result, "status")
   if (url_result != 200L) {
-    rlang::abort(glue::glue("Server returned status code {url_result}, not 200"))
+    rlang::abort(glue::glue(
+      "Server returned status code {url_result}, not 200"
+    ))
   }
 
   invisible(TRUE)
 }
 
-dx_init <- function(
-    dx_binary = NULL,
-    dx_token = NULL,
-    dx_project = NULL,
-    dx_path = NULL
-) {
+dx_is_initialized <- function() {
+  initialization_success <- get_dx_cache("dx_initialized")
+  if (!initialization_success) {
+    rlang::abort("Run `dx_init()` first")
+  }
+  invisible(TRUE)
+}
 
+dx_init <- function(
+  dx_binary = NULL,
+  dx_token = NULL,
+  dx_project = NULL,
+  dx_path = NULL
+) {
   dx_check_connection()
-  bin_success <- dx_binary <- dx_binary %||% dx_set_binary()
+  bin_success <- dx_set_binary(dx_binary)
   auth_success <- dx_auth(dx_token)
-  if (is.null(dx_project)) {
-    project_success <- FALSE
-    path_success <- FALSE
-  } else {
+  project_success <- FALSE
+  path_success <- FALSE
+  if (!is.null(dx_project)) {
     project_success <- dx_set_project(dx_project)
-    if (is.null(dx_path)) {
-      path_success <- FALSE
-    } else {
+    if (!is.null(dx_path)) {
       path_success <- dx_set_path(dx_path)
     }
   }
   if (auth_success & bin_success) {
-    .pkg_env$dx_initialized <- TRUE
+    .dx_cache$dx_initialized <- TRUE
   }
   if (!project_success) {
-    rlang::warn("Authenticated but no project set. Re-run `dx_init()` and specify a project ID or use `dx_set_project()`")
+    rlang::warn(
+      "Authenticated but no project set. Re-run `dx_init()` and specify a project ID or use `dx_set_project()`"
+    )
   }
   if (project_success & !path_success) {
-    rlang::inform("Authenticated and project set but no path specified, so project root is used by default.")
+    rlang::inform(
+      "Authenticated and project set but no path specified, so project root is used by default."
+    )
     dx_set_path("/")
   }
+
+  env_success <- dx_set_env()
+  invisible(TRUE)
 }
 
-dx_check <- function(
-) {
-
-  dx_initialized <- .pkg_env$dx_initialized
-  if (!dx_initialized) {
-    rlang::abort("Please run `dx_init()` first")
-  }
-
-
-  dx_binary <- .pkg_env$dx_binary
-  dx_project <- .pkg_env$dx_project
-  dx_path <- .pkg_env$dx_path
-
-
+dx_check <- function() {
   dx_check_connection()
-  dx_check_binary(dx_binary)
-  dx_check_project(dx_project)
-  dx_check_path(dx_path)
+  dx_is_initialized()
+  dx_binary <- .dx_cache$dx_binary
+  dx_project <- .dx_cache$dx_project_id
+  dx_path <- .dx_cache$dx_path
 
+  dx_check_binary(dx_binary)
+  dx_check_project()
+  dx_check_path()
 
   # check binary
   # check project
   # check wd
 }
 
-dx_set_binary(dx_binary = NULL) {
+dx_set_binary <- function(dx_binary = NULL) {
   dx_binary <- dx_binary %||% "dx"
   dx_binary_works <- dx_check_binary(dx_binary)
 
-  if (dx_binary_works != 0) {
-    rlang::abort("`dx` utilities not found in `$PATH`. Please supply valid path to initialize")
+  if (dx_binary_works != TRUE) {
+    rlang::abort(
+      "`dx` utilities not found in `$PATH`. Please supply valid path to initialize"
+    )
   }
-  .pkg_env$binary <- dx_binary
+  .dx_cache$dx_binary <- dx_binary
   invisible(TRUE)
 }
 
 # Returns exit code
 dx_check_binary <- function(dx_binary = NULL) {
-
-  if(is.null(dx_binary)) {
-    rlang::abort("Use `dx_set_binary` ")
+  dx_binary <- dx_binary %||% .dx_cache$dx_binary
+  if (is.null(dx_binary)) {
+    rlang::abort("Use `dx_set_binary` fist")
   }
   dx_exit <- suppressWarnings(system2(
     dx_binary,
@@ -107,49 +158,68 @@ dx_check_binary <- function(dx_binary = NULL) {
     stdout = NULL,
     stderr = NULL
   ))
-
-  invisible(dx_exit != 0)
+  invisible(dx_exit == 0)
 }
 
 
 # also get username and stuff from dx env!
 dx_get_env <- function() {
-  dx_binary <- .pkg_env$dx_binary
+  dx_binary <- .dx_cache$dx_binary
   dx_env <- system2(dx_binary, "env", stdout = TRUE)
-  # return error if output is not as expected
-  if (!grepl("API server protocol", dx_env[1])) {
+
+  # return error if output is not as expected - not pretty, TODO!
+  if (!grepl("API server protocol", paste(dx_env, collapse = ", "))) {
     rlang::abort("Cannot parse unexpected content")
   }
+
   dx_env <- gsub("\t+", "\t", dx_env)
   dx_env <- strsplit(dx_env, "\t")
-  dx_env <- setNames(lapply(dx_env, `[[`, 2), lapply(dx_env, `[[`, 1))
-  .pkg_env$dx_user <- dx_env$`Current user`
-  .pkg_env$dx_path <- dx_env$`Current folder`
-  .pkg_env$dx_workspace <- dx_env$`Current workspace`
-  .pkg_env$dx_server_host <- dx_env$`API server host`
+  dx_env_names <- sapply(dx_env, `[[`, 1)
+  dx_env <- sapply(dx_env, `[[`, 2)
+  dx_env <- gsub("\"", "", dx_env)
+  setNames(dx_env, dx_env_names)
+}
+
+dx_set_env <- function() {
+  dx_binary <- .dx_cache$dx_binary
+  dx_env <- dx_get_env()
+  .dx_cache$dx_user <- dx_env[["Current user"]]
+  .dx_cache$dx_path <- dx_env[["Current folder"]]
+  .dx_cache$dx_project_id <- dx_env[["Current workspace"]]
+  .dx_cache$dx_project_name <- gsub(
+    "\"",
+    "",
+    dx_env[["Current workspace name"]]
+  )
+  .dx_cache$dx_server_host <- dx_env[["API server host"]]
   invisible(TRUE)
 }
 
 dx_clear_env <- function() {
-  dx_binary <- .pkg_env$binary
+  dx_binary <- .dx_cache$dx_binary
   system2(dx_binary, "clearenv")
   invisible(TRUE)
 }
 
 dx_auth <- function(dx_token = NULL) {
-  dx_binary <- .pkg_env$binary
-  system2(
+  dx_binary <- .dx_cache$dx_binary
+  auth_success <- system2(
     dx_binary,
     c("login", "--token", dx_token, "--noprojects"),
-    stdout = NULL,
-    stderr = NULL
+    stdout = FALSE,
+    stderr = FALSE
   )
-  invisible(dx_get_env())
+  invisible(auth_success == 0)
 }
-dx_check_auth <- function(){
 
-  dx_binary <- .pkg_env$binary
-  dx_status <- suppressWarnings(system2(dx_binary, "whoami", stdout = TRUE, stderr = TRUE))
+dx_check_auth <- function() {
+  dx_binary <- .dx_cache$dx_binary
+  dx_status <- suppressWarnings(system2(
+    dx_binary,
+    "whoami",
+    stdout = FALSE,
+    stderr = FALSE
+  ))
   dx_not_logged_in <- "You are not logged in; run \"dx login\" to obtain a token."
   if (dx_status == dx_not_logged_in) {
     rlang::abort("Not logged it. Run `dx_init()` with your auth token")
@@ -157,27 +227,105 @@ dx_check_auth <- function(){
   invisible(TRUE)
 }
 
-dx_set_project <- function() {
-  # list projects
-  # dx select
-  # set project
-  # dx select <project>
-} # TODO
+dx_find_projects <- function() {
+  dx_binary <- .dx_cache$dx_binary
+  dx_projects <- system2(
+    dx_binary,
+    c("find", "projects", "--json"),
+    stdout = TRUE,
+    stderr = FALSE
+  )
+  dx_projects <- jsonlite::fromJSON(dx_projects)
+  setNames(dx_projects$id, dx_projects$describe$name)
+}
+dx_available_projects <- dx_find_projects
 
-dx_check_project <- function() {} # TODO
-dx_available_projects <- function() {} # TODO
+dx_set_project <- function(dx_project_id = NULL) {
+  if (is.null(dx_project_id)) {
+    rlang::abort("Need project ID")
+  }
+  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
+  project_success <- system2(
+    dx_binary,
+    c("select", dx_project_id),
+    stdout = FALSE,
+    stderr = FALSE
+  )
+  if (project_success != 0) {
+    rlang::abort("Could not set project")
+  }
+  dx_env <- dx_get_env()
+  .dx_cache$dx_project_name <- dx_env["Current workspace name"]
+  .dx_cache$dx_project_id <- dx_project_id
+  .dx_cache$dx_path <- "/"
+  invisible(TRUE)
+}
 
-dx_set_path <- function() {} #TODO
-dx_set_wd <- dx_set_path()
-dx_check_path <- function() {} #TODO
+dx_check_project <- function() {
+  dx_project <- dx_get_env()[["Current workspace"]]
+  dx_cached_project <- get_dx_cache("dx_project_id")
+
+  if (dx_project != dx_current_project) {
+    dx_set_project(dx_project)
+    rlang::inform(
+      "Cached project differs from supplied project. Switching to user-supplied project"
+    )
+  }
+  invisible(TRUE)
+}
+
+
+dx_set_path <- function(dx_path = NULL) {
+  if (is.null(dx_path)) {
+    rlang::abort("No path specified")
+  }
+  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
+  cd_sucess <- system2(
+    dx_binary,
+    c("cd", dx_path),
+    stderr = FALSE,
+    stdout = FALSE
+  )
+  if (cd_sucess != 0) {
+    rlang::abort("Could not set path")
+  }
+  .dx_cache$dx_path <- dx_path
+  invisible(TRUE)
+}
+dx_set_wd <- dx_set_path
+dx_cd <- dx_set_path
+
+dx_check_path <- function() {
+  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
+  dx_project_name <- rlang::env_get(.dx_cache, "dx_project_name")
+  dx_path_cached <- rlang::env_get(.dx_cache, "dx_path")
+  dx_path_current <- system2(dx_binary, "pwd", stdout = TRUE)
+  dx_path_current <- gsub(
+    paste0(dx_project_name, ":"),
+    "",
+    dx_path_current,
+    fixed = TRUE
+  )
+  if (dx_path_cached != dx_path_current) {
+    .dx_cache$dx_path <- dx_path_current
+  }
+  invisible(TRUE)
+}
+
+dx_get_path <- function() {
+  dx_check_path()
+  .dx_cache$dx_path
+}
 
 dx_reset <- function() {
- # TODO
-  # dx clearenv & maybe logout, but that invalidates token!
+  dx_binary <- .dx_cache$dx_binary
+
+  # use this instead of `logout`, because that would invalidate token
+  system2(dx_binary, "clearenv")
 }
 
 dx_run_cmd <- function() {
- # TODO
+  # TODO
 }
 
 
@@ -203,9 +351,9 @@ get_workstation_worker_url <- function() {
 }
 
 dx_upload <- function(
-    files, # glob or vector?
-    target_dir,
-    overwrite_old_files = TRUE # i.e. delete old ones
+  files, # glob or vector?
+  target_dir,
+  overwrite_old_files = TRUE # i.e. delete old ones
 ) {
   # TODO
   #  remove files with the same name?
@@ -216,5 +364,7 @@ dx_upload <- function(
 dx_remount_project <- function() {
   system("umount /mnt")
   system("mkdir -p /mnt")
-  system("/home/dnanexus/dxfuse -readOnly /mnt /home/dnanexus/.dxfuse_manifest.json")
+  system(
+    "/home/dnanexus/dxfuse -readOnly /mnt /home/dnanexus/.dxfuse_manifest.json"
+  )
 }
