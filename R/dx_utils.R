@@ -21,6 +21,11 @@ reset_dx_cache <- function() {
   .dx_cache$dx_initialized = FALSE
 }
 
+# named list!
+set_dx_cache <- function(...) {
+  rlang::env_bind(.dx_cache, ...)
+}
+
 get_dx_cache <- function(dx_property = "all") {
   dx_properties <- c(
     "dx_binary",
@@ -76,7 +81,7 @@ dx_check_connection <- function() {
 dx_is_initialized <- function() {
   initialization_success <- get_dx_cache("dx_initialized")
   if (!initialization_success) {
-    rlang::abort("Run `dx_init()` first")
+    rlang::abort("`ofhelper` is not initialized. Run `dx_init()` first")
   }
   invisible(TRUE)
 }
@@ -114,6 +119,10 @@ dx_init <- function(
   }
 
   env_success <- dx_set_env()
+  if (!env_success) {
+    rlang::abort("Failed to query and parse `dx env`")
+  }
+
   invisible(TRUE)
 }
 
@@ -123,14 +132,11 @@ dx_check <- function() {
   dx_binary <- .dx_cache$dx_binary
   dx_project <- .dx_cache$dx_project_id
   dx_path <- .dx_cache$dx_path
-
   dx_check_binary(dx_binary)
   dx_check_project()
   dx_check_path()
 
-  # check binary
-  # check project
-  # check wd
+  invisible(TRUE)
 }
 
 dx_set_binary <- function(dx_binary = NULL) {
@@ -161,8 +167,6 @@ dx_check_binary <- function(dx_binary = NULL) {
   invisible(dx_exit == 0)
 }
 
-
-# also get username and stuff from dx env!
 dx_get_env <- function() {
   dx_binary <- .dx_cache$dx_binary
   dx_env <- system2(dx_binary, "env", stdout = TRUE)
@@ -239,6 +243,7 @@ dx_find_projects <- function() {
   setNames(dx_projects$id, dx_projects$describe$name)
 }
 dx_available_projects <- dx_find_projects
+dx_list_projects <- dx_find_projects
 
 dx_set_project <- function(dx_project_id = NULL) {
   if (is.null(dx_project_id)) {
@@ -273,7 +278,6 @@ dx_check_project <- function() {
   }
   invisible(TRUE)
 }
-
 
 dx_set_path <- function(dx_path = NULL) {
   if (is.null(dx_path)) {
@@ -314,14 +318,7 @@ dx_check_path <- function() {
 
 dx_get_path <- function() {
   dx_check_path()
-  .dx_cache$dx_path
-}
-
-dx_reset <- function() {
-  dx_binary <- .dx_cache$dx_binary
-
-  # use this instead of `logout`, because that would invalidate token
-  system2(dx_binary, "clearenv")
+  get_dx_cache("dx_path")
 }
 
 dx_run_cmd <- function() {
