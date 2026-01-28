@@ -325,19 +325,17 @@ dx_run_cmd <- function() {
   # TODO
 }
 
-
 dx_ls <- function() {
-  # TODO
-  # current dir by default, otherwise, what was entered
-}
-
-dx_extract_metadata <- function() {
-  # TODO
-  # return the dd, codings and entity objectsa
+  dx_is_initialized()
+  dx_binary <- get_dx_cache("dx_binary")
+  dx_path <- get_dx_cache("dx_path")
+  dx_check_path()
+  system2(dx_binary, "ls", stdout = TRUE)
 }
 
 dx_launch_workstation <- function() {
   # TODO
+  # return job id
 }
 
 get_workstation_worker_url <- function() {
@@ -349,9 +347,17 @@ get_workstation_worker_url <- function() {
 
 dx_upload <- function(
   files, # glob or vector?
-  target_dir,
+  target_dir = NULL, # use current dir when null!
   overwrite_old_files = TRUE # i.e. delete old ones
 ) {
+  dx_is_initialized()
+
+  cached_dx_path <- get_dx_cache("dx_path")
+  dx_path <- target_dir %||% cached_dx_path
+  if (dx_path != cached_dx_path) {
+    dx_check_path()
+    dx_set_path(dx_path)
+  }
   # TODO
   #  remove files with the same name?
   # directory
