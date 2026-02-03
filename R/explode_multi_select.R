@@ -1,3 +1,4 @@
+# I can create a column for each entry in a multi-select questionnaire column
 
 explode_multi_select <- function() {
   # TODO

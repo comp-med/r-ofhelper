@@ -321,6 +321,11 @@ dx_get_path <- function() {
   get_dx_cache("dx_path")
 }
 
+dx_get_project <- function() {
+  dx_check_project()
+  get_dx_cache("dx_project_id")
+}
+
 dx_run_cmd <- function() {
   # TODO
 }
@@ -341,7 +346,7 @@ dx_launch_workstation <- function() {
 get_workstation_worker_url <- function() {
   # TODO
   # this creates a ton of json that contains httpsApp.dns.url with the worker url
-  # dx find jobs --id job-J5jvbJV2yZ8jBKvVvPy8Yg5p --json
+  # `dx find jobs --id job-J5jvbJV2yZ8jBKvVvPy8Yg5p --json`
   # maybe util with parse_job_json() or similar
 }
 
