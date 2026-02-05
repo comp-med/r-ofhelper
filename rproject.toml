@@ -24,4 +24,5 @@ dependencies = [
     "usethis",
     "devtools",
     "testthat",
+    "languageserversetup",
 ]

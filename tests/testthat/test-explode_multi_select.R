@@ -1,0 +1,77 @@
+test_that("Common use-case works", {
+  set.seed(22885500)
+  multi_select_dat <- data.table::data.table(
+    id = 1:5,
+    var = create_multi_select_vec(
+      10,
+      LETTERS[1:5],
+      max_answers = 5,
+      fraction_missing = .5
+    )
+  )
+  res <- unlist(explode_multi_select(multi_select_dat$var))
+  expected_res <- c(
+    original1 = "NA",
+    original2 = "[A,C]",
+    original3 = "[A]",
+    original4 = "[B,C,E,B,A]",
+    original5 = "[B,D,A,D]",
+    original6 = "[B,D,C,D]",
+    original7 = "[B,D]",
+    original8 = "[B,E,D]",
+    original9 = "[B]",
+    original10 = "[D,E,D,C,B]",
+    B1 = NA,
+    B2 = "FALSE",
+    B3 = "FALSE",
+    B4 = "TRUE",
+    B5 = "TRUE",
+    B6 = "TRUE",
+    B7 = "TRUE",
+    B8 = "TRUE",
+    B9 = "TRUE",
+    B10 = "TRUE",
+    A1 = NA,
+    A2 = "TRUE",
+    A3 = "TRUE",
+    A4 = "TRUE",
+    A5 = "TRUE",
+    A6 = "FALSE",
+    A7 = "FALSE",
+    A8 = "FALSE",
+    A9 = "FALSE",
+    A10 = "FALSE",
+    C1 = NA,
+    C2 = "TRUE",
+    C3 = "FALSE",
+    C4 = "TRUE",
+    C5 = "FALSE",
+    C6 = "TRUE",
+    C7 = "FALSE",
+    C8 = "FALSE",
+    C9 = "FALSE",
+    C10 = "TRUE",
+    D1 = NA,
+    D2 = "FALSE",
+    D3 = "FALSE",
+    D4 = "FALSE",
+    D5 = "TRUE",
+    D6 = "TRUE",
+    D7 = "TRUE",
+    D8 = "TRUE",
+    D9 = "FALSE",
+    D10 = "TRUE",
+    E1 = NA,
+    E2 = "FALSE",
+    E3 = "FALSE",
+    E4 = "TRUE",
+    E5 = "FALSE",
+    E6 = "FALSE",
+    E7 = "FALSE",
+    E8 = "TRUE",
+    E9 = "FALSE",
+    E10 = "TRUE"
+  )
+
+  expect_equal(res, expected_res)
+})

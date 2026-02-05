@@ -442,6 +442,13 @@ dependencies = [
 ]
 
 [[packages]]
+name = "languageserversetup"
+version = "0.1.2"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "later"
 version = "1.4.5"
 source = { repository = "https://cran.uni-muenster.de/" }
