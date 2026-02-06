@@ -21,7 +21,7 @@ explode_multi_select <- function(
   # create a vector for each dummy-coded variable
   for (k in unique_entries) {
     dummy <- grepl(
-      paste0("(?<=^|,|\\||\\[)", k, "(?=\\||,|\\]|$)"),
+      paste0("(?<=^|,|\\||\\[)", stringr::str_escape(k), "(?=\\||,|\\]|$)"),
       x,
       perl = TRUE
     )
