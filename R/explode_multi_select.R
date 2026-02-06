@@ -2,6 +2,7 @@
 
 explode_multi_select <- function(
   x,
+  long_format = FALSE,
   na_is_none_of_the_above = TRUE
 ) {
   unique_entries <- unique(x)
@@ -13,8 +14,9 @@ explode_multi_select <- function(
   na_string <- "NA"
   unique_entries <- unique_entries[unique_entries != na_string]
   unique_entries <- unique_entries[!is.na(unique_entries)]
-  res <- data.table()
+  res <- data.table::data.table()
   res[, original := x]
+  res[, index := .I]
 
   # create a vector for each dummy-coded variable
   for (k in unique_entries) {
@@ -30,5 +32,9 @@ explode_multi_select <- function(
       data.table::set(x = res, i = which(is.na(x)), j = k, value = NA)
     }
   }
+  if (long_format) {
+    res <- data.table::melt.data.table(res, id.vars = c("index", "original"))
+  }
+
   res
 }
