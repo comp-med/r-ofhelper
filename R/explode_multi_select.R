@@ -1,5 +1,14 @@
-# I can create a column for each entry in a multi-select questionnaire column
-
+#' Title
+#'
+#' @param x Character vector. Contains the variable for each OFH participant. Each element may contain different answers, separated by either `|` or `,`
+#' @param answer_separators Character vector. Which separator to look for when splitting individual elements into substrings
+#' @param long_format
+#' @param na_is_none_of_the_above
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 explode_multi_select <- function(
   x,
   answer_separators = c(",", "|"),
@@ -26,8 +35,13 @@ explode_multi_select <- function(
 
   # create a vector for each dummy-coded variable
   for (k in unique_entries) {
+    search_term <- paste0(
+      "(?<=^|,|\\||\\[)",
+      stringr::str_escape(k),
+      "(?=\\||,|\\]|$)"
+    )
     dummy <- grepl(
-      paste0("(?<=^|,|\\||\\[)", stringr::str_escape(k), "(?=\\||,|\\]|$)"),
+      search_term,
       x,
       perl = TRUE
     )
