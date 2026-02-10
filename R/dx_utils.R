@@ -326,10 +326,6 @@ dx_get_project <- function() {
   get_dx_cache("dx_project_id")
 }
 
-dx_run_cmd <- function() {
-  # TODO
-}
-
 dx_ls <- function() {
   dx_is_initialized()
   dx_binary <- get_dx_cache("dx_binary")
@@ -350,6 +346,30 @@ get_workstation_worker_url <- function() {
   # maybe util with parse_job_json() or similar
 }
 
+#' Upload Files to DNAnexus
+#'
+#' Upload files to the currently selected DNAnexus project and folder.
+#' This function provides a convenient wrapper around the `dx upload` command.
+#'
+#' @param files Character vector of file paths to upload. Can be glob patterns or 
+#'   individual file paths.
+#' @param target_dir Character string specifying the target directory in DNAnexus.
+#'   If NULL (default), uses the current working directory.
+#' @param overwrite_old_files Logical. If TRUE (default), overwrites existing files
+#'   with the same name. If FALSE, skips files that already exist.
+#'
+#' @return Character vector containing the upload command output (stdout)
+#' @export
+#'
+#' @examples
+#' # Upload a single file
+#' # dx_upload("local_file.csv")
+#' # 
+#' # Upload multiple files to a specific directory
+#' # dx_upload(c("file1.csv", "file2.csv"), target_dir = "/my_folder")
+#' # 
+#' # Upload with overwrite disabled
+#' # dx_upload("data.csv", overwrite_old_files = FALSE)
 dx_upload <- function(
   files, # glob or vector?
   target_dir = NULL, # use current dir when null!
@@ -357,16 +377,39 @@ dx_upload <- function(
 ) {
   dx_is_initialized()
 
+  # Handle file paths - convert to character vector if needed
+  if (inherits(files, "character")) {
+    file_paths <- files
+  } else {
+    file_paths <- as.character(files)
+  }
+  
+  # Set target directory
   cached_dx_path <- get_dx_cache("dx_path")
   dx_path <- target_dir %||% cached_dx_path
   if (dx_path != cached_dx_path) {
     dx_check_path()
     dx_set_path(dx_path)
   }
-  # TODO
-  #  remove files with the same name?
-  # directory
-  # files...
+  
+  # Build arguments for dx upload
+  args <- c("upload")
+  
+  # Add overwrite flag if requested
+  if (overwrite_old_files) {
+    args <- c(args, "--overwrite")
+  }
+  
+  # Add file paths
+  args <- c(args, file_paths)
+  
+  # Add target path if specified
+  if (!is.null(target_dir)) {
+    args <- c(args, target_dir)
+  }
+  
+  # Execute dx upload command
+  dx_run_cmd(args)
 }
 
 dx_remount_project <- function() {
