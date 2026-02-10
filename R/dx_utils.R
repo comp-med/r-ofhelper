@@ -1,91 +1,3 @@
-init_dx_cache <- function() {
-  rlang::env(
-    dx_binary = NULL,
-    dx_project_id = NULL,
-    dx_project_name = NULL,
-    dx_path = NULL,
-    dx_user = NULL,
-    dx_server_host = NULL,
-    dx_initialized = FALSE
-  )
-}
-.dx_cache <- init_dx_cache()
-
-reset_dx_cache <- function() {
-  .dx_cache$dx_binary = NULL
-  .dx_cache$dx_project_id = NULL
-  .dx_cache$dx_project_name = NULL
-  .dx_cache$dx_path = NULL
-  .dx_cache$dx_user = NULL
-  .dx_cache$dx_server_host = NULL
-  .dx_cache$dx_initialized = FALSE
-}
-
-# named list!
-set_dx_cache <- function(...) {
-  rlang::env_bind(.dx_cache, ...)
-}
-
-get_dx_cache <- function(dx_property = "all") {
-  dx_properties <- c(
-    "dx_binary",
-    "dx_project_id",
-    "dx_project_name",
-    "dx_path",
-    "dx_user",
-    "dx_server_host",
-    "dx_initialized"
-  )
-
-  dx_property <- match.arg(
-    dx_property,
-    c("all", dx_properties),
-    several.ok = TRUE
-  )
-  if (dx_property == "all") {
-    dx_property <- dx_properties
-  }
-
-  cache_result <- rlang::env_get_list(.dx_cache, dx_property)
-  if (length(cache_result) == 1) {
-    unlist(cache_result, use.names = FALSE)
-  } else {
-    (cache_result)
-  }
-}
-
-remove_dx_cache <- function() {
-  rlang::env_unbind(.dx_cache, rlang::env_names(.dx_cache))
-}
-
-dx_check_connection <- function() {
-  dx_url <- "https://api.dnanexus.com"
-  tryCatch(
-    url_result <- curlGetHeaders(dx_url, timeout = 2L),
-    error = function(e) {
-      rlang::abort(
-        "Connection to https://api.dnanexus.com could not be established"
-      )
-    }
-  )
-  url_result <- attr(url_result, "status")
-  if (url_result != 200L) {
-    rlang::abort(glue::glue(
-      "Server returned status code {url_result}, not 200"
-    ))
-  }
-
-  invisible(TRUE)
-}
-
-dx_is_initialized <- function() {
-  initialization_success <- get_dx_cache("dx_initialized")
-  if (!initialization_success) {
-    rlang::abort("`ofhelper` is not initialized. Run `dx_init()` first")
-  }
-  invisible(TRUE)
-}
-
 dx_init <- function(
   dx_binary = NULL,
   dx_token = NULL,
@@ -95,6 +7,15 @@ dx_init <- function(
   dx_check_connection()
   bin_success <- dx_set_binary(dx_binary)
   auth_success <- dx_auth(dx_token)
+
+  # If no token is supplied, check if already logged in
+  if (isFALSE(auth_success)) {
+    auth_present <- dx_check_auth()
+    if (auth_present) {
+      auth_success <- TRUE
+    }
+  }
+
   project_success <- FALSE
   path_success <- FALSE
   if (!is.null(dx_project)) {
@@ -104,7 +25,7 @@ dx_init <- function(
     }
   }
   if (auth_success & bin_success) {
-    .dx_cache$dx_initialized <- TRUE
+    set_dx_cache("dx_initialized" = TRUE)
   }
   if (!project_success) {
     rlang::warn(
@@ -138,6 +59,35 @@ dx_check <- function() {
 
   invisible(TRUE)
 }
+
+dx_check_connection <- function() {
+  dx_url <- "https://api.dnanexus.com"
+  tryCatch(
+    url_result <- curlGetHeaders(dx_url, timeout = 2L),
+    error = function(e) {
+      rlang::abort(
+        "Connection to https://api.dnanexus.com could not be established"
+      )
+    }
+  )
+  url_result <- attr(url_result, "status")
+  if (url_result != 200L) {
+    rlang::abort(glue::glue(
+      "Server returned status code {url_result}, not 200"
+    ))
+  }
+
+  invisible(TRUE)
+}
+
+dx_is_initialized <- function() {
+  initialization_success <- get_dx_cache("dx_initialized")
+  if (!initialization_success) {
+    rlang::abort("`ofhelper` is not initialized. Run `dx_init()` first")
+  }
+  invisible(TRUE)
+}
+
 
 dx_set_binary <- function(dx_binary = NULL) {
   dx_binary <- dx_binary %||% "dx"
@@ -270,7 +220,7 @@ dx_check_project <- function() {
   dx_project <- dx_get_env()[["Current workspace"]]
   dx_cached_project <- get_dx_cache("dx_project_id")
 
-  if (dx_project != dx_current_project) {
+  if (dx_project != dx_cached_project) {
     dx_set_project(dx_project)
     rlang::inform(
       "Cached project differs from supplied project. Switching to user-supplied project"
@@ -316,15 +266,6 @@ dx_check_path <- function() {
   invisible(TRUE)
 }
 
-dx_get_path <- function() {
-  dx_check_path()
-  get_dx_cache("dx_path")
-}
-
-dx_get_project <- function() {
-  dx_check_project()
-  get_dx_cache("dx_project_id")
-}
 
 dx_ls <- function() {
   dx_is_initialized()
@@ -344,72 +285,6 @@ get_workstation_worker_url <- function() {
   # this creates a ton of json that contains httpsApp.dns.url with the worker url
   # `dx find jobs --id job-J5jvbJV2yZ8jBKvVvPy8Yg5p --json`
   # maybe util with parse_job_json() or similar
-}
-
-#' Upload Files to DNAnexus
-#'
-#' Upload files to the currently selected DNAnexus project and folder.
-#' This function provides a convenient wrapper around the `dx upload` command.
-#'
-#' @param files Character vector of file paths to upload. Can be glob patterns or 
-#'   individual file paths.
-#' @param target_dir Character string specifying the target directory in DNAnexus.
-#'   If NULL (default), uses the current working directory.
-#' @param overwrite_old_files Logical. If TRUE (default), overwrites existing files
-#'   with the same name. If FALSE, skips files that already exist.
-#'
-#' @return Character vector containing the upload command output (stdout)
-#' @export
-#'
-#' @examples
-#' # Upload a single file
-#' # dx_upload("local_file.csv")
-#' # 
-#' # Upload multiple files to a specific directory
-#' # dx_upload(c("file1.csv", "file2.csv"), target_dir = "/my_folder")
-#' # 
-#' # Upload with overwrite disabled
-#' # dx_upload("data.csv", overwrite_old_files = FALSE)
-dx_upload <- function(
-  files, # glob or vector?
-  target_dir = NULL, # use current dir when null!
-  overwrite_old_files = TRUE # i.e. delete old ones
-) {
-  dx_is_initialized()
-
-  # Handle file paths - convert to character vector if needed
-  if (inherits(files, "character")) {
-    file_paths <- files
-  } else {
-    file_paths <- as.character(files)
-  }
-  
-  # Set target directory
-  cached_dx_path <- get_dx_cache("dx_path")
-  dx_path <- target_dir %||% cached_dx_path
-  if (dx_path != cached_dx_path) {
-    dx_check_path()
-    dx_set_path(dx_path)
-  }
-  
-  # Build arguments for dx upload
-  args <- c("upload")
-  
-  # Add overwrite flag if requested
-  if (overwrite_old_files) {
-    args <- c(args, "--overwrite")
-  }
-  
-  # Add file paths
-  args <- c(args, file_paths)
-  
-  # Add target path if specified
-  if (!is.null(target_dir)) {
-    args <- c(args, target_dir)
-  }
-  
-  # Execute dx upload command
-  dx_run_cmd(args)
 }
 
 dx_remount_project <- function() {

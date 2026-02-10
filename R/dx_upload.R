@@ -46,6 +46,7 @@ dx_upload <- function(
   # Build arguments for dx upload
   args <- c("upload")
 
+  # TODO - this flag does not exist! the file needs to be manually deleted using `dx rm`
   # Add overwrite flag if requested
   if (overwrite_old_files) {
     args <- c(args, "--overwrite")
