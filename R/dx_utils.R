@@ -50,7 +50,6 @@ dx_init <- function(
   invisible(TRUE)
 }
 
-
 dx_is_initialized <- function() {
   initialization_success <- get_dx_cache("dx_initialized")
   if (!initialization_success) {
@@ -69,10 +68,9 @@ dx_set_binary <- function(dx_binary = NULL) {
       "`dx` utilities not found in `$PATH`. Please supply valid path to initialize"
     )
   }
-  .dx_cache$dx_binary <- dx_binary
+  set_dx_cache(dx_binary = dx_binary)
   invisible(TRUE)
 }
-
 
 dx_get_env <- function() {
   dx_binary <- get_dx_cache("dx_binary")
@@ -102,15 +100,17 @@ dx_get_env <- function() {
 dx_set_env <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   dx_env <- dx_get_env()
-  .dx_cache$dx_user <- dx_env[["Current user"]]
-  .dx_cache$dx_path <- dx_env[["Current folder"]]
-  .dx_cache$dx_project_id <- dx_env[["Current workspace"]]
-  .dx_cache$dx_project_name <- gsub(
-    "\"",
-    "",
-    dx_env[["Current workspace name"]]
+  set_dx_cache(
+    dx_user = dx_env[["Current user"]],
+    dx_path = dx_env[["Current folder"]],
+    dx_project_id = dx_env[["Current workspace"]],
+    dx_project_name = gsub(
+      "\"",
+      "",
+      dx_env[["Current workspace name"]]
+    ),
+    dx_server_host = dx_env[["API server host"]]
   )
-  .dx_cache$dx_server_host <- dx_env[["API server host"]]
   invisible(TRUE)
 }
 
@@ -130,7 +130,6 @@ dx_auth <- function(dx_token = NULL) {
   )
   invisible(auth_success == 0)
 }
-
 
 dx_find_projects <- function() {
   dx_binary <- get_dx_cache("dx_binary")
@@ -161,9 +160,11 @@ dx_set_project <- function(dx_project_id = NULL) {
     rlang::abort("Could not set project")
   }
   dx_env <- dx_get_env()
-  .dx_cache$dx_project_name <- dx_env["Current workspace name"]
-  .dx_cache$dx_project_id <- dx_project_id
-  .dx_cache$dx_path <- "/"
+  set_dx_cache(
+    dx_project_name = dx_env[["Current workspace name"]],
+    dx_project_id = dx_project_id,
+    dx_path = "/"
+  )
   invisible(TRUE)
 }
 
@@ -181,32 +182,23 @@ dx_set_path <- function(dx_path = NULL) {
   if (cd_sucess != 0) {
     rlang::abort("Could not set path")
   }
-  .dx_cache$dx_path <- dx_path
+  set_dx_cache(dx_path = dx_path)
   invisible(TRUE)
 }
 dx_set_wd <- dx_set_path
 dx_cd <- dx_set_path
 
 
-dx_ls <- function() {
+dx_ls <- function(directory = NULL) {
   dx_is_initialized()
-  dx_binary <- get_dx_cache("dx_binary")
-  dx_path <- get_dx_cache("dx_path")
-  dx_check_path()
-  system2(dx_binary, "ls", stdout = TRUE)
+  if (is.null(directory)) {
+    dx_check_path()
+    return(dx_run_cmd("ls"))
+  } else {
+    return(dx_run_cmd("ls", directory))
+  }
 }
 
-dx_launch_workstation <- function() {
-  # TODO
-  # return job id
-}
-
-get_workstation_worker_url <- function() {
-  # TODO
-  # this creates a ton of json that contains httpsApp.dns.url with the worker url
-  # `dx find jobs --id job-J5jvbJV2yZ8jBKvVvPy8Yg5p --json`
-  # maybe util with parse_job_json() or similar
-}
 
 dx_remount_project <- function() {
   system("umount /mnt")

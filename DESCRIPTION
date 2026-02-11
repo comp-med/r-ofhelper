@@ -21,6 +21,8 @@ RoxygenNote: 7.3.3
 Imports: 
     data.table,
     readr,
-    stringr
+    stringr,
+    jsonlite,
+    glue
 Depends: 
     R (>= 3.5)
