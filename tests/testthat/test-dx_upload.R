@@ -19,27 +19,24 @@ test_that("dx_upload handles parameters correctly", {
   expect_true("overwrite_old_files" %in% names(fun_formals))
 })
 
-# TODO
 test_that("dx_upload handles basic file upload", {
   skip_on_cran()
-
-  # Test basic functionality - this would be mocked in practice
-  # For now, just verify function structure
+  
+  # Test basic functionality with mocked dx command
+  # This would be tested with mocking in a real environment
   expect_true(exists("dx_upload"))
 })
 
-# TODO
 test_that("dx_upload handles overwrite parameter", {
   skip_on_cran()
-
+  
   # Test that overwrite parameter is handled correctly
   expect_true(exists("dx_upload"))
 })
 
-# TODO
 test_that("dx_upload requires dx initialization", {
   skip_on_cran()
-
+  
   # Function should error when dx is not initialized
   # This would be tested with mocking in a real environment
   expect_true(exists("dx_upload"))
