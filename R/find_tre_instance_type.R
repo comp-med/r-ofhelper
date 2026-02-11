@@ -1,11 +1,31 @@
+#' Find Suitable DNAnexus Instance Type
+#'
+#' Find the most suitable DNAnexus instance type based on resource requirements.
+#' This function queries the TRE rate card and returns the best matching instance type.
+#'
+#' @param required_n_cpus Numeric. Minimum number of CPU cores required.
+#' @param required_gb_ram Numeric. Minimum RAM in gigabytes required.
+#' @param required_gb_disk_storage Numeric. Minimum disk storage in gigabytes required.
+#' @param return_all_matching Logical. If TRUE, returns all matching instance types.
+#'   If FALSE (default), returns only the closest matching instance.
+#'
+#' @return Character string with DNAnexus instance type identifier when
+#'   \code{return_all_matching = FALSE}, or data.table with all matching instances
+#'   when \code{return_all_matching = TRUE}.
+#' @export
+#'
+#' @examples
+#' # Find instance with at least 8 CPUs, 12GB RAM, and 125GB disk
+#' # find_tre_instance_type(8, 12, 125)
+#'
+#' # Find all instances that meet requirements
+#' # find_tre_instance_type(8, 12, 125, return_all_matching = TRUE)
 find_tre_instance_type <- function(
-    required_n_cpus,
-    required_gb_ram,
-    required_gb_disk_storage,
-    return_all_matching = FALSE # return closest fit if else
+  required_n_cpus,
+  required_gb_ram,
+  required_gb_disk_storage,
+  return_all_matching = FALSE
 ) {
-
-  # required_n_cpus = 8; required_gb_ram = 12; required_gb_disk_storage = 125; return_all_matching = FALSE
   rate_card <- tre_rate_card()
   rate_card <- rate_card[
     n_cpus >= required_n_cpus &
@@ -37,9 +57,9 @@ find_tre_instance_type <- function(
         ram_gb,
         disk_storage_gb,
         on_demand_rate_gpb_per_h
-        )
-      ]
-    )
+      )
+    ]
+  )
 
   instance_properties <- paste(
     names(closest_instance),
