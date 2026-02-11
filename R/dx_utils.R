@@ -2,9 +2,12 @@ dx_init <- function(
   dx_binary = NULL,
   dx_token = NULL,
   dx_project = NULL,
-  dx_path = NULL
+  dx_path = NULL,
+  check_connectivity = TRUE
 ) {
-  dx_check_connection()
+  if (check_connectivity) {
+    dx_check_connection()
+  }
   bin_success <- dx_set_binary(dx_binary)
   auth_success <- dx_auth(dx_token)
 
@@ -47,12 +50,15 @@ dx_init <- function(
   invisible(TRUE)
 }
 
-dx_check <- function() {
-  dx_check_connection()
+dx_check <- function(check_connectivity = TRUE) {
+  if (check_connectivity) {
+    dx_check_connection()
+  }
+
   dx_is_initialized()
-  dx_binary <- .dx_cache$dx_binary
-  dx_project <- .dx_cache$dx_project_id
-  dx_path <- .dx_cache$dx_path
+  dx_binary <- get_dx_cache("dx_binary")
+  dx_project <- get_dx_cache("dx_project_id")
+  dx_path <- get_dx_cache("dx_path")
   dx_check_binary(dx_binary)
   dx_check_project()
   dx_check_path()
@@ -104,7 +110,7 @@ dx_set_binary <- function(dx_binary = NULL) {
 
 # Returns exit code
 dx_check_binary <- function(dx_binary = NULL) {
-  dx_binary <- dx_binary %||% .dx_cache$dx_binary
+  dx_binary <- dx_binary %||% get_dx_cache("dx_binary")
   if (is.null(dx_binary)) {
     rlang::abort("Use `dx_set_binary` fist")
   }
@@ -118,7 +124,7 @@ dx_check_binary <- function(dx_binary = NULL) {
 }
 
 dx_get_env <- function() {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   dx_env <- system2(dx_binary, "env", stdout = TRUE)
 
   # return error if output is not as expected - not pretty, TODO!
@@ -129,13 +135,21 @@ dx_get_env <- function() {
   dx_env <- gsub("\t+", "\t", dx_env)
   dx_env <- strsplit(dx_env, "\t")
   dx_env_names <- sapply(dx_env, `[[`, 1)
+
+  # add empty dummy in case no value is received for an option
+  dx_env <- lapply(dx_env, function(x) {
+    if (length(x) == 1) {
+      x <- c(x, "")
+    }
+    x
+  })
   dx_env <- sapply(dx_env, `[[`, 2)
   dx_env <- gsub("\"", "", dx_env)
   setNames(dx_env, dx_env_names)
 }
 
 dx_set_env <- function() {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   dx_env <- dx_get_env()
   .dx_cache$dx_user <- dx_env[["Current user"]]
   .dx_cache$dx_path <- dx_env[["Current folder"]]
@@ -150,13 +164,13 @@ dx_set_env <- function() {
 }
 
 dx_clear_env <- function() {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   system2(dx_binary, "clearenv")
   invisible(TRUE)
 }
 
 dx_auth <- function(dx_token = NULL) {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   auth_success <- system2(
     dx_binary,
     c("login", "--token", dx_token, "--noprojects"),
@@ -167,7 +181,7 @@ dx_auth <- function(dx_token = NULL) {
 }
 
 dx_check_auth <- function() {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   dx_status <- suppressWarnings(system2(
     dx_binary,
     "whoami",
@@ -182,7 +196,7 @@ dx_check_auth <- function() {
 }
 
 dx_find_projects <- function() {
-  dx_binary <- .dx_cache$dx_binary
+  dx_binary <- get_dx_cache("dx_binary")
   dx_projects <- system2(
     dx_binary,
     c("find", "projects", "--json"),
@@ -199,7 +213,7 @@ dx_set_project <- function(dx_project_id = NULL) {
   if (is.null(dx_project_id)) {
     rlang::abort("Need project ID")
   }
-  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
+  dx_binary <- get_dx_cache("dx_binary")
   project_success <- system2(
     dx_binary,
     c("select", dx_project_id),
@@ -233,7 +247,7 @@ dx_set_path <- function(dx_path = NULL) {
   if (is.null(dx_path)) {
     rlang::abort("No path specified")
   }
-  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
+  dx_binary <- get_dx_cache("dx_binary")
   cd_sucess <- system2(
     dx_binary,
     c("cd", dx_path),
@@ -250,9 +264,9 @@ dx_set_wd <- dx_set_path
 dx_cd <- dx_set_path
 
 dx_check_path <- function() {
-  dx_binary <- rlang::env_get(.dx_cache, "dx_binary")
-  dx_project_name <- rlang::env_get(.dx_cache, "dx_project_name")
-  dx_path_cached <- rlang::env_get(.dx_cache, "dx_path")
+  dx_binary <- get_dx_cache("dx_binary")
+  dx_project_name <- get_dx_cache("dx_project_name")
+  dx_path_cached <- get_dx_cache("dx_path")
   dx_path_current <- system2(dx_binary, "pwd", stdout = TRUE)
   dx_path_current <- gsub(
     paste0(dx_project_name, ":"),
