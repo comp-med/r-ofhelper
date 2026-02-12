@@ -30,7 +30,17 @@ create_ofhelper_string <- function() {
 
   pkg_base <- find.package("ofhelper")
   ofhelper_scripts <- fs::dir_ls(fs::path(pkg_base, "R"))
-  ofhelper_script_content <- lapply(ofhelper_scripts, readr::read_file)
+  ofhelper_scripts <- ofhelper_scripts[
+    !basename(ofhelper_scripts) %in% c("utils.R", "zzz.R", "ofhelper-package.R")
+  ]
+  ofhelper_script_content <- lapply(ofhelper_scripts, readLines)
+
+  # remove all comments
+  ofhelper_script_content <- lapply(ofhelper_script_content, function(x) {
+    x <- x[!grepl("^\\s*#", x)]
+    paste(x, collapse = "\n")
+  })
+
   ofhelper_script_content <- Reduce(
     function(x, y) {
       glue::glue("{x}\n\n{y}")
