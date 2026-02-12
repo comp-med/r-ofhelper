@@ -7,10 +7,10 @@
 
 This is a collection of helper functions and utilities to make working on the
 DNAneux-based [Our Future Health TRE](https://ourfuturehealth.dnanexus.com/)
-more convenient. It provides wrapper functions around the `dx` utility and
-should therefore not be exclusively useful for working with the specific TRE it
-was designed for, but general work on DNAnexus from within an interactive R
-session.
+more convenient. It provides wrapper functions around the [`dx`
+utility](https://github.com/dnanexus/dx-toolkit) and should therefore not be
+exclusively useful for working with the specific TRE it was designed for, but
+general work on DNAnexus from within an interactive R session.
 
 Main use-cases are:
 
