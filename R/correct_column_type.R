@@ -1,3 +1,16 @@
+#' Correct Data Column Type
+#'
+#' Corrects data column types after decoding to match annotated types.
+#'
+#' This internal function is used to convert decoded data to appropriate data types
+#' based on annotations from the data dictionary. It is called after decoding
+#' operations to ensure proper data types are maintained for downstream analysis.
+#'
+#' @param x Vector of decoded data values
+#' @param annotated_type Character string specifying the expected data type
+#'   (one of "string", "integer", "date", "float", "datetime", "numeric")
+#'
+#' @return Vector with corrected data type
 correct_column_type <- function(
   x,
   annotated_type
