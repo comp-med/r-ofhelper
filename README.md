@@ -37,6 +37,8 @@ Main use-cases are:
   - `decode_raw_ofh_file()`
 - **DNAnexus Operations**:
   - Functions starting with: `dx_`
+  - `dx_run_cmd()` can be used to execute arbitrary dx commands slightly 
+    cleaner than by using `system2()` or similar
 - **Logging**: `simple_logger()` due to none being available on OFH
 - **Instance-Type Selection**: 
   - `find_tre_instance_type()` so you don't have to check the rate card manually
