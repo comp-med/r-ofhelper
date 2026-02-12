@@ -25,19 +25,27 @@ Main use-cases are:
 
 ## Key Features
 
+- **Launch a JupyterLab Session from your R command line**
+  - `dx_launch_workstation()`
 - **Submit R jobs with custom scripts**
   - `dx_submit_r_job()`
 - **Interact with `dx` toolkit from within your R session**
   - Various functions starting with `dx_`
-- **Decoding Workflows**:
+- **Decoding Workflows for raw OFH data**:
   - `decode_single_select()`
   - `decode_multi_select()`
   - `decode_raw_ofh_file()`
 - **DNAnexus Operations**:
-  - `dx_upload()` - Upload files to DNAnexus
-  - `dx_download()` - Download files from DNAnexus
-- **Logging**: `simple_logger()`
-- **Instance-Type Selection**: `find_tre_instance_type()`
+  - Functions starting with: `dx_`
+- **Logging**: `simple_logger()` due to none being available on OFH
+- **Instance-Type Selection**: 
+  - `find_tre_instance_type()` so you don't have to check the rate card manually
+
+## Portability
+
+The package relies on an external binary, so using this package on Windows will
+probably only work from within WSL. The package should work without issues on
+any Unix-based operating system.
 
 ## Installation
 
@@ -66,6 +74,8 @@ Within R, you can parse your existing `dx` session, but it is important to first
 initialize with the `dx_init()` function.
 
 ```R
+library("ofhelper")
+
 # required if not in $PATH
 my_dx_binary <- "/PATH/TO/dx"
 
@@ -88,7 +98,7 @@ dx_init(
   dx_project = my_dx_project,
   dx_token = my_dx_access_token,
   dx_path = my_dx_project_dir,
-  check_connectivity = TRUE 
+  check_connectivity = do_connectivity_check 
 )
 ```
 
@@ -142,15 +152,34 @@ To submit an R script from your local environment, you can use the
 `dx_submit_r_job()` function. This simplifies to required workflow by not having
 to paste code to an interactive session the code changes slightly.
 
-## TODOs
+```R
+# Create script you'd want to execute on DNAnexus
+script_file <- tempfile(pattern = "r_job", fileext = ".R")
+writeLines("sessionInfo()", script_file)
 
-* Look for TODO tags in the functions!
-* Tests are mostly mock-tests right now. Integration tests with `dx` are not present yet
+# Submit the script - see the function documentation for the additional parameters
+dx_submit_r_job(
+  script_path = script_file, 
+  include_ofhelper = F, 
+  tag = "test"
+)
+```
 
 ## Dependencies
+
+Dependencies of functions that can be used are restricted to the packages
+available on the OFH TRE. Some functions are designed to be run for your local
+environment and might include additional dependencies.
 
 - `data.table`
 - `fs`
 - `rlang`
 - `glue`
+
+## TODOs
+
+* Look for TODO tags in the functions!
+* Tests are mostly mock-tests right now
+* Integration tests with `dx` are not present yet
+* Due to the straight forward nature of the package, most documentation was generated using an LLM, so expect errors
 
