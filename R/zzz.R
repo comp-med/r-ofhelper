@@ -13,4 +13,6 @@ index <- NULL
 original <- NULL
 name <- NULL
 coding_name <- NULL
+is_multi_select <- NULL
+meaning <- NULL
 type <- NULL

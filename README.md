@@ -126,9 +126,13 @@ get_workstation_worker_url(my_worker_id)
 #> https://...
 ```
 
+To submit an R script from your local environment, you can use the
+`dx_submit_r_job()` function. This simplifies to required workflow by not having
+to paste code to an interactive session the code changes slightly.
+
 ## TODOs
 
-* Look for TODO tags in the functions! Some are simply place-holders for now
+* Look for TODO tags in the functions!
 * Tests are mostly mock-tests right now. Integration tests with `dx` are not present yet
 
 ## Dependencies

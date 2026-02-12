@@ -1,3 +1,36 @@
+#' Initialize DNAnexus Environment
+#'
+#' Initializes the DNAnexus environment by setting up the binary, authentication,
+#' project, and path. This function must be called before other DNAnexus functions
+#' can be used.
+#'
+#' @param dx_binary Character string specifying the path to the dx binary.
+#'   If NULL (default), assumes "dx" is in PATH.
+#' @param dx_token Character string specifying the DNAnexus authentication token.
+#'   If NULL (default), tries to use existing authentication.
+#' @param dx_project Character string specifying the DNAnexus project ID.
+#'   If NULL (default), no project is selected.
+#' @param dx_path Character string specifying the DNAnexus project path.
+#'   If NULL (default), uses project root.
+#' @param check_connectivity Logical. If TRUE (default), checks connectivity before
+#'   initialization.
+#'
+#' @return Invisible TRUE if successful, aborts on failure
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Initialize with default settings
+#' # dx_init()
+#' #
+#' # Initialize with specific settings
+#' # dx_init(
+#' #   dx_binary = "/path/to/dx",
+#' #   dx_token = "your-token-here",
+#' #   dx_project = "project-xxxxx",
+#' #   dx_path = "/data"
+#' # )
+#' }
 dx_init <- function(
   dx_binary = NULL,
   dx_token = NULL,
@@ -50,6 +83,19 @@ dx_init <- function(
   invisible(TRUE)
 }
 
+#' Check if DNAnexus is Initialized
+#'
+#' Verifies that the DNAnexus environment has been properly initialized.
+#' This function should be called before performing any DNAnexus operations.
+#'
+#' @return Invisible TRUE if initialized, aborts if not
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Check initialization status
+#' # dx_is_initialized()
+#' }
 dx_is_initialized <- function() {
   initialization_success <- get_dx_cache("dx_initialized")
   if (!initialization_success) {
@@ -59,6 +105,22 @@ dx_is_initialized <- function() {
 }
 
 
+#' Set DNAnexus Binary Path
+#'
+#' Sets the path to the DNAnexus dx binary. This is typically called internally
+#' by dx_init().
+#'
+#' @param dx_binary Character string specifying the path to the dx binary.
+#'   If NULL (default), assumes "dx" is in PATH.
+#'
+#' @return Invisible TRUE if successful
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Set dx binary path
+#' # dx_set_binary("/usr/local/bin/dx")
+#' }
 dx_set_binary <- function(dx_binary = NULL) {
   dx_binary <- dx_binary %||% "dx"
   dx_binary_works <- dx_check_binary(dx_binary)
@@ -72,6 +134,19 @@ dx_set_binary <- function(dx_binary = NULL) {
   invisible(TRUE)
 }
 
+#' Get DNAnexus Environment Information
+#'
+#' Retrieves current DNAnexus environment information including user, project,
+#' path, and server details.
+#'
+#' @return Named character vector with environment information
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Get environment info
+#' # dx_get_env()
+#' }
 dx_get_env <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   dx_env <- system2(dx_binary, "env", stdout = TRUE)
@@ -97,6 +172,19 @@ dx_get_env <- function() {
   stats::setNames(dx_env, dx_env_names)
 }
 
+#' Set DNAnexus Environment Cache
+#'
+#' Sets the internal cache with current DNAnexus environment information.
+#' This is typically called internally by dx_init().
+#'
+#' @return Invisible TRUE if successful
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Set environment cache
+#' # dx_set_env()
+#' }
 dx_set_env <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   dx_env <- dx_get_env()
@@ -114,12 +202,38 @@ dx_set_env <- function() {
   invisible(TRUE)
 }
 
+#' Clear DNAnexus Environment
+#'
+#' Clears the current DNAnexus environment settings.
+#'
+#' @return Invisible TRUE if successful
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Clear environment
+#' # dx_clear_env()
+#' }
 dx_clear_env <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   system2(dx_binary, "clearenv")
   invisible(TRUE)
 }
 
+#' Authenticate with DNAnexus
+#'
+#' Authenticates with DNAnexus using a provided token.
+#'
+#' @param dx_token Character string specifying the DNAnexus authentication token.
+#'
+#' @return Invisible TRUE if successful, FALSE otherwise
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Authenticate with token
+#' # dx_auth("your-auth-token")
+#' }
 dx_auth <- function(dx_token = NULL) {
   dx_binary <- get_dx_cache("dx_binary")
   auth_success <- system2(
@@ -131,6 +245,18 @@ dx_auth <- function(dx_token = NULL) {
   invisible(auth_success == 0)
 }
 
+#' Find DNAnexus Projects
+#'
+#' Finds all accessible DNAnexus projects and returns them with names and IDs.
+#'
+#' @return Named character vector mapping project names to IDs
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find projects
+#' # dx_find_projects()
+#' }
 dx_find_projects <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   dx_projects <- system2(
@@ -145,6 +271,20 @@ dx_find_projects <- function() {
 dx_available_projects <- dx_find_projects
 dx_list_projects <- dx_find_projects
 
+#' Set DNAnexus Project
+#'
+#' Selects a DNAnexus project to work with.
+#'
+#' @param dx_project_id Character string specifying the DNAnexus project ID.
+#'
+#' @return Invisible TRUE if successful, aborts on failure
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Set project
+#' # dx_set_project("project-xxxxx")
+#' }
 dx_set_project <- function(dx_project_id = NULL) {
   if (is.null(dx_project_id)) {
     rlang::abort("Need project ID")
@@ -168,6 +308,20 @@ dx_set_project <- function(dx_project_id = NULL) {
   invisible(TRUE)
 }
 
+#' Set DNAnexus Path
+#'
+#' Sets the working directory within the DNAnexus project.
+#'
+#' @param dx_path Character string specifying the DNAnexus project path.
+#'
+#' @return Invisible TRUE if successful, aborts on failure
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Set path
+#' # dx_set_path("/data/subfolder")
+#' }
 dx_set_path <- function(dx_path = NULL) {
   if (is.null(dx_path)) {
     rlang::abort("No path specified")
@@ -189,6 +343,24 @@ dx_set_wd <- dx_set_path
 dx_cd <- dx_set_path
 
 
+#' List Contents of DNAnexus Directory
+#'
+#' Lists the contents of a DNAnexus directory.
+#'
+#' @param directory Character string specifying the directory path to list.
+#'   If NULL (default), lists current directory.
+#'
+#' @return Character vector with directory contents
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # List current directory
+#' # dx_ls()
+#' #
+#' # List specific directory
+#' # dx_ls("/data")
+#' }
 dx_ls <- function(directory = NULL) {
   dx_is_initialized()
   if (is.null(directory)) {
@@ -200,6 +372,18 @@ dx_ls <- function(directory = NULL) {
 }
 
 
+#' Remount DNAnexus Project
+#'
+#' Remounts the DNAnexus project file system.
+#'
+#' @return Invisible TRUE if successful
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Remount project
+#' # dx_remount_project()
+#' }
 dx_remount_project <- function() {
   system("umount /mnt")
   system("mkdir -p /mnt")

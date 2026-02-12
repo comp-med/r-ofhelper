@@ -22,30 +22,32 @@
 #' @seealso \code{\link{create_cmd_input_string}} for usage in Jupyter workstation contexts
 create_ofhelper_string <- function() {
   pkgs_installed <- utils::installed.packages()[, 1]
-  ofhelpers_installed <- "ofhelper" %in% pkgs_installed
+  pkg <- "ofhelper"
+  ofhelpers_installed <- pkg %in% pkgs_installed
 
   if (!ofhelpers_installed) {
     rlang::abort("`ofhelper` package must be installed to be included")
   }
 
-  pkg_base <- find.package("ofhelper")
-  ofhelper_scripts <- fs::dir_ls(fs::path(pkg_base, "R"))
-  ofhelper_scripts <- ofhelper_scripts[
-    !basename(ofhelper_scripts) %in% c("utils.R", "zzz.R", "ofhelper-package.R")
-  ]
-  ofhelper_script_content <- lapply(ofhelper_scripts, readLines)
+  pkg <- "ofhelper"
+  ns <- asNamespace(pkg)
 
-  # remove all comments
-  ofhelper_script_content <- lapply(ofhelper_script_content, function(x) {
-    x <- x[!grepl("^\\s*#", x)]
-    paste(x, collapse = "\n")
+  objs <- lapply(ls(ns), function(nm) get(nm, envir = ns))
+  names(objs) <- ls(ns)
+
+  # keep only functions
+  objs <- objs[sapply(objs, is.function)]
+
+  # skip primitives
+  objs <- objs[!sapply(objs, is.primitive)]
+
+  # deparse safely
+  code <- lapply(seq_along(objs), function(i) {
+    nm <- names(objs)[i]
+    body <- paste(deparse(objs[[i]], width.cutoff = 500L), collapse = "\n")
+    paste0("`", nm, "` <- ", body)
   })
 
-  ofhelper_script_content <- Reduce(
-    function(x, y) {
-      glue::glue("{x}\n\n{y}")
-    },
-    ofhelper_script_content
-  )
-  ofhelper_script_content
+  script <- paste(code, collapse = "\n\n")
+  cat(script)
 }
