@@ -12,6 +12,9 @@ utility](https://github.com/dnanexus/dx-toolkit) and should therefore not be
 exclusively useful for working with the specific TRE it was designed for, but
 general work on DNAnexus from within an interactive R session.
 
+This project is in no way affiliated with DNAnexus. In fact, the author does
+not particilarly enjoy working on their platform, hence this package.
+
 Main use-cases are:
 
 * Interact with the `dx` toolkit from within your R session, both locally and
@@ -45,32 +48,65 @@ Main use-cases are:
 
 ## Portability
 
-The package relies on an external binary, so using this package on Windows will
-probably only work from within WSL. The package should work without issues on
-any Unix-based operating system.
+The package relies on the external python executable `dx`, so using this
+package on Windows will probably only work from within WSL. The package should
+work without issues on Unix-based operating system.
 
 ## Installation
 
-Install from GitHub from within R using
+### Installing `dxpy`
+
+The external dependency this package provides wrappers for must be installed
+separately. Package managers like `uv` or `conda` can be used for this purpose.
+The location of the required binary can then be queried and passed to the
+initialization function.
+
+```bash
+# Using conda
+conda create -n dxpy python=3.10
+conda activate dxpy
+pip install dxpy
+
+# Using uv
+uv venv
+uv pip install dxpy
+```
+
+After activating the environment, check the path of the executable (requires
+the `whereis` utility).
+
+```bash
+whereis dx
+```
+
+### Installing `ofhelper`
+
+Install from GitHub from within R using:
 
 ```R
 remotes::install_github("comp-med/r-ofhelper")
 ```
 
-To use the package within the OFH TRE environment, a convenience function is
-provided (after installing the package locally) to create a single input string
-that can be then be sourced in an JupyterLab session.
+On the OFH TRE, no external packages can be installed and all development must
+take place in a vanilla Jupyter Notebook environment. To use the functions
+provided by this package within the OFH TRE environment, a convenience function
+is provided (after installing the package locally) to create a single input
+string that can be then be sourced in an JupyterLab session. This is convenient
+for those who have difficulty working efficiently in Jupyter notebooks like
+myself and prefer not to manage code within DNAnexus.
 
 Locally, run the following command to create a string containing all functions.
 Either write that to a file and upload it in the TRE or just copy-paste it from
 your local terminal to the remote terminal.
 
 ```R
-# `ofhelper_string` contains all functions
+# `ofhelper_string` contains all functions of this package
 ofhelper_string <- create_ofhelper_string()
 ```
 
 ## Example Usage
+
+### Initialization
 
 Within R, you can parse your existing `dx` session, but it is important to first
 initialize with the `dx_init()` function.
@@ -131,6 +167,8 @@ get_dx_cache()
 #> [1] TRUE
 ```
 
+### Launching Workstations
+
 To launch a workstation to work in interactively, use `dx_launch_workstation()`.
 You can also get the worker job URL using `get_workstation_worker_url()`.
 
@@ -150,6 +188,8 @@ get_workstation_worker_url(my_worker_id)
 #> https://...
 ```
 
+### Submitting R Scripts
+
 To submit an R script from your local environment, you can use the
 `dx_submit_r_job()` function. This simplifies to required workflow by not having
 to paste code to an interactive session the code changes slightly.
@@ -165,6 +205,24 @@ dx_submit_r_job(
   include_ofhelper = F, 
   tag = "test"
 )
+```
+
+### Decoding Raw Data
+
+Before analysing from the SPARK database, data needs to be prepared for analysis. These steps include:
+
+1. Export (raw) data from the database
+2. Decode data (replace coded values with meaning) where applicable
+3. Clean and explore coded data
+4. Transform data with multiple items per participant and variable
+5. Deriving new variables for analysis & mapping terms to existing ontologies
+
+For exporting raw data and decoding it, the functons `export_entities()` and
+`decode_raw_ofh_file()` are provided.
+
+```bash
+# Todo
+# ...
 ```
 
 ## Dependencies
@@ -183,5 +241,5 @@ environment and might include additional dependencies.
 * Look for TODO tags in the functions!
 * Tests are mostly mock-tests right now
 * Integration tests with `dx` are not present yet
-* Due to the straight forward nature of the package, most documentation was generated using an LLM, so expect errors
+* Due to the straight forward nature of the package, most function documentation was generated using an LLM, so expect errors
 
