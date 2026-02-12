@@ -84,6 +84,7 @@ whereis dx
 Install from GitHub from within R using:
 
 ```R
+install.packages("remotes")
 remotes::install_github("comp-med/r-ofhelper")
 ```
 
