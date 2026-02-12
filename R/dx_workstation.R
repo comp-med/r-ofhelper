@@ -1,3 +1,31 @@
+#' Launch a DNAnexus Workstation Session
+#'
+#' Launch a Jupyter workstation session on DNAnexus with specified parameters.
+#'
+#' @param priority Character string specifying the job priority. Must be one of
+#'   "low", "normal", or "high". Default is "normal".
+#' @param session_name Character string specifying the name of the workstation
+#'   session. Default is "jupyter_workstation".
+#' @param session_length_minutes Numeric specifying the session duration in minutes.
+#'   Default is 180 (3 hours).
+#' @param instance_type Character string specifying the DNAnexus instance type.
+#'   Must be a valid instance type from the TRE rate card. Default is
+#'   "azure:mem1_ssd2_v2_x2".
+#'
+#' @return Character string with the job ID of the launched workstation session
+#' @export
+#'
+#' @examples
+#' # Launch a workstation with default settings
+#' # job_id <- dx_launch_workstation()
+#'
+#' # Launch a workstation with custom settings
+#' # job_id <- dx_launch_workstation(
+#' #   priority = "high",
+#' #   session_name = "my_analysis_session",
+#' #   session_length_minutes = 300,
+#' #   instance_type = "azure:mem2_ssd1_v2_x4"
+#' # )
 dx_launch_workstation <- function(
   priority = "normal",
   session_name = "jupyter_workstation",
@@ -15,6 +43,7 @@ dx_launch_workstation <- function(
   }
 
   # Validate instance type against TRE rate card
+  # TODO This is currently restricted to azure instances of Our Future Health
   rate_card <- tre_rate_card()
   valid_instance_types <- rate_card$dnanexus_instance_type
   if (!(instance_type %in% valid_instance_types)) {
@@ -56,6 +85,18 @@ dx_launch_workstation <- function(
   }
 }
 
+#' Get Workstation Worker URL
+#'
+#' Retrieve the worker URL for a running DNAnexus workstation session.
+#'
+#' @param job_id Character string with the job ID of the workstation session
+#'
+#' @return Character string with the worker URL for the workstation session
+#' @export
+#'
+#' @examples
+#' # Get URL for a specific job
+#' # url <- get_workstation_worker_url("job-1234567890abcdef12345678")
 get_workstation_worker_url <- function(job_id) {
   dx_is_initialized()
 

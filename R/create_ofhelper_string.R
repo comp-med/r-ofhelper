@@ -1,9 +1,29 @@
+#' Create Complete ofhelper Package Source String
+#'
+#' Creates a complete concatenated string of all ofhelper package R script files.
+#' This function is specifically designed for environments like the Our Future Health
+#' TRE where external packages cannot be installed, allowing the complete package
+#' source to be embedded directly into command executions.
+#'
+#' The function reads all R scripts from the ofhelper package and combines them
+#' into a single string that can be included in command inputs, eliminating the
+#' need for package installation in restricted environments.
+#'
+#' @return Character string containing the complete source code of all ofhelper
+#'   R scripts concatenated together
+#' @export
+#'
+#' @examples
+#' # Create the complete ofhelper package source
+#' # ofhelper_code <- create_ofhelper_string()
+#'
+#' @seealso \code{\link{create_cmd_input_string}} for usage in Jupyter workstation contexts
 create_ofhelper_string <- function() {
   pkgs_installed <- installed.packages()[, 1]
   ofhelpers_installed <- "ofhelper" %in% pkgs_installed
 
   if (!ofhelpers_installed) {
-    stop("`ofhelper` package must be installed to be included")
+    rlang::abort("`ofhelper` package must be installed to be included")
   }
 
   pkg_base <- find.package("ofhelper")
