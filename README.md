@@ -6,14 +6,14 @@
 <!-- badges: end -->
 
 This is a collection of helper functions and utilities to make working on the
-DNAneux-based [Our Future Health TRE](https://ourfuturehealth.dnanexus.com/)
+DNAnexus-based [Our Future Health TRE](https://ourfuturehealth.dnanexus.com/)
 more convenient. It provides wrapper functions around the [`dx`
 utility](https://github.com/dnanexus/dx-toolkit) and should therefore not be
 exclusively useful for working with the specific TRE it was designed for, but
 general work on DNAnexus from within an interactive R session.
 
 This project is in no way affiliated with DNAnexus. In fact, the author does
-not particilarly enjoy working on their platform, hence this package.
+not particularly enjoy working on their platform, hence this package.
 
 Main use-cases are:
 
