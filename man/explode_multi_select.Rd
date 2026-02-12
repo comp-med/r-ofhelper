@@ -39,6 +39,7 @@ separated by commas or pipes) into dummy-coded variables. Each unique value beco
 a binary column indicating presence (TRUE) or absence (FALSE) of that value.
 }
 \examples{
+\dontrun{
 # Basic usage
 x <- c("A,B", "B,C", "A,C", "A|B|C")
 result <- explode_multi_select(x)
@@ -49,4 +50,5 @@ result_long <- explode_multi_select(x, long_format = TRUE)
 # With custom separators
 x2 <- c("A;B", "B;C")
 result2 <- explode_multi_select(x2, answer_separators = ";")
+}
 }

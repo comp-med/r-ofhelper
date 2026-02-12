@@ -24,6 +24,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Basic usage
 #' x <- c("A,B", "B,C", "A,C", "A|B|C")
 #' result <- explode_multi_select(x)
@@ -34,6 +35,7 @@
 #' # With custom separators
 #' x2 <- c("A;B", "B;C")
 #' result2 <- explode_multi_select(x2, answer_separators = ";")
+#' }
 explode_multi_select <- function(
   x,
   answer_separators = c(",", "|"),

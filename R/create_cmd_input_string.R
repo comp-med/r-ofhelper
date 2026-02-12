@@ -20,11 +20,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Create command string with ofhelper included
 #' # cmd_string <- create_cmd_input_string("my_analysis.R")
 #'
 #' # Create command string without ofhelper (not recommended)
 #' # cmd_string <- create_cmd_input_string("my_analysis.R", include_ofhelper = FALSE)
+#' }
 create_cmd_input_string <- function(
   file,
   include_ofhelper = TRUE

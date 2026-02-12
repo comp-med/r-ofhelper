@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^LICENSE\.md$
+^rv.lock$
+^rproject.toml$
+^rv/
+^rv/*
+^AGENTS\.md$

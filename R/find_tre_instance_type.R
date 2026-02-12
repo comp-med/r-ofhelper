@@ -15,11 +15,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find instance with at least 8 CPUs, 12GB RAM, and 125GB disk
 #' # find_tre_instance_type(8, 12, 125)
 #'
 #' # Find all instances that meet requirements
 #' # find_tre_instance_type(8, 12, 125, return_all_matching = TRUE)
+#' }
 find_tre_instance_type <- function(
   required_n_cpus,
   required_gb_ram,
@@ -34,7 +36,7 @@ find_tre_instance_type <- function(
   ]
 
   if (nrow(rate_card) == 0) {
-    stop("No instance type found matching specifications")
+    rlang::abort("No instance type found matching specifications")
   }
 
   if (return_all_matching) {

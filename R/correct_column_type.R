@@ -1,14 +1,12 @@
-
 correct_column_type <- function(
-    x,
-    annotated_type
-){
-
+  x,
+  annotated_type
+) {
   # mapping table for data dictionary type annotation
   # This is based on all types listed in the data dictionary and should be const
   map <- c("string", "integer", "date", "float", "datetime", "numeric")
   annotated_type <- match.arg(annotated_type, map)
-  map <- setNames(
+  map <- stats::setNames(
     map,
     c("character", "integer", "IDate", "numeric", "POSIXct", "numeric")
   )
@@ -26,7 +24,7 @@ correct_column_type <- function(
     map,
     "string" = as.character(x),
     "integer" = as.integer(x),
-    "date" = as.IDate(x),
+    "date" = data.table::as.IDate(x),
     "float" = as.numeric(x),
     "datetime" = as.POSIXct(x),
     "numeric" = as.numeric(x),

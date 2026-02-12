@@ -19,9 +19,11 @@ A flexible wrapper for executing arbitrary DNAnexus commands through the dx CLI.
 This function allows you to run any dx command with its arguments.
 }
 \examples{
+\dontrun{
 # List files in current directory
 # dx_run_cmd("ls")
-# 
+#
 # Run a find command with filters
 # dx_run_cmd("find", "projects", "--name", "MyProject")
+}
 }

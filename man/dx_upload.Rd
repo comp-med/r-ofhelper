@@ -24,6 +24,7 @@ Upload files to the currently selected DNAnexus project and folder.
 This function provides a convenient wrapper around the `dx upload` command.
 }
 \examples{
+\dontrun{
 # Upload a single file
 # dx_upload("local_file.csv")
 #
@@ -35,4 +36,5 @@ This function provides a convenient wrapper around the `dx upload` command.
 #
 # Upload files using glob patterns
 # dx_upload("data_*.csv")
+}
 }

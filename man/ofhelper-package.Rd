@@ -4,12 +4,12 @@
 \name{ofhelper-package}
 \alias{ofhelper}
 \alias{ofhelper-package}
-\title{ofhelper: What the Package Does (Title Case)}
+\title{ofhelper: Working with and on DNAnexus's Our Future Health Trusted Research Environment}
 \description{
-More about what it does (maybe more than one line). Continuation lines should be indented.
+DNAnexus provides Trusted Research Environments (TREs) for several large population-based cohort studies, like the UK Biobank (UKB) and Our Future Health (OFH). For working on and with their TRE, they provide the `dx` Python utility for interacting with cloud environment. When working within R, this requires switching to a shell or wrapping calls in `system2()` or similar. This package provides several convenience wrappers to do this for you. Additionally, it enables submitting jobs with arbitrary R codes from your local session. Finally, several default workflows for OFH are provided.
 }
 \author{
-\strong{Maintainer}: Jane Doe \email{jane@example.com}
+\strong{Maintainer}: Carl Beuchel \email{carl.beuchel@charite.de} (\href{https://orcid.org/0000-0003-3437-9963}{ORCID})
 
 }
 \keyword{internal}

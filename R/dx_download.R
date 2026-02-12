@@ -13,6 +13,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Download a single file
 #' # dx_download("file_id_123")
 #' #
@@ -21,34 +22,35 @@
 #' #
 #' # Download with overwrite disabled
 #' # dx_download("file_id_123", overwrite_existing = FALSE)
+#' }
 dx_download <- function(
   files,
   local_dir = ".",
   overwrite_existing = TRUE
 ) {
   dx_is_initialized()
-  
+
   # Validate files parameter
   if (length(files) == 0) {
     rlang::abort("No files specified for download")
   }
-  
+
   # Validate local directory exists
   if (!dir.exists(local_dir)) {
     dir.create(local_dir, recursive = TRUE)
   }
-  
+
   # Build arguments for dx download
   args <- c("download")
-  
+
   # Add file identifiers
   args <- c(args, files)
-  
+
   # Add local directory if specified
   if (!is.null(local_dir) && local_dir != ".") {
     args <- c(args, local_dir)
   }
-  
+
   # Execute dx download command
   dx_run_cmd(args)
 }

@@ -16,6 +16,8 @@ Character string with the worker URL for the workstation session
 Retrieve the worker URL for a running DNAnexus workstation session.
 }
 \examples{
+\dontrun{
 # Get URL for a specific job
 # url <- get_workstation_worker_url("job-1234567890abcdef12345678")
+}
 }

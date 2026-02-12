@@ -32,6 +32,7 @@ Character string with the job ID of the launched workstation session
 Launch a Jupyter workstation session on DNAnexus with specified parameters.
 }
 \examples{
+\dontrun{
 # Launch a workstation with default settings
 # job_id <- dx_launch_workstation()
 
@@ -42,4 +43,5 @@ Launch a Jupyter workstation session on DNAnexus with specified parameters.
 #   session_length_minutes = 300,
 #   instance_type = "azure:mem2_ssd1_v2_x4"
 # )
+}
 }

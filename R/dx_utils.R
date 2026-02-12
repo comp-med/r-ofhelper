@@ -94,7 +94,7 @@ dx_get_env <- function() {
   })
   dx_env <- sapply(dx_env, `[[`, 2)
   dx_env <- gsub("\"", "", dx_env)
-  setNames(dx_env, dx_env_names)
+  stats::setNames(dx_env, dx_env_names)
 }
 
 dx_set_env <- function() {
@@ -140,7 +140,7 @@ dx_find_projects <- function() {
     stderr = FALSE
   )
   dx_projects <- jsonlite::fromJSON(dx_projects)
-  setNames(dx_projects$id, dx_projects$describe$name)
+  stats::setNames(dx_projects$id, dx_projects$describe$name)
 }
 dx_available_projects <- dx_find_projects
 dx_list_projects <- dx_find_projects

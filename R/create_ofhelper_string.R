@@ -14,12 +14,14 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Create the complete ofhelper package source
 #' # ofhelper_code <- create_ofhelper_string()
+#' }
 #'
 #' @seealso \code{\link{create_cmd_input_string}} for usage in Jupyter workstation contexts
 create_ofhelper_string <- function() {
-  pkgs_installed <- installed.packages()[, 1]
+  pkgs_installed <- utils::installed.packages()[, 1]
   ofhelpers_installed <- "ofhelper" %in% pkgs_installed
 
   if (!ofhelpers_installed) {
@@ -30,7 +32,7 @@ create_ofhelper_string <- function() {
   ofhelper_scripts <- fs::dir_ls(fs::path(pkg_base, "R"))
   ofhelper_script_content <- lapply(ofhelper_scripts, readr::read_file)
   ofhelper_script_content <- Reduce(
-    \(x, y) {
+    function(x, y) {
       glue::glue("{x}\n\n{y}")
     },
     ofhelper_script_content

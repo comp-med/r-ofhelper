@@ -22,8 +22,10 @@ into a single string that can be included in command inputs, eliminating the
 need for package installation in restricted environments.
 }
 \examples{
+\dontrun{
 # Create the complete ofhelper package source
 # ofhelper_code <- create_ofhelper_string()
+}
 
 }
 \seealso{

@@ -10,20 +10,23 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # List files in current directory
 #' # dx_run_cmd("ls")
-#' # 
+#' #
 #' # Run a find command with filters
 #' # dx_run_cmd("find", "projects", "--name", "MyProject")
+#' }
 dx_run_cmd <- function(
   cmd = NULL,
-  ...) {
+  ...
+) {
   dx_is_initialized()
   dx_binary <- get_dx_cache("dx_binary")
-  
+
   # Build command arguments
   args <- c(cmd, ...)
-  
+
   # Execute command
   result <- system2(
     dx_binary,
@@ -31,7 +34,7 @@ dx_run_cmd <- function(
     stdout = TRUE,
     stderr = TRUE
   )
-  
+
   # Return result
   result
 }

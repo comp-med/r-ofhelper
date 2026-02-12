@@ -30,9 +30,11 @@ in the execution context. The resulting string can be passed to a Jupyter
 workstation using the \code{-icmd} flag.
 }
 \examples{
+\dontrun{
 # Create command string with ofhelper included
 # cmd_string <- create_cmd_input_string("my_analysis.R")
 
 # Create command string without ofhelper (not recommended)
 # cmd_string <- create_cmd_input_string("my_analysis.R", include_ofhelper = FALSE)
+}
 }

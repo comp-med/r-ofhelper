@@ -4,6 +4,15 @@ version = 2
 r_version = "4.5"
 
 [[packages]]
+name = "Matrix"
+version = "1.7-4"
+source = { builtin = true }
+force_source = false
+dependencies = [
+    "lattice",
+]
+
+[[packages]]
 name = "R6"
 version = "2.6.1"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -18,6 +27,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "SnowballC"
+version = "0.7.1"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "askpass"
 version = "1.2.1"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -27,8 +43,28 @@ dependencies = [
 ]
 
 [[packages]]
+name = "available"
+version = "1.1.0"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    "cli",
+    "clisymbols",
+    "crayon",
+    "tidytext",
+    "desc",
+    "glue",
+    "jsonlite",
+    "memoise",
+    "SnowballC",
+    "stringdist",
+    "tibble",
+    "yesno",
+]
+
+[[packages]]
 name = "base64enc"
-version = "0.1-3"
+version = "0.1-6"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
@@ -65,7 +101,7 @@ dependencies = []
 
 [[packages]]
 name = "bslib"
-version = "0.9.0"
+version = "0.10.0"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -103,6 +139,17 @@ dependencies = [
 ]
 
 [[packages]]
+name = "changer"
+version = "0.0.5"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    "available",
+    "devtools",
+    "git2r",
+]
+
+[[packages]]
 name = "cli"
 version = "3.6.5"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -117,6 +164,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "clisymbols"
+version = "1.2.0"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "commonmark"
 version = "2.0.0"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -125,7 +179,7 @@ dependencies = []
 
 [[packages]]
 name = "cpp11"
-version = "0.5.2"
+version = "0.5.3"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
@@ -159,7 +213,7 @@ dependencies = []
 
 [[packages]]
 name = "data.table"
-version = "1.18.0"
+version = "1.18.2.1"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
@@ -238,6 +292,25 @@ dependencies = [
 ]
 
 [[packages]]
+name = "dplyr"
+version = "1.2.0"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    { name = "cli", requirement = "(>= 3.6.2)" },
+    "generics",
+    { name = "glue", requirement = "(>= 1.3.2)" },
+    { name = "lifecycle", requirement = "(>= 1.0.5)" },
+    { name = "magrittr", requirement = "(>= 1.5)" },
+    { name = "pillar", requirement = "(>= 1.9.0)" },
+    "R6",
+    { name = "rlang", requirement = "(>= 1.1.7)" },
+    { name = "tibble", requirement = "(>= 3.2.0)" },
+    { name = "tidyselect", requirement = "(>= 1.2.0)" },
+    { name = "vctrs", requirement = "(>= 0.7.1)" },
+]
+
+[[packages]]
 name = "ellipsis"
 version = "0.3.2"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -285,8 +358,15 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "generics"
+version = "0.1.4"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "gert"
-version = "2.3.0"
+version = "2.3.1"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -313,6 +393,13 @@ dependencies = [
     "lifecycle",
     { name = "rlang", requirement = "(>= 1.0.0)" },
 ]
+
+[[packages]]
+name = "git2r"
+version = "0.36.2"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
 
 [[packages]]
 name = "gitcreds"
@@ -414,6 +501,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "janeaustenr"
+version = "1.0.0"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "jquerylib"
 version = "0.1.4"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -457,6 +551,13 @@ dependencies = [
     { name = "Rcpp", requirement = "(>= 1.0.10)" },
     "rlang",
 ]
+
+[[packages]]
+name = "lattice"
+version = "0.22-7"
+source = { builtin = true }
+force_source = false
+dependencies = []
 
 [[packages]]
 name = "lifecycle"
@@ -582,7 +683,7 @@ dependencies = [
 
 [[packages]]
 name = "pkgload"
-version = "1.4.1"
+version = "1.5.0"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -691,7 +792,7 @@ dependencies = [
 
 [[packages]]
 name = "rappdirs"
-version = "0.3.3"
+version = "0.3.4"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
@@ -798,7 +899,7 @@ dependencies = []
 
 [[packages]]
 name = "rstudioapi"
-version = "0.17.1"
+version = "0.18.0"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
@@ -870,6 +971,13 @@ force_source = false
 dependencies = []
 
 [[packages]]
+name = "stringdist"
+version = "0.9.17"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
 name = "stringi"
 version = "1.8.7"
 source = { repository = "https://cran.uni-muenster.de/" }
@@ -912,7 +1020,7 @@ dependencies = [
 
 [[packages]]
 name = "testthat"
-version = "3.3.1"
+version = "3.3.2"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -948,7 +1056,7 @@ dependencies = [
 
 [[packages]]
 name = "tibble"
-version = "3.3.0"
+version = "3.3.1"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -976,12 +1084,43 @@ dependencies = [
 ]
 
 [[packages]]
+name = "tidytext"
+version = "0.4.3"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    "cli",
+    { name = "dplyr", requirement = "(>= 1.1.1)" },
+    "generics",
+    "janeaustenr",
+    "lifecycle",
+    "Matrix",
+    { name = "purrr", requirement = "(>= 0.1.1)" },
+    { name = "rlang", requirement = "(>= 0.4.10)" },
+    "stringr",
+    "tibble",
+    "tokenizers",
+    "vctrs",
+]
+
+[[packages]]
 name = "tinytex"
 version = "0.58"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
     { name = "xfun", requirement = "(>= 0.48)" },
+]
+
+[[packages]]
+name = "tokenizers"
+version = "0.3.0"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    { name = "stringi", requirement = "(>= 1.0.1)" },
+    { name = "Rcpp", requirement = "(>= 0.12.3)" },
+    { name = "SnowballC", requirement = "(>= 0.5.1)" },
 ]
 
 [[packages]]
@@ -1040,19 +1179,19 @@ dependencies = []
 
 [[packages]]
 name = "vctrs"
-version = "0.6.5"
+version = "0.7.1"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
     { name = "cli", requirement = "(>= 3.4.0)" },
     "glue",
     { name = "lifecycle", requirement = "(>= 1.0.3)" },
-    { name = "rlang", requirement = "(>= 1.1.0)" },
+    { name = "rlang", requirement = "(>= 1.1.7)" },
 ]
 
 [[packages]]
 name = "vroom"
-version = "1.6.7"
+version = "1.7.0"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -1062,7 +1201,7 @@ dependencies = [
     "glue",
     "hms",
     { name = "lifecycle", requirement = "(>= 1.0.3)" },
-    { name = "rlang", requirement = "(>= 0.4.2)" },
+    { name = "rlang", requirement = "(>= 1.1.0)" },
     { name = "tibble", requirement = "(>= 2.0.0)" },
     "tidyselect",
     { name = "tzdb", requirement = "(>= 0.1.1)" },
@@ -1100,14 +1239,14 @@ dependencies = []
 
 [[packages]]
 name = "xfun"
-version = "0.55"
+version = "0.56"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []
 
 [[packages]]
 name = "xml2"
-version = "1.5.1"
+version = "1.5.2"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = [
@@ -1134,6 +1273,13 @@ dependencies = []
 [[packages]]
 name = "yaml"
 version = "2.3.12"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = []
+
+[[packages]]
+name = "yesno"
+version = "0.1.3"
 source = { repository = "https://cran.uni-muenster.de/" }
 force_source = false
 dependencies = []

@@ -31,9 +31,11 @@ Find the most suitable DNAnexus instance type based on resource requirements.
 This function queries the TRE rate card and returns the best matching instance type.
 }
 \examples{
+\dontrun{
 # Find instance with at least 8 CPUs, 12GB RAM, and 125GB disk
 # find_tre_instance_type(8, 12, 125)
 
 # Find all instances that meet requirements
 # find_tre_instance_type(8, 12, 125, return_all_matching = TRUE)
+}
 }

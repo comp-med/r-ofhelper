@@ -23,6 +23,7 @@ Download files from the currently selected DNAnexus project and folder.
 This function provides a convenient wrapper around the `dx download` command.
 }
 \examples{
+\dontrun{
 # Download a single file
 # dx_download("file_id_123")
 #
@@ -31,4 +32,5 @@ This function provides a convenient wrapper around the `dx download` command.
 #
 # Download with overwrite disabled
 # dx_download("file_id_123", overwrite_existing = FALSE)
+}
 }

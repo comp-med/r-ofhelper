@@ -16,6 +16,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Launch a workstation with default settings
 #' # job_id <- dx_launch_workstation()
 #'
@@ -26,6 +27,7 @@
 #' #   session_length_minutes = 300,
 #' #   instance_type = "azure:mem2_ssd1_v2_x4"
 #' # )
+#' }
 dx_launch_workstation <- function(
   priority = "normal",
   session_name = "jupyter_workstation",
@@ -95,8 +97,10 @@ dx_launch_workstation <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Get URL for a specific job
 #' # url <- get_workstation_worker_url("job-1234567890abcdef12345678")
+#' }
 get_workstation_worker_url <- function(job_id) {
   dx_is_initialized()
 

@@ -1,17 +1,25 @@
 Package: ofhelper
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Working with and on DNAnexus's Our Future Health Trusted Research Environment
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
+      "Carl", "Beuchel",
+      email = "carl.beuchel@charite.de",
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-3437-9963")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: DNAnexus provides Trusted Research Environments (TREs) for several 
+    large population-based cohort studies, like the UK Biobank (UKB) and 
+    Our Future Health (OFH). For working on and with their TRE, they provide
+    the `dx` Python utility for interacting with cloud environment. 
+    When working within R, this requires switching to a 
+    shell or wrapping calls in `system2()` or similar. This package provides
+    several convenience wrappers to do this for you. Additionally, it enables
+    submitting jobs with arbitrary R codes from your local session. Finally,
+    several default workflows for OFH are provided.
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Suggests: 
@@ -23,6 +31,10 @@ Imports:
     readr,
     stringr,
     jsonlite,
-    glue
+    glue,
+    purrr,
+    cli,
+    rlang,
+    fs
 Depends: 
     R (>= 3.5)

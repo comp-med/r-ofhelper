@@ -1,6 +1,6 @@
 decode_multi_select <- function(x, code, meaning) {
 
-  map <- setNames(meaning, code)
+  map <- stats::setNames(meaning, code)
 
   # Remove brackets
   x <- gsub('\\[|\\]|\\"', "", x)
