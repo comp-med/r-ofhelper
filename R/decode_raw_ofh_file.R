@@ -8,7 +8,7 @@ decode_raw_ofh_file <- function(
 
   # READ DATA ----
   if (verbose) message(glue::glue("Decoding file: {file_path}"))
-  raw_data <- fread(file_path, integer64 = "character", na.strings = "")
+  raw_data <- data.table::fread(file_path, integer64 = "character", na.strings = "")
   if (verbose) message(glue::glue("Finished reading file"))
 
   # FILTER DD -----
@@ -70,7 +70,7 @@ decode_raw_ofh_file <- function(
         annotated_type = variable_type
       )
     }
-    set(raw_data, j = variable_name, value = recoded_variable)
+    data.table::set(raw_data, j = variable_name, value = recoded_variable)
     if (verbose) message(glue::glue("Finished decoding column: {variable_name}"))
 
   }
