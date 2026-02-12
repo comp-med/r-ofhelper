@@ -1,8 +1,15 @@
 # OFHelper
 
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
 This is a collection of helper functions and utilities to make working on the
 DNAneux-based [Our Future Health TRE](https://ourfuturehealth.dnanexus.com/)
-more convenient.
+more convenient. It provides wrapper functions around the `dx` utility and
+should therefore not be exclusively useful for working with the specific TRE it
+was designed for, but general work on DNAnexus from within an interactive R
+session.
 
 Main use-cases are:
 
@@ -17,6 +24,10 @@ Main use-cases are:
 
 ## Key Features
 
+- **Submit R jobs with custom scripts**
+  - `dx_submit_r_job()`
+- **Interact with `dx` toolkit from within your R session**
+  - Various functions starting with `dx_`
 - **Decoding Workflows**:
   - `decode_single_select()`
   - `decode_multi_select()`

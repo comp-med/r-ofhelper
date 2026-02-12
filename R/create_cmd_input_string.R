@@ -34,8 +34,8 @@ create_cmd_input_string <- function(
   if (!file.exists(file)) {
     rlang::abort("File does not exist!")
   }
-  
-  if (!file.info(file)$isdir) {
+
+  if (file.info(file)$isdir) {
     rlang::abort("Provided path must be a file, not a directory!")
   }
 
