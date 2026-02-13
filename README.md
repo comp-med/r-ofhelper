@@ -32,16 +32,16 @@ Main use-cases are:
   - `dx_launch_workstation()`
 - **Submit R jobs with custom scripts**
   - `dx_submit_r_job()`
-- **Interact with `dx` toolkit from within your R session**
-  - Various functions starting with `dx_`
-- **Decoding Workflows for raw OFH data**:
+- **DNAnexus Operations**:
+  - Functions starting with: `dx_*`
+  - `dx_run_cmd()` can be used to execute arbitrary `dx` commands slightly 
+    cleaner than by using `system2()` or similar
+  - `dx_upload` can be used to upload result files from a worker to the project
+    space with the option to overwrite files with the same name
+- **Decoding Workflows for raw OFH data**
   - `decode_single_select()`
   - `decode_multi_select()`
   - `decode_raw_ofh_file()`
-- **DNAnexus Operations**:
-  - Functions starting with: `dx_`
-  - `dx_run_cmd()` can be used to execute arbitrary dx commands slightly 
-    cleaner than by using `system2()` or similar
 - **Logging**: `simple_logger()` due to none being available on OFH
 - **Instance-Type Selection**: 
   - `find_tre_instance_type()` so you don't have to check the rate card manually
@@ -141,9 +141,11 @@ dx_init(
 )
 ```
 
-Afterwards, you can check the status of the package by running `get_dx_cache()`.
-This informs you about the status available to your R session and this package's
-functions. To directly check the status of `dx`, run `dx_get_env()`
+Afterwards, you can check the status of the package by running
+`get_dx_cache()`. This informs you about the status available to your R session
+and this package's functions (i.e. the package's cache of `dx`'s status). To
+directly check the status of `dx`, run `dx_get_env()`, which simply parses the
+output of `dx env`.
 
 ```R
 get_dx_cache()
