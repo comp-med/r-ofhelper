@@ -1,22 +1,26 @@
 #' Export Entities from DNAnexus
 #'
 #' Submits table-exporter jobs to export OFH data entities from the DNAnexus project.
-#' This function exports multiple entities in parallel using the DNAnexus table-exporter
+#' This function submits one job per entity using the DNAnexus table-exporter
 #' app with customizable parameters.
 #'
-#' @param dataset_or_cohort_or_dashboard Character string specifying the dataset,
-#'   cohort, or dashboard to export data from
+#' @param dataset_or_cohort_or_dashboard Character string specifying the
+#'   dataset, cohort, or dashboard to export data from (The record ID is
+#'   required, e.g. "record-ABCD123456DEFG")
 #' @param output_prefix Character string specifying the prefix for output files
-#' @param output_format Character string specifying the output format (default "CSV")
+#' @param output_format Character string specifying the output format (default
+#'   "CSV")
 #' @param coding_option Character string specifying the coding option (default "RAW")
-#' @param header_style Character string specifying the header style (default "FIELD-NAME")
-#' @param priority Character string specifying job priority ("low", "normal", "high")
-#'   (default "low")
+#' @param header_style Character string specifying the header style (default
+#'   "FIELD-NAME")
+#' @param priority Character string specifying job priority ("low", "normal",
+#'   "high") (default "low")
 #' @param instance_type Character string specifying the DNAnexus instance type
 #'   (default "azure:mem2_ssd1_v2_x4")
 #' @param project_id Character string specifying the DNAnexus project ID
-#' @param work_dir Character string specifying the working directory in
-#'   DNAnexus, defaults to project root
+#' @param work_dir Character string specifying the working directory in DNAnexus
+#'   the files should be exported to, defaults to project directory saved in
+#'   chache (get_dx_cache("dx_path"))
 #' @param entities Character vector of entity names to export. If NULL
 #'   (default), tries exports all possible OFH entities - entities not available
 #'   will result in a failed job.
@@ -51,20 +55,23 @@ export_entities <- function(
   # Get project ID from cache if not provided
   if (is.null(project_id)) {
     project_id <- get_dx_cache("dx_project_id")
+    if (is.null(project_id)) {
+      rlang::abort("project_id must be provided or set in dx cache")
+    }
   }
 
   # If no dataset path provided, try to get it from cache
-  if (is.null(dataset_or_cohort_or_dashboard)) {
-    dataset_or_cohort_or_dashboard <- get_dx_cache("dx_path")
+  if (is.null(work_dir)) {
+    work_dir <- get_dx_cache("dx_path")
+  } else {
+    if (!dx_file_exists(work_dir)) {
+      rlang::abort("Specified `work_dir` does not exist")
+    }
   }
 
   # Validate required parameters
   if (is.null(dataset_or_cohort_or_dashboard)) {
     rlang::abort("dataset_or_cohort_or_dashboard must be provided")
-  }
-
-  if (is.null(project_id)) {
-    rlang::abort("project_id must be provided or set in dx cache")
   }
 
   # Define default entities if none provided
@@ -96,6 +103,11 @@ export_entities <- function(
 
   # Construct destination path
   destination <- paste(project_id, work_dir, sep = ":")
+  if (!dx_file_exists(destination)) {
+    rlang::abort(
+      "File destination does not exist. Please check path supplied to `work_dir`"
+    )
+  }
 
   # Submit jobs for each entity
   for (entity in all_entities) {
