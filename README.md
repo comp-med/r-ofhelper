@@ -81,27 +81,28 @@ whereis dx
 
 ### Installing `ofhelper`
 
-Install from GitHub from within R using:
+Locally, you can install the packacke using:
 
 ```R
 install.packages("remotes")
 remotes::install_github("comp-med/r-ofhelper")
 ```
 
-On the OFH TRE, no external packages can be installed and all development must
-take place in a vanilla Jupyter Notebook environment. To use the functions
-provided by this package within the OFH TRE environment, a convenience function
-is provided (after installing the package locally) to create a single input
-string that can be then be sourced in an JupyterLab session. This is convenient
-for those who have difficulty working efficiently in Jupyter notebooks like
-myself and prefer not to manage code within DNAnexus.
+On the OFH TRE, you can upload the package using the [Airlock
+system](https://dnanexus.gitbook.io/ofh/airlock/importing-files-into-a-restricted-project),
+since no external packages can be installed and all development must take place
+in a vanilla Jupyter Notebook environment. 
+
+For this, a convenience function is provided (after installing the package
+locally) to create a single input string that can be then be written to a file
+to be submitted to the `Airlock System`. This is more convenient for the
+auditing process.
 
 Locally, run the following command to create a string containing all functions.
-Either write that to a file and upload it in the TRE or just copy-paste it from
-your local terminal to the remote terminal.
+Write that to a file and upload it to the TRE.
 
 ```R
-# `ofhelper_string` contains all functions of this package
+# `ofhelper_string` contains all functions of this package. Submit those to the airlock.
 ofhelper_string <- create_ofhelper_string()
 ```
 
