@@ -122,6 +122,24 @@ dx_submit_r_job(
 )
 ```
 
+# Exporting Raw Data Entities
+
+To work with the study's data, it needs to be extracted from the SPARK
+database and exported as tabular data. See
+[here](https://github.com/ourfuturehealth/tre-example-notebooks/blob/main/R%20Notebooks/OFHR1_Data_Extraction_R.ipynb)
+for a more detailed description of the process. 
+
+```{r}
+#| eval: false
+
+# The function requires the record ID of your project as input
+export_entities(
+  dataset_or_cohort_or_dashboard = "record-1234ABCD5678",
+  entities = "participant_nhs_linked", work_dir = "test"
+)
+```
+
+
 # Decoding Raw Data
 
 Before analysing from the SPARK database, data needs to be prepared for analysis. These steps include:
