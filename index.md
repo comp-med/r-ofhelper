@@ -26,6 +26,9 @@ Main use-cases are:
 
 ## Key Features
 
+Function documentation is also available at
+[`https://comp-med.github.io/r-ofhelper/`](https://comp-med.github.io/r-ofhelper/).
+
 - **Launch a JupyterLab Session from your R command line**
   - [`dx_launch_workstation()`](https://comp-med.github.io/r-ofhelper/reference/dx_launch_workstation.md)
 - **Submit R jobs with custom scripts**
