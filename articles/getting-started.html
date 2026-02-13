@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ofhelper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,6 +157,17 @@
 <span>  tag <span class="op">=</span> <span class="st">"test"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
+</section><section class="section level2"><h2 id="exporting-raw-data-entities">Exporting Raw Data Entities<a class="anchor" aria-label="anchor" href="#exporting-raw-data-entities"></a>
+</h2>
+<p>To work with the study’s data, it needs to be extracted from the SPARK database and exported as tabular data. See <a href="https://github.com/ourfuturehealth/tre-example-notebooks/blob/main/R%20Notebooks/OFHR1_Data_Extraction_R.ipynb" class="external-link">here</a> for a more detailed description of the process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># The function requires the record ID of your project as input</span></span>
+<span><span class="fu"><a href="../reference/export_entities.html">export_entities</a></span><span class="op">(</span></span>
+<span>  dataset_or_cohort_or_dashboard <span class="op">=</span> <span class="st">"record-1234ABCD5678"</span>,</span>
+<span>  entities <span class="op">=</span> <span class="st">"participant_nhs_linked"</span>, work_dir <span class="op">=</span> <span class="st">"test"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
 </section><section class="section level2"><h2 id="decoding-raw-data">Decoding Raw Data<a class="anchor" aria-label="anchor" href="#decoding-raw-data"></a>
 </h2>
 <p>Before analysing from the SPARK database, data needs to be prepared for analysis. These steps include:</p>
@@ -169,7 +180,7 @@
 </ol>
 <p>For exporting raw data and decoding it, the functons <code><a href="../reference/export_entities.html">export_entities()</a></code> and <code><a href="../reference/decode_raw_ofh_file.html">decode_raw_ofh_file()</a></code> are provided.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TODO</span></span>
 <span><span class="co"># ...</span></span></code></pre></div>
 </div>
