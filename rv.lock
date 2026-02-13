@@ -781,6 +781,26 @@ dependencies = [
 ]
 
 [[packages]]
+name = "quarto"
+version = "1.5.1"
+source = { repository = "https://cran.uni-muenster.de/" }
+force_source = false
+dependencies = [
+    "cli",
+    "fs",
+    "htmltools",
+    "jsonlite",
+    "later",
+    "lifecycle",
+    "processx",
+    "rlang",
+    "rmarkdown",
+    "rstudioapi",
+    "xfun",
+    { name = "yaml", requirement = "(>= 2.3.10)" },
+]
+
+[[packages]]
 name = "ragg"
 version = "1.5.0"
 source = { repository = "https://cran.uni-muenster.de/" }

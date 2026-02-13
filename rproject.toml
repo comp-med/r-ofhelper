@@ -28,4 +28,5 @@ dependencies = [
     "stringr",
     "jsonlite",
     "changer",
+    "quarto",
 ]

@@ -5,3 +5,5 @@
 AGENTS.md
 ofhelper.Rcheck/
 docs
+inst/doc
+**/.quarto/
