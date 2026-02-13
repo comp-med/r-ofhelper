@@ -20,7 +20,7 @@ Main use-cases are:
 * Interact with the `dx` toolkit from within your R session, both locally and
   in a OFH TRE Jupyter session using convenience functions wrapping common calls
   to `dx`
-* Submit R scripts to a worker job without the need to interact with with the
+* Submit R commands to a worker job without the need to interact with with the
   web interface of DNAnexus
 * Where relevant, the functions work exclusively with dependencies available on
   the [OFH TRE JupyterLab
@@ -95,7 +95,7 @@ in a vanilla Jupyter Notebook environment.
 
 For this, a convenience function is provided (after installing the package
 locally) to create a single input string that can be then be written to a file
-to be submitted to the `Airlock System`. This is more convenient for the
+to be submitted to the `Airlock` system. This is more convenient for the
 auditing process.
 
 Locally, run the following command to create a string containing all functions.
@@ -104,6 +104,7 @@ Write that to a file and upload it to the TRE.
 ```R
 # `ofhelper_string` contains all functions of this package. Submit those to the airlock.
 ofhelper_string <- create_ofhelper_string()
+writeLines(ofhelper_string, "upload_this_via_the_airlock.txt")
 ```
 
 ## Example Usage

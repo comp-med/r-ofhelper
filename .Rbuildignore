@@ -8,3 +8,6 @@
 ^rv/*
 ^AGENTS\.md$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
