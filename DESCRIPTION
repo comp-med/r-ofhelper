@@ -1,7 +1,7 @@
 Package: ofhelper
 Type: Package
 Title: Working with and on DNAnexus's Our Future Health Trusted Research Environment
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(
     person(
       "Carl", "Beuchel",
