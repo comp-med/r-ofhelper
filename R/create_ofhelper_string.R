@@ -20,7 +20,9 @@
 #' }
 #'
 #' @seealso \code{\link{create_cmd_input_string}} for usage in Jupyter workstation contexts
-create_ofhelper_string <- function() {
+create_ofhelper_string <- function(
+  print_to_console = FALSE
+) {
   pkgs_installed <- utils::installed.packages()[, 1]
   pkg <- "ofhelper"
   ofhelpers_installed <- pkg %in% pkgs_installed
@@ -49,5 +51,10 @@ create_ofhelper_string <- function() {
   })
 
   script <- paste(code, collapse = "\n\n")
-  cat(script)
+
+  if (print_to_console) {
+    cat(script)
+    return(invisible(TRUE))
+  }
+  script
 }
