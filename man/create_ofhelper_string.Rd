@@ -6,6 +6,11 @@
 \usage{
 create_ofhelper_string(print_to_console = FALSE)
 }
+\arguments{
+\item{print_to_console}{Logical, defaults to FALSE. If TRUE, prints the
+package function definitions directly to the console, if FALSE, outputs the
+content as character string.}
+}
 \value{
 Character string containing the complete source code of all ofhelper
   R scripts concatenated together
