@@ -44,7 +44,7 @@ This function allows you to run any dx command with its arguments.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dx_run_cmd</span><span class="op">(</span>cmd <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dx_run_cmd</span><span class="op">(</span>cmd <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, dx_stdout <span class="op">=</span> <span class="cn">TRUE</span>, dx_stderr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -57,6 +57,16 @@ This function allows you to run any dx command with its arguments.</p>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments to pass to the dx command</p></dd>
+
+
+<dt id="arg-dx-stdout">dx_stdout<a class="anchor" aria-label="anchor" href="#arg-dx-stdout"></a></dt>
+<dd><p>Where to direct STDOUT. Equivalent to the `stdout` parameter
+of `system2` Defaults to TRUE, capturing output.</p></dd>
+
+
+<dt id="arg-dx-stderr">dx_stderr<a class="anchor" aria-label="anchor" href="#arg-dx-stderr"></a></dt>
+<dd><p>Where to direct STDOUT. Equivalent to the `stderr` parameter
+of `system2`. Defaults to TRUE, capturing output.</p></dd>
 
 </dl></div>
     <div class="section level2">

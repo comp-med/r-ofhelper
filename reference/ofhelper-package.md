@@ -10,6 +10,12 @@ wrappers to do this for you. Additionally, it enables submitting jobs
 with arbitrary R codes from your local session. Finally, several default
 workflows for OFH are provided.
 
+## See also
+
+Useful links:
+
+- <https://comp-med.github.io/r-ofhelper/>
+
 ## Author
 
 **Maintainer**: Carl Beuchel <carl.beuchel@charite.de>

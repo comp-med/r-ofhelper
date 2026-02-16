@@ -7,7 +7,7 @@ arguments.
 ## Usage
 
 ``` r
-dx_run_cmd(cmd = NULL, ...)
+dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = TRUE)
 ```
 
 ## Arguments
@@ -20,6 +20,16 @@ dx_run_cmd(cmd = NULL, ...)
 - ...:
 
   Additional arguments to pass to the dx command
+
+- dx_stdout:
+
+  Where to direct STDOUT. Equivalent to the \`stdout\` parameter of
+  \`system2\` Defaults to TRUE, capturing output.
+
+- dx_stderr:
+
+  Where to direct STDOUT. Equivalent to the \`stderr\` parameter of
+  \`system2\`. Defaults to TRUE, capturing output.
 
 ## Value
 

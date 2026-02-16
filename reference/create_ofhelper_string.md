@@ -9,7 +9,7 @@ command executions.
 ## Usage
 
 ``` r
-create_ofhelper_string()
+create_ofhelper_string(print_to_console = FALSE)
 ```
 
 ## Value

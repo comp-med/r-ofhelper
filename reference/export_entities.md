@@ -1,8 +1,8 @@
 # Export Entities from DNAnexus
 
 Submits table-exporter jobs to export OFH data entities from the
-DNAnexus project. This function exports multiple entities in parallel
-using the DNAnexus table-exporter app with customizable parameters.
+DNAnexus project. This function submits one job per entity using the
+DNAnexus table-exporter app with customizable parameters.
 
 ## Usage
 
@@ -26,7 +26,8 @@ export_entities(
 - dataset_or_cohort_or_dashboard:
 
   Character string specifying the dataset, cohort, or dashboard to
-  export data from
+  export data from (The record ID is required, e.g.
+  "record-ABCD123456DEFG")
 
 - output_prefix:
 
@@ -60,8 +61,9 @@ export_entities(
 
 - work_dir:
 
-  Character string specifying the working directory in DNAnexus,
-  defaults to project root
+  Character string specifying the working directory in DNAnexus the
+  files should be exported to, defaults to project directory saved in
+  chache (get_dx_cache("dx_path"))
 
 - entities:
 
