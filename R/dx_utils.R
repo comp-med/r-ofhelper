@@ -41,6 +41,13 @@ dx_init <- function(
   if (check_connectivity) {
     dx_check_connection()
   }
+
+  # This is only relevant on the TRE, where it will not be initialized when
+  # loading the package
+  if (!exists(".dx_cache", mode = "environment")) {
+    .dx_cache <- init_dx_cache()
+  }
+
   bin_success <- dx_set_binary(dx_binary)
   auth_success <- dx_auth(dx_token)
 
