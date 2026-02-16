@@ -142,7 +142,7 @@ get_workstation_worker_url <- function(job_id) {
     return(job_data$httpsApp$dns$url)
   } else {
     rlang::abort(glue::glue(
-      "Could not find worker URL in job information for job {job_id}"
+      "Could not find worker URL in job information for job {job_id}. Please wait while the workstation is being set up"
     ))
   }
 }

@@ -28,6 +28,11 @@ find_tre_instance_type <- function(
   required_gb_disk_storage,
   return_all_matching = FALSE
 ) {
+  # if null, set default to select smallest instance
+  required_n_cpus <- required_n_cpus %||% 1
+  required_gb_ram <- required_gb_ram %||% 1
+  required_gb_disk_storage <- required_gb_disk_storage %||% 1
+
   rate_card <- tre_rate_card()
   rate_card <- rate_card[
     n_cpus >= required_n_cpus &

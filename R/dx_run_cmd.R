@@ -5,6 +5,10 @@
 #'
 #' @param cmd Character string specifying the dx command to run (e.g., "ls", "upload", "find")
 #' @param ... Additional arguments to pass to the dx command
+#' @param dx_stdout Where to direct STDOUT. Equivalent to the `stdout` parameter
+#'   of `system2` Defaults to TRUE, capturing output.
+#' @param dx_stderr Where to direct STDOUT. Equivalent to the `stderr` parameter
+#'   of `system2`. Defaults to TRUE, capturing output.
 #'
 #' @return Character vector containing the command output (stdout)
 #' @export
@@ -19,7 +23,9 @@
 #' }
 dx_run_cmd <- function(
   cmd = NULL,
-  ...
+  ...,
+  dx_stdout = TRUE,
+  dx_stderr = TRUE
 ) {
   dx_is_initialized()
   dx_binary <- get_dx_cache("dx_binary")
@@ -31,8 +37,8 @@ dx_run_cmd <- function(
   result <- system2(
     dx_binary,
     args,
-    stdout = TRUE,
-    stderr = TRUE
+    stdout = dx_stdout,
+    stderr = dx_stderr
   )
 
   # Return result

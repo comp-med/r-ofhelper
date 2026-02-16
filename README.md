@@ -130,6 +130,7 @@ environment and might include additional dependencies.
 ## TODOs
 
 * Look for TODO tags in the functions!
+* add `behind_proxy` flag or something to filter out the message from dx about that
 * Tests are mostly mock-tests right now
 * Integration tests with `dx` are not present yet
 * Due to the straight forward nature of the package, most function documentation was generated using an LLM, so expect errors
