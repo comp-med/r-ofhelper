@@ -97,6 +97,13 @@ dx_init <- function(
 #' # dx_is_initialized()
 #' }
 dx_is_initialized <- function() {
+  cache_init <- exists(".dx_cache", mode = "environment")
+  if (!cache_init) {
+    rlang::abort(
+      "`ofhelper` cache has not been initialized. Run `.dx_cache <- init_dx_cache()`"
+    )
+  }
+
   initialization_success <- get_dx_cache("dx_initialized")
   if (!initialization_success) {
     rlang::abort("`ofhelper` is not initialized. Run `dx_init()` first")
