@@ -42,7 +42,7 @@ create_cmd_input_string <- function(
   script_content <- readr::read_file(file)
 
   if (include_ofhelper) {
-    ofhelper_script_content <- create_ofhelper_string()
+    ofhelper_script_content <- create_ofhelper_string(print_to_console = FALSE)
     script_content <- glue::glue(
       "{ofhelper_script_content}\n\n{script_content}"
     )

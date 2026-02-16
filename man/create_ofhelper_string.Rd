@@ -4,7 +4,7 @@
 \alias{create_ofhelper_string}
 \title{Create Complete ofhelper Package Source String}
 \usage{
-create_ofhelper_string()
+create_ofhelper_string(print_to_console = FALSE)
 }
 \value{
 Character string containing the complete source code of all ofhelper

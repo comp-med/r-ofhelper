@@ -8,7 +8,9 @@
 #' The function reads all R scripts from the ofhelper package and combines them
 #' into a single string that can be included in command inputs, eliminating the
 #' need for package installation in restricted environments.
-#'
+#' @param print_to_console Logical, defaults to FALSE. If TRUE, prints the
+#'   package function definitions directly to the console, if FALSE, outputs the
+#'   content as character string.
 #' @return Character string containing the complete source code of all ofhelper
 #'   R scripts concatenated together
 #' @export

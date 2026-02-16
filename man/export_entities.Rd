@@ -18,27 +18,31 @@ export_entities(
 )
 }
 \arguments{
-\item{dataset_or_cohort_or_dashboard}{Character string specifying the dataset,
-cohort, or dashboard to export data from}
+\item{dataset_or_cohort_or_dashboard}{Character string specifying the
+dataset, cohort, or dashboard to export data from (The record ID is
+required, e.g. "record-ABCD123456DEFG")}
 
 \item{output_prefix}{Character string specifying the prefix for output files}
 
-\item{output_format}{Character string specifying the output format (default "CSV")}
+\item{output_format}{Character string specifying the output format (default
+"CSV")}
 
 \item{coding_option}{Character string specifying the coding option (default "RAW")}
 
-\item{header_style}{Character string specifying the header style (default "FIELD-NAME")}
+\item{header_style}{Character string specifying the header style (default
+"FIELD-NAME")}
 
-\item{priority}{Character string specifying job priority ("low", "normal", "high")
-(default "low")}
+\item{priority}{Character string specifying job priority ("low", "normal",
+"high") (default "low")}
 
 \item{instance_type}{Character string specifying the DNAnexus instance type
 (default "azure:mem2_ssd1_v2_x4")}
 
 \item{project_id}{Character string specifying the DNAnexus project ID}
 
-\item{work_dir}{Character string specifying the working directory in
-DNAnexus, defaults to project root}
+\item{work_dir}{Character string specifying the working directory in DNAnexus
+the files should be exported to, defaults to project directory saved in
+chache (get_dx_cache("dx_path"))}
 
 \item{entities}{Character vector of entity names to export. If NULL
 (default), tries exports all possible OFH entities - entities not available
@@ -49,7 +53,7 @@ NULL (side effect: submits DNAnexus jobs)
 }
 \description{
 Submits table-exporter jobs to export OFH data entities from the DNAnexus project.
-This function exports multiple entities in parallel using the DNAnexus table-exporter
+This function submits one job per entity using the DNAnexus table-exporter
 app with customizable parameters.
 }
 \examples{

@@ -4,12 +4,18 @@
 \alias{dx_run_cmd}
 \title{Run Arbitrary DX Commands}
 \usage{
-dx_run_cmd(cmd = NULL, ...)
+dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = TRUE)
 }
 \arguments{
 \item{cmd}{Character string specifying the dx command to run (e.g., "ls", "upload", "find")}
 
 \item{...}{Additional arguments to pass to the dx command}
+
+\item{dx_stdout}{Where to direct STDOUT. Equivalent to the `stdout` parameter
+of `system2` Defaults to TRUE, capturing output.}
+
+\item{dx_stderr}{Where to direct STDOUT. Equivalent to the `stderr` parameter
+of `system2`. Defaults to TRUE, capturing output.}
 }
 \value{
 Character vector containing the command output (stdout)
