@@ -16,3 +16,6 @@ coding_name <- NULL
 is_multi_select <- NULL
 meaning <- NULL
 type <- NULL
+
+
+system2 <- NULL

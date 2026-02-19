@@ -10,7 +10,8 @@
 #' @param dx_stderr Where to direct STDOUT. Equivalent to the `stderr` parameter
 #'   of `system2`. Defaults to TRUE, capturing output.
 #'
-#' @return Character vector containing the command output (stdout)
+#' @return Character vector containing the command with output (depending on
+#'   `dx_stdout` and `dx_stderr`)
 #' @export
 #'
 #' @examples
@@ -25,7 +26,7 @@ dx_run_cmd <- function(
   cmd = NULL,
   ...,
   dx_stdout = TRUE,
-  dx_stderr = TRUE
+  dx_stderr = FALSE
 ) {
   dx_is_initialized()
   dx_binary <- get_dx_cache("dx_binary")
