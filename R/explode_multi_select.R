@@ -7,7 +7,7 @@
 #' @param x Character vector containing multi-select data. Each element may contain
 #'   multiple answers separated by either commas (`,`) or pipes (`|`).
 #' @param answer_separators Character vector specifying separators to split answers.
-#'   Default is c(",", "|").
+#'   Default is "|" since "," are used within the answers.
 #' @param long_format Logical. If \code{TRUE}, returns data in long format with
 #'   three columns: \code{index}, \code{original}, and \code{variable} (name of
 #'   the dummy-coded variable) and \code{value} (binary indicator). If \code{FALSE},
@@ -28,17 +28,17 @@
 #' # Basic usage
 #' x <- c("A,B", "B,C", "A,C", "A|B|C")
 #' result <- explode_multi_select(x)
-#' 
+#'
 #' # With long format
 #' result_long <- explode_multi_select(x, long_format = TRUE)
-#' 
+#'
 #' # With custom separators
 #' x2 <- c("A;B", "B;C")
 #' result2 <- explode_multi_select(x2, answer_separators = ";")
 #' }
 explode_multi_select <- function(
   x,
-  answer_separators = c(",", "|"),
+  answer_separators = "|",
   long_format = FALSE,
   na_is_none_of_the_above = TRUE
 ) {
@@ -74,7 +74,9 @@ explode_multi_select <- function(
     )
     data.table::set(x = res, j = k, value = dummy)
 
-    if (!na_is_none_of_the_above) {
+    # This turns FALSE into NA based on the stated assumption
+    # This needs to be tracked downstream
+    if (isFALSE(na_is_none_of_the_above)) {
       data.table::set(x = res, i = which(x == "NA"), j = k, value = NA)
       data.table::set(x = res, i = which(is.na(x)), j = k, value = NA)
     }

@@ -36,13 +36,12 @@
 #' @seealso \code{\link{decode_single_select}} for single-select decoding
 #' \code{\link{decode_ofh_variable}} for the generic decoder
 decode_multi_select <- function(x, code, meaning) {
-
   # Normalize separators to pipe for downstream uniformity
   x <- gsub(",", "|", x, fixed = TRUE)
-  
+
   map <- stats::setNames(meaning, code)
 
-  # Remove brackets
+  # Remove brackets and redundant quoting
   x <- gsub('\\[|\\]|\\"', "", x)
 
   # Replace values using regex word boundaries -> gsub() is great!
@@ -54,12 +53,14 @@ decode_multi_select <- function(x, code, meaning) {
       # either separated or single
       paste0("(?<=^|,|\\|)", k, "(?=\\||,|$)"),
       paste0("\\1", map[[k]]),
-      x, perl = TRUE
+      x,
+      perl = TRUE
     )
   }
 
-  # This assumes `,` is only used to separate values
-  multi_val_index <- grepl(",|\\|", x)
+  # This assumes `|` is only used to separate values - should be correct after
+  # normalization above!
+  multi_val_index <- grepl("\\|", x)
   x[multi_val_index] <- paste0("[", x[multi_val_index], "]")
   x
 }
