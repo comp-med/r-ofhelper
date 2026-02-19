@@ -113,7 +113,7 @@ writeLines(ofhelper_string, "upload_this_via_the_airlock.txt")
 ## Getting Started
 
 Please check the [Getting
-Started](https://comp-med.github.io/r-ofhelper/docs/articles/getting-started.html)
+Started](https://comp-med.github.io/r-ofhelper/articles/getting-started.html)
 Vignette.
 
 ## Dependencies
@@ -126,6 +126,7 @@ environment and might include additional dependencies.
 - `fs`
 - `rlang`
 - `glue`
+- `withr`
 
 ## TODOs
 
