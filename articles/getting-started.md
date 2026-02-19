@@ -22,8 +22,8 @@ my_dx_access_token <- "..."
 # Optional, will use `/` otherwise 
 my_dx_project_dir <- "/some/dnanexus/directory/"
 
-# Some Jupyter sessions do not provide internet access, so you can disable the
-# connectivity check here
+# Some Jupyter sessions do not provide internet access,
+# so you can disable the connectivity check here
 do_connectivity_check = TRUE
 
 # set up the package using this function
