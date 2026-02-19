@@ -140,7 +140,12 @@ export_entities <- function(
 
     # Submit the job
     message(glue::glue("Submitting export job for entity: {entity}"))
-    dx_run_cmd(dx_args)
+    res <- dx_run_cmd(
+      dx_args,
+      dx_stdout = FALSE,
+      dx_stderr = FALSE,
+      fail_on_dx_error = TRUE
+    )
   }
 
   message("All export jobs submitted successfully")

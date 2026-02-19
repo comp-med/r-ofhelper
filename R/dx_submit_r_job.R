@@ -130,7 +130,7 @@ dx_submit_r_job <- function(
 
   # Submit the job
   rlang::inform(glue::glue("Submitting R job: {session_name}"))
-  result <- dx_run_cmd(app_args)
+  result <- dx_run_cmd(app_args, fail_on_dx_error = TRUE)$stdout
 
   # Parse job ID from result
   job_id_regex <- "^job-[a-zA-Z0-9]{24}$"

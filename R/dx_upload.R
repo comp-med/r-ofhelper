@@ -78,7 +78,11 @@ dx_upload <- function(
       # Find existing files with the same name
       find_result <- tryCatch(
         {
-          dx_run_cmd("find", "data", "--name", file_name, "--class", "file")
+          dx_run_cmd(
+            c("find", "data", "--name", file_name, "--class", "file"),
+            fail_on_dx_error = TRUE,
+            dx_stderr = FALSE
+          )$stdout
         },
         error = function(e) {
           # If find command fails, proceed with upload anyway
@@ -89,7 +93,7 @@ dx_upload <- function(
       # If we found existing files with the same name, delete them
       if (!is.null(find_result) && length(find_result) > 0) {
         # Delete the existing file(s)
-        dx_run_cmd("rm", "-f", file_name)
+        res <- dx_run_cmd("rm", "-f", file_name, fail_on_dx_error = TRUE)
       }
     }
   }
@@ -106,5 +110,10 @@ dx_upload <- function(
   }
 
   # Execute dx upload command
-  dx_run_cmd(args)
+  res <- dx_run_cmd(
+    args,
+    fail_on_dx_error = TRUE,
+    dx_stdout = FALSE,
+    dx_stderr = FALSE
+  )
 }

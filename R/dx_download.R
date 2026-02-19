@@ -52,5 +52,10 @@ dx_download <- function(
   }
 
   # Execute dx download command
-  dx_run_cmd(args)
+  res <- dx_run_cmd(
+    args,
+    dx_stdout = FALSE,
+    dx_stderr = FALSE,
+    fail_on_dx_error = TRUE
+  )
 }

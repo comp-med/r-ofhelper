@@ -73,7 +73,7 @@ dx_launch_workstation <- function(
   )
 
   # Execute the dx run command
-  result <- dx_run_cmd(app_args)
+  result <- dx_run_cmd(app_args, fail_on_dx_error = TRUE)$stdout
 
   # parse job ID
   job_id_regex <- "^job-[a-zA-Z0-9]{24}$"
@@ -105,20 +105,14 @@ get_workstation_worker_url <- function(job_id) {
   dx_is_initialized()
 
   # Get job information in JSON format
-  job_info <- tryCatch(
-    {
-      dx_run_cmd("find", "jobs", "--id", job_id, "--json")
-    },
-    error = function(e) {
-      rlang::abort(glue::glue(
-        "Failed to retrieve job information for job {job_id}: {e$message}"
-      ))
-    }
-  )
-
-  # remove the header about proxy variables
-  proxy_msg <- "^Using env variable HTTPS_PROXY"
-  job_info <- job_info[!grepl(proxy_msg, job_info)]
+  job_info <- dx_run_cmd(
+    "find",
+    "jobs",
+    "--id",
+    job_id,
+    "--json",
+    fail_on_dx_error = TRUE
+  )$stdout
 
   # Parse the JSON
   job_data <- tryCatch(
@@ -142,7 +136,8 @@ get_workstation_worker_url <- function(job_id) {
     return(job_data$httpsApp$dns$url)
   } else {
     rlang::abort(glue::glue(
-      "Could not find worker URL in job information for job {job_id}. Please wait while the workstation is being set up"
+      "Could not find worker URL in job information for job {job_id}. ",
+      "Maybe the workstation is still being set up"
     ))
   }
 }

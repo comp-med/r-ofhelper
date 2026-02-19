@@ -379,9 +379,9 @@ dx_ls <- function(directory = NULL) {
   dx_is_initialized()
   if (is.null(directory)) {
     dx_check_path()
-    return(dx_run_cmd("ls"))
+    return(dx_run_cmd("ls", fail_on_dx_error = TRUE)$stdout)
   } else {
-    return(dx_run_cmd("ls", directory))
+    return(dx_run_cmd("ls", directory, fail_on_dx_error = TRUE)$stdout)
   }
 }
 
