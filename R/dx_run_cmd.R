@@ -16,6 +16,8 @@
 #' @param .require_init Logical. Internal parameter needed for bootstrapping
 #'   package while setting up cache. Defaults to TRUE and should not be modified
 #'   by the user
+#' @param .dx_binary Character. Path to dx_binary when running the command
+#'   pre-initialization. Defaults to `NULL` and should be left untouched
 #'
 #' @return List containging exit code, stdout and stderr (depending on
 #'   `dx_stdout` and `dx_stderr`)
@@ -35,12 +37,19 @@ dx_run_cmd <- function(
   dx_stdout = TRUE,
   dx_stderr = TRUE,
   fail_on_dx_error = TRUE,
-  .require_init = TRUE
+  .require_init = TRUE,
+  .dx_binary = NULL
 ) {
+  # TODO - I'm not sure this makes sense
   if (isTRUE(.require_init)) {
     dx_is_initialized()
+    dx_binary <- get_dx_cache("dx_binary")
+  } else {
+    dx_binary <- get_dx_cache("dx_binary") %||% .dx_binary
+    if (is.null(dx_binary)) {
+      rlang::abort("Need path to `dx` tools to continue")
+    }
   }
-  dx_binary <- get_dx_cache("dx_binary")
 
   if (!is.logical(dx_stdout) || !is.logical(dx_stderr)) {
     rlang::abort("`dx_stdout` and `dx_stderr` can only be TRUE/FALSE")
@@ -57,8 +66,10 @@ dx_run_cmd <- function(
     stderr = tmp_stderr
   )
   # read the files and remove dummy line
-  tmp_stdout <- readLines(tmp_stdout)[-1]
-  tmp_stderr <- readLines(tmp_stderr)[-1]
+  tmp_stdout <- readLines(tmp_stdout)
+  tmp_stderr <- readLines(tmp_stderr)
+  tmp_stdout <- tmp_stdout[tmp_stdout != ".dummy"]
+  tmp_stderr <- tmp_stderr[tmp_stderr != ".dummy"]
   if (exit_code != 0 && fail_on_dx_error) {
     err_msg <- paste(tmp_stderr, collapse = ", ")
     rlang::abort(glue::glue(

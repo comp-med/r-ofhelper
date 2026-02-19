@@ -86,18 +86,18 @@ dx_check_connection <- function() {
 #' # Check specific binary path
 #' # dx_check_binary("/usr/local/bin/dx")
 #' }
-dx_check_binary <- function(dx_binary = NULL) {
+dx_check_binary <- function(dx_binary = NULL, ...) {
   dx_binary <- dx_binary %||% get_dx_cache("dx_binary")
   if (is.null(dx_binary)) {
     rlang::abort("Use `dx_set_binary` fist")
   }
-  # This is run pre-initialization and must remain `system2()`
-  dx_exit <- suppressWarnings(system2(
-    dx_binary,
+  dx_exit <- dx_run_cmd(
     "--version",
-    stdout = NULL,
-    stderr = NULL
-  ))
+    dx_stdout = FALSE,
+    dx_stderr = FALSE,
+    fail_on_dx_error = FALSE,
+    ...
+  )$exit_code
   invisible(dx_exit == 0)
 }
 
@@ -114,17 +114,14 @@ dx_check_binary <- function(dx_binary = NULL) {
 #' # Check authentication status
 #' # dx_check_auth()
 #' }
-dx_check_auth <- function() {
-  dx_binary <- get_dx_cache("dx_binary")
-  # This is run pre-initialization and must remain `system2()`
-  dx_status <- suppressWarnings(system2(
-    dx_binary,
+dx_check_auth <- function(...) {
+  dx_status <- dx_run_cmd(
     "whoami",
-    stdout = FALSE,
-    stderr = FALSE
-  ))
+    fail_on_dx_error = FALSE,
+    ...
+  )$exit_code
   dx_not_logged_in <- "You are not logged in; run \"dx login\" to obtain a token."
-  if (dx_status == dx_not_logged_in) {
+  if (dx_status != 0) {
     rlang::abort("Not logged it. Run `dx_init()` with your auth token")
   }
   invisible(TRUE)
@@ -170,13 +167,18 @@ dx_check_project <- function() {
 #' # Check current path
 #' # dx_check_path()
 #' }
-dx_check_path <- function() {
-  dx_binary <- get_dx_cache("dx_binary")
+dx_check_path <- function(...) {
+  dx_is_initialized()
   dx_project_name <- get_dx_cache("dx_project_name")
   dx_path_cached <- get_dx_cache("dx_path")
 
   # This is run pre-initialization and must remain `system2()`
-  dx_path_current <- system2(dx_binary, "pwd", stdout = TRUE, stderr = FALSE)
+  dx_path_current <- dx_run_cmd(
+    "pwd",
+    dx_stdout = TRUE,
+    dx_stderr = FALSE,
+    ...
+  )$stdout
   dx_path_current <- gsub(
     paste0(dx_project_name, ":"),
     "",

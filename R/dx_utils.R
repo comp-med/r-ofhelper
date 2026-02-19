@@ -48,23 +48,32 @@ dx_init <- function(
     .dx_cache <- init_dx_cache()
   }
 
-  bin_success <- dx_set_binary(dx_binary)
-  auth_success <- dx_auth(dx_token)
+  # Bootstrap the binary path - circumventing checks
+  bin_success <- dx_set_binary(
+    dx_binary,
+    .require_init = FALSE,
+    .dx_binary = dx_binary
+  )
 
-  # If no token is supplied, check if already logged in
+  auth_success <- FALSE
+  if (is.null(dx_token)) {
+    auth_present <- dx_check_auth(.require_init = FALSE)
+    auth_success <- ifelse(auth_present, TRUE, FALSE)
+  } else {
+    auth_success <- dx_auth(dx_token, .require_init = FALSE)
+  }
   if (isFALSE(auth_success)) {
-    auth_present <- dx_check_auth()
-    if (auth_present) {
-      auth_success <- TRUE
-    }
+    rlang::abort(
+      "Could not authenticate. Please supply valid token"
+    )
   }
 
   project_success <- FALSE
   path_success <- FALSE
   if (!is.null(dx_project)) {
-    project_success <- dx_set_project(dx_project)
+    project_success <- dx_set_project(dx_project, .require_init = FALSE)
     if (!is.null(dx_path)) {
-      path_success <- dx_set_path(dx_path)
+      path_success <- dx_set_path(dx_path, .require_init = FALSE)
     }
   }
   if (auth_success & bin_success) {
@@ -135,9 +144,9 @@ dx_is_initialized <- function() {
 #' # Set dx binary path
 #' # dx_set_binary("/usr/local/bin/dx")
 #' }
-dx_set_binary <- function(dx_binary = NULL) {
+dx_set_binary <- function(dx_binary = NULL, ...) {
   dx_binary <- dx_binary %||% "dx"
-  dx_binary_works <- dx_check_binary(dx_binary)
+  dx_binary_works <- dx_check_binary(dx_binary, ...)
 
   if (dx_binary_works != TRUE) {
     rlang::abort(
@@ -247,13 +256,13 @@ dx_clear_env <- function() {
 #' # Authenticate with token
 #' # dx_auth("your-auth-token")
 #' }
-dx_auth <- function(dx_token = NULL) {
-  dx_binary <- get_dx_cache("dx_binary")
-  auth_success <- system2(
-    dx_binary,
-    c("login", "--token", dx_token, "--noprojects"),
-    stdout = FALSE,
-    stderr = FALSE
+dx_auth <- function(dx_token = NULL, ...) {
+  auth_success <- dx_run_cmd(
+    cmd = c("login", "--token", dx_token, "--noprojects"),
+    dx_stdout = FALSE,
+    dx_stderr = FALSE,
+    fail_on_dx_error = FALSE,
+    ...
   )
   invisible(auth_success == 0)
 }
@@ -296,17 +305,17 @@ dx_list_projects <- dx_find_projects
 #' # Set project
 #' # dx_set_project("project-xxxxx")
 #' }
-dx_set_project <- function(dx_project_id = NULL) {
+dx_set_project <- function(dx_project_id = NULL, ...) {
   if (is.null(dx_project_id)) {
     rlang::abort("Need project ID")
   }
-  dx_binary <- get_dx_cache("dx_binary")
-  project_success <- system2(
-    dx_binary,
+  project_success <- dx_run_cmd(
     c("select", dx_project_id),
-    stdout = FALSE,
-    stderr = FALSE,
-  )
+    dx_stdout = FALSE,
+    dx_stderr = FALSE,
+    fail_on_dx_error = FALSE,
+    ...
+  )$exit_code
   if (project_success != 0) {
     rlang::abort("Could not set project")
   }
@@ -333,17 +342,15 @@ dx_set_project <- function(dx_project_id = NULL) {
 #' # Set path
 #' # dx_set_path("/data/subfolder")
 #' }
-dx_set_path <- function(dx_path = NULL) {
+dx_set_path <- function(dx_path = NULL, ...) {
   if (is.null(dx_path)) {
     rlang::abort("No path specified")
   }
-  dx_binary <- get_dx_cache("dx_binary")
-  cd_sucess <- system2(
-    dx_binary,
+  cd_sucess <- dx_run_cmd(
     c("cd", dx_path),
-    stderr = FALSE,
-    stdout = FALSE
-  )
+    dx_stderr = FALSE,
+    dx_stdout = FALSE
+  )$exit_code
   if (cd_sucess != 0) {
     rlang::abort("Could not set path")
   }
