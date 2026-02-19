@@ -5,7 +5,7 @@ Selects a DNAnexus project to work with.
 ## Usage
 
 ``` r
-dx_set_project(dx_project_id = NULL)
+dx_set_project(dx_project_id = NULL, ...)
 ```
 
 ## Arguments
@@ -13,6 +13,10 @@ dx_set_project(dx_project_id = NULL)
 - dx_project_id:
 
   Character string specifying the DNAnexus project ID.
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

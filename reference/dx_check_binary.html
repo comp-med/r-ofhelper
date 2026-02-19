@@ -44,7 +44,7 @@ This function checks that the dx command-line tool is executable and functional.
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dx_check_binary</span><span class="op">(</span>dx_binary <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dx_check_binary</span><span class="op">(</span>dx_binary <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -54,6 +54,10 @@ This function checks that the dx command-line tool is executable and functional.
 <dl><dt id="arg-dx-binary">dx_binary<a class="anchor" aria-label="anchor" href="#arg-dx-binary"></a></dt>
 <dd><p>Character string specifying the path to the dx binary.
 If NULL (default), uses the cached binary path.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>parameters to pass to `dx_run_cmd`</p></dd>
 
 </dl></div>
     <div class="section level2">

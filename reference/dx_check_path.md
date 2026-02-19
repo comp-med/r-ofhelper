@@ -7,8 +7,14 @@ current environment path.
 ## Usage
 
 ``` r
-dx_check_path()
+dx_check_path(...)
 ```
+
+## Arguments
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

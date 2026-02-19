@@ -5,7 +5,7 @@ Authenticates with DNAnexus using a provided token.
 ## Usage
 
 ``` r
-dx_auth(dx_token = NULL)
+dx_auth(dx_token = NULL, ...)
 ```
 
 ## Arguments
@@ -13,6 +13,10 @@ dx_auth(dx_token = NULL)
 - dx_token:
 
   Character string specifying the DNAnexus authentication token.
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

@@ -6,8 +6,14 @@ function checks if a valid authentication token is available.
 ## Usage
 
 ``` r
-dx_check_auth()
+dx_check_auth(...)
 ```
+
+## Arguments
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

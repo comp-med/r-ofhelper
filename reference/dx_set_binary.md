@@ -6,7 +6,7 @@ internally by dx_init().
 ## Usage
 
 ``` r
-dx_set_binary(dx_binary = NULL)
+dx_set_binary(dx_binary = NULL, ...)
 ```
 
 ## Arguments
@@ -15,6 +15,10 @@ dx_set_binary(dx_binary = NULL)
 
   Character string specifying the path to the dx binary. If NULL
   (default), assumes "dx" is in PATH.
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

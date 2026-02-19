@@ -50,7 +50,8 @@ CLI. This function allows you to run any dx command with its arguments.</p>
 <span>  dx_stdout <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dx_stderr <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fail_on_dx_error <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  .require_init <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  .require_init <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .dx_binary <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,11 @@ to TRUE</p></dd>
 <dd><p>Logical. Internal parameter needed for bootstrapping
 package while setting up cache. Defaults to TRUE and should not be modified
 by the user</p></dd>
+
+
+<dt id="arg--dx-binary">.dx_binary<a class="anchor" aria-label="anchor" href="#arg--dx-binary"></a></dt>
+<dd><p>Character. Path to dx_binary when running the command
+pre-initialization. Defaults to `NULL` and should be left untouched</p></dd>
 
 </dl></div>
     <div class="section level2">

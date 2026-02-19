@@ -5,7 +5,7 @@ Sets the working directory within the DNAnexus project.
 ## Usage
 
 ``` r
-dx_set_path(dx_path = NULL)
+dx_set_path(dx_path = NULL, ...)
 ```
 
 ## Arguments
@@ -13,6 +13,10 @@ dx_set_path(dx_path = NULL)
 - dx_path:
 
   Character string specifying the DNAnexus project path.
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 

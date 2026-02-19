@@ -7,7 +7,7 @@ executable and functional.
 ## Usage
 
 ``` r
-dx_check_binary(dx_binary = NULL)
+dx_check_binary(dx_binary = NULL, ...)
 ```
 
 ## Arguments
@@ -16,6 +16,10 @@ dx_check_binary(dx_binary = NULL)
 
   Character string specifying the path to the dx binary. If NULL
   (default), uses the cached binary path.
+
+- ...:
+
+  parameters to pass to \`dx_run_cmd\`
 
 ## Value
 
