@@ -7,7 +7,13 @@ arguments.
 ## Usage
 
 ``` r
-dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = FALSE)
+dx_run_cmd(
+  cmd = NULL,
+  ...,
+  dx_stdout = TRUE,
+  dx_stderr = TRUE,
+  fail_on_dx_error = TRUE
+)
 ```
 
 ## Arguments
@@ -23,17 +29,22 @@ dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = FALSE)
 
 - dx_stdout:
 
-  Where to direct STDOUT. Equivalent to the \`stdout\` parameter of
-  \`system2\` Defaults to TRUE, capturing output.
+  Logical, whether to return STDOUT. Equivalent to the \`stdout\`
+  parameter of \`system2\` Defaults to TRUE, capturing output.
 
 - dx_stderr:
 
-  Where to direct STDOUT. Equivalent to the \`stderr\` parameter of
-  \`system2\`. Defaults to TRUE, capturing output.
+  Logical, whether to return STDERR. Equivalent to the \`stderr\`
+  parameter of \`system2\`. Defaults to TRUE, capturing output.
+
+- fail_on_dx_error:
+
+  Logical, whether to panic with error message when \`dx\` returns an
+  error or whether to return the result regardless
 
 ## Value
 
-Character vector containing the command with output (depending on
+List containging exit code, stdout and stderr (depending on
 \`dx_stdout\` and \`dx_stderr\`)
 
 ## Examples
