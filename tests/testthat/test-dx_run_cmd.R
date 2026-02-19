@@ -64,3 +64,34 @@ test_that("dx_run_cmd returns output correctly", {
   expect_type(res, "list")
   expect_snapshot(res)
 })
+
+test_that("dx_run_cmd returns errors correctly if set", {
+  skip_on_cran()
+  .dx_cache <- init_dx_cache()
+  set_dx_cache("dx_initialized" = TRUE)
+
+  # Mock system2 to simulate command failure
+  local_mocked_bindings(
+    system2 = function(
+      dx_binary,
+      args,
+      stdout,
+      stderr
+    ) {
+      1
+    },
+    readLines = mock_output_sequence(
+      "stdoutdummy",
+      c("stderrdummy", "some", "error", "output"),
+    )
+  )
+  res <- dx_run_cmd(
+    "nonexistent-command",
+    dx_stdout = TRUE,
+    dx_stderr = TRUE,
+    fail_on_dx_error = FALSE
+  )
+  expect_type(res, "list")
+  expect_snapshot(res)
+  expect_equal(res$exit_code, 1)
+})
