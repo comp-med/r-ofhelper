@@ -56,8 +56,8 @@ test_that("dx_run_cmd returns output correctly", {
       0
     },
     readLines = mock_output_sequence(
-      c("dummy", "stdout", "content"),
-      c("dummy", "stderr", "content"),
+      c(".dummy", "stdout", "content"),
+      c(".dummy", "stderr", "content"),
     )
   )
   res <- dx_run_cmd("ls", dx_stdout = TRUE, dx_stderr = TRUE)
@@ -81,8 +81,8 @@ test_that("dx_run_cmd returns errors correctly if set", {
       1
     },
     readLines = mock_output_sequence(
-      "stdoutdummy",
-      c("stderrdummy", "some", "error", "output"),
+      ".dummy",
+      c(".dummy", "some", "error", "output"),
     )
   )
   res <- dx_run_cmd(
