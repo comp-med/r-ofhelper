@@ -10,8 +10,12 @@
 #'   `stdout` parameter of `system2` Defaults to TRUE, capturing output.
 #' @param dx_stderr Logical, whether to return STDERR. Equivalent to the
 #'   `stderr` parameter of `system2`. Defaults to TRUE, capturing output.
-#' @param fail_on_dx_error Logical, whether to panic with error message when `dx`
-#'   returns an error or whether to return the result regardless
+#' @param fail_on_dx_error Logical, whether to panic with error message when
+#'   `dx` returns an error or whether to return the result regardless. Defaults
+#'   to TRUE
+#' @param .require_init Logical. Internal parameter needed for bootstrapping
+#'   package while setting up cache. Defaults to TRUE and should not be modified
+#'   by the user
 #'
 #' @return List containging exit code, stdout and stderr (depending on
 #'   `dx_stdout` and `dx_stderr`)
@@ -30,9 +34,12 @@ dx_run_cmd <- function(
   ...,
   dx_stdout = TRUE,
   dx_stderr = TRUE,
-  fail_on_dx_error = TRUE
+  fail_on_dx_error = TRUE,
+  .require_init = TRUE
 ) {
-  dx_is_initialized()
+  if (isTRUE(.require_init)) {
+    dx_is_initialized()
+  }
   dx_binary <- get_dx_cache("dx_binary")
 
   if (!is.logical(dx_stdout) || !is.logical(dx_stderr)) {

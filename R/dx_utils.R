@@ -229,8 +229,7 @@ dx_set_env <- function() {
 #' # dx_clear_env()
 #' }
 dx_clear_env <- function() {
-  dx_binary <- get_dx_cache("dx_binary")
-  system2(dx_binary, "clearenv")
+  res <- dx_run_cmd("clearenv")
   invisible(TRUE)
 }
 
@@ -272,13 +271,11 @@ dx_auth <- function(dx_token = NULL) {
 #' # dx_find_projects()
 #' }
 dx_find_projects <- function() {
-  dx_binary <- get_dx_cache("dx_binary")
-  dx_projects <- system2(
-    dx_binary,
+  dx_projects <- dx_run_cmd(
     c("find", "projects", "--json"),
-    stdout = TRUE,
-    stderr = FALSE
-  )
+    dx_stdout = TRUE,
+    dx_stderr = FALSE
+  )$stdout
   dx_projects <- jsonlite::fromJSON(dx_projects)
   stats::setNames(dx_projects$id, dx_projects$describe$name)
 }
@@ -308,7 +305,7 @@ dx_set_project <- function(dx_project_id = NULL) {
     dx_binary,
     c("select", dx_project_id),
     stdout = FALSE,
-    stderr = FALSE
+    stderr = FALSE,
   )
   if (project_success != 0) {
     rlang::abort("Could not set project")
@@ -379,9 +376,16 @@ dx_ls <- function(directory = NULL) {
   dx_is_initialized()
   if (is.null(directory)) {
     dx_check_path()
-    return(dx_run_cmd("ls", fail_on_dx_error = TRUE)$stdout)
+    return(dx_run_cmd("ls", dx_stderr = FALSE, fail_on_dx_error = TRUE)$stdout)
   } else {
-    return(dx_run_cmd("ls", directory, fail_on_dx_error = TRUE)$stdout)
+    return(
+      dx_run_cmd(
+        "ls",
+        directory,
+        dx_stderr = FALSE,
+        fail_on_dx_error = TRUE
+      )$stdout
+    )
   }
 }
 

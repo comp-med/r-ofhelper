@@ -91,6 +91,7 @@ dx_check_binary <- function(dx_binary = NULL) {
   if (is.null(dx_binary)) {
     rlang::abort("Use `dx_set_binary` fist")
   }
+  # This is run pre-initialization and must remain `system2()`
   dx_exit <- suppressWarnings(system2(
     dx_binary,
     "--version",
@@ -115,6 +116,7 @@ dx_check_binary <- function(dx_binary = NULL) {
 #' }
 dx_check_auth <- function() {
   dx_binary <- get_dx_cache("dx_binary")
+  # This is run pre-initialization and must remain `system2()`
   dx_status <- suppressWarnings(system2(
     dx_binary,
     "whoami",
@@ -172,7 +174,9 @@ dx_check_path <- function() {
   dx_binary <- get_dx_cache("dx_binary")
   dx_project_name <- get_dx_cache("dx_project_name")
   dx_path_cached <- get_dx_cache("dx_path")
-  dx_path_current <- system2(dx_binary, "pwd", stdout = TRUE)
+
+  # This is run pre-initialization and must remain `system2()`
+  dx_path_current <- system2(dx_binary, "pwd", stdout = TRUE, stderr = FALSE)
   dx_path_current <- gsub(
     paste0(dx_project_name, ":"),
     "",

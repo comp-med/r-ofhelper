@@ -21,21 +21,18 @@ dx_file_exists <- function(file_path) {
   # Validate DNAnexus initialization
   dx_is_initialized()
 
-  # Use dx ls command which is the most reliable way to check file existence
-  dx_binary <- get_dx_cache("dx_binary")
-
   # Build command arguments
   args <- c("ls", file_path)
 
   # Execute command
-  result <- system2(
-    dx_binary,
+  result <- dx_run_cmd(
     args,
     stdout = NULL,
-    stderr = NULL
+    stderr = NULL,
+    fail_on_dx_error = FALSE
   )
 
-  if (result != 0) {
+  if (result$exit_code != 0) {
     return(FALSE)
   }
 

@@ -25,7 +25,7 @@ LazyData: true
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
-    quarto (>= 1.5.1)
+    quarto
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3
 Imports: 
