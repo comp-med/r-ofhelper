@@ -4,7 +4,7 @@
 \alias{dx_run_cmd}
 \title{Run Arbitrary DX Commands}
 \usage{
-dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = TRUE)
+dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = FALSE)
 }
 \arguments{
 \item{cmd}{Character string specifying the dx command to run (e.g., "ls", "upload", "find")}
@@ -18,7 +18,8 @@ of `system2` Defaults to TRUE, capturing output.}
 of `system2`. Defaults to TRUE, capturing output.}
 }
 \value{
-Character vector containing the command output (stdout)
+Character vector containing the command with output (depending on
+  `dx_stdout` and `dx_stderr`)
 }
 \description{
 A flexible wrapper for executing arbitrary DNAnexus commands through the dx CLI.
