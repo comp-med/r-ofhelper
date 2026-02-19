@@ -12,7 +12,8 @@ dx_run_cmd(
   ...,
   dx_stdout = TRUE,
   dx_stderr = TRUE,
-  fail_on_dx_error = TRUE
+  fail_on_dx_error = TRUE,
+  .require_init = TRUE
 )
 ```
 
@@ -40,7 +41,13 @@ dx_run_cmd(
 - fail_on_dx_error:
 
   Logical, whether to panic with error message when \`dx\` returns an
-  error or whether to return the result regardless
+  error or whether to return the result regardless. Defaults to TRUE
+
+- .require_init:
+
+  Logical. Internal parameter needed for bootstrapping package while
+  setting up cache. Defaults to TRUE and should not be modified by the
+  user
 
 ## Value
 
