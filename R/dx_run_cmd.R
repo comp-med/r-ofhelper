@@ -40,16 +40,18 @@ dx_run_cmd <- function(
   }
 
   args <- c(cmd, ...)
-  tmp_stdout <- withr::local_tempfile()
-  tmp_stderr <- withr::local_tempfile()
+  # ensure the files are created by adding a dummy line
+  tmp_stdout <- withr::local_tempfile(lines = ".dummy")
+  tmp_stderr <- withr::local_tempfile(lines = ".dummy")
   exit_code <- system2(
     dx_binary,
     args,
     stdout = tmp_stdout,
     stderr = tmp_stderr
   )
-  tmp_stdout <- readLines(tmp_stdout)
-  tmp_stderr <- readLines(tmp_stderr)
+  # read the files and remove dummy line
+  tmp_stdout <- readLines(tmp_stdout)[-1]
+  tmp_stderr <- readLines(tmp_stderr)[-1]
   if (exit_code != 0 && fail_on_dx_error) {
     err_msg <- paste(tmp_stderr, collapse = ", ")
     rlang::abort(glue::glue(
@@ -58,12 +60,14 @@ dx_run_cmd <- function(
     ))
   }
   result <- list(
-    "exit_code" = exit_code
+    "exit_code" = exit_code,
+    "stdout" = NULL,
+    "stderr" = NULL
   )
   if (dx_stdout) {
     result$stdout <- tmp_stdout
   }
-  if (dx_stdout) {
+  if (dx_stderr) {
     result$stderr <- tmp_stderr
   }
   return(result)

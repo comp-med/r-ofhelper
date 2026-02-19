@@ -17,5 +17,6 @@ is_multi_select <- NULL
 meaning <- NULL
 type <- NULL
 
-
+# For mocking with testthat
 system2 <- NULL
+readLines <- NULL
