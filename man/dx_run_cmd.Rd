@@ -4,26 +4,36 @@
 \alias{dx_run_cmd}
 \title{Run Arbitrary DX Commands}
 \usage{
-dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = FALSE)
+dx_run_cmd(
+  cmd = NULL,
+  ...,
+  dx_stdout = TRUE,
+  dx_stderr = TRUE,
+  fail_on_dx_error = TRUE
+)
 }
 \arguments{
-\item{cmd}{Character string specifying the dx command to run (e.g., "ls", "upload", "find")}
+\item{cmd}{Character string specifying the dx command to run (e.g., "ls",
+"upload", "find")}
 
 \item{...}{Additional arguments to pass to the dx command}
 
-\item{dx_stdout}{Where to direct STDOUT. Equivalent to the `stdout` parameter
-of `system2` Defaults to TRUE, capturing output.}
+\item{dx_stdout}{Logical, whether to return STDOUT. Equivalent to the
+`stdout` parameter of `system2` Defaults to TRUE, capturing output.}
 
-\item{dx_stderr}{Where to direct STDOUT. Equivalent to the `stderr` parameter
-of `system2`. Defaults to TRUE, capturing output.}
+\item{dx_stderr}{Logical, whether to return STDERR. Equivalent to the
+`stderr` parameter of `system2`. Defaults to TRUE, capturing output.}
+
+\item{fail_on_dx_error}{Logical, whether to panic with error message when `dx`
+returns an error or whether to return the result regardless}
 }
 \value{
-Character vector containing the command with output (depending on
+List containging exit code, stdout and stderr (depending on
   `dx_stdout` and `dx_stderr`)
 }
 \description{
-A flexible wrapper for executing arbitrary DNAnexus commands through the dx CLI.
-This function allows you to run any dx command with its arguments.
+A flexible wrapper for executing arbitrary DNAnexus commands through the dx
+CLI. This function allows you to run any dx command with its arguments.
 }
 \examples{
 \dontrun{
