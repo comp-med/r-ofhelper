@@ -7,7 +7,7 @@ arguments.
 ## Usage
 
 ``` r
-dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = TRUE)
+dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = FALSE)
 ```
 
 ## Arguments
@@ -33,7 +33,8 @@ dx_run_cmd(cmd = NULL, ..., dx_stdout = TRUE, dx_stderr = TRUE)
 
 ## Value
 
-Character vector containing the command output (stdout)
+Character vector containing the command with output (depending on
+\`dx_stdout\` and \`dx_stderr\`)
 
 ## Examples
 

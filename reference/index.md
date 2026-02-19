@@ -44,6 +44,10 @@
   : Find DNAnexus Projects
 - [`dx_get_env()`](https://comp-med.github.io/r-ofhelper/reference/dx_get_env.md)
   : Get DNAnexus Environment Information
+- [`dx_get_path()`](https://comp-med.github.io/r-ofhelper/reference/dx_get_path.md)
+  : Get the DNAnexus path
+- [`dx_get_project()`](https://comp-med.github.io/r-ofhelper/reference/dx_get_project.md)
+  : Get the DNAnexus project ID
 - [`dx_init()`](https://comp-med.github.io/r-ofhelper/reference/dx_init.md)
   : Initialize DNAnexus Environment
 - [`dx_is_initialized()`](https://comp-med.github.io/r-ofhelper/reference/dx_is_initialized.md)
@@ -74,9 +78,19 @@
   : Export Entities from DNAnexus
 - [`find_tre_instance_type()`](https://comp-med.github.io/r-ofhelper/reference/find_tre_instance_type.md)
   : Find Suitable DNAnexus Instance Type
+- [`get_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/get_dx_cache.md)
+  : Get values from the DNAnexus cache
 - [`get_workstation_worker_url()`](https://comp-med.github.io/r-ofhelper/reference/get_workstation_worker_url.md)
   : Get Workstation Worker URL
+- [`init_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/init_dx_cache.md)
+  : Initialize the DNAnexus cache environment
 - [`rate_card`](https://comp-med.github.io/r-ofhelper/reference/rate_card.md)
   : Our Future Health TRE rate card
+- [`remove_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/remove_dx_cache.md)
+  : Remove all entries from the DNAnexus cache
+- [`reset_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/reset_dx_cache.md)
+  : Reset the DNAnexus cache
+- [`set_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/set_dx_cache.md)
+  : Set values in the DNAnexus cache
 - [`tre_rate_card()`](https://comp-med.github.io/r-ofhelper/reference/tre_rate_card.md)
   : Get TRE Rate Card

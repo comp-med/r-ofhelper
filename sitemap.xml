@@ -26,6 +26,8 @@
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_file_exists.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_find_projects.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_get_env.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_get_path.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_get_project.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_init.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_is_initialized.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_launch_workstation.html</loc></url>
@@ -41,10 +43,15 @@
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/explode_multi_select.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/export_entities.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/find_tre_instance_type.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/get_dx_cache.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/get_workstation_worker_url.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/index.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/init_dx_cache.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/ofhelper-package.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/rate_card.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/remove_dx_cache.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/reset_dx_cache.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/set_dx_cache.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/tre_rate_card.html</loc></url>
 </urlset>
 

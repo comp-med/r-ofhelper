@@ -37,9 +37,10 @@ dx_init(
 ```
 
 Afterwards, you can check the status of the package by running
-`get_dx_cache()`. This informs you about the status available to your R
-session and this package’s functions (i.e. the package’s cache of `dx`’s
-status). To directly check the status of `dx`, run
+[`get_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/get_dx_cache.md).
+This informs you about the status available to your R session and this
+package’s functions (i.e. the package’s cache of `dx`’s status). To
+directly check the status of `dx`, run
 [`dx_get_env()`](https://comp-med.github.io/r-ofhelper/reference/dx_get_env.md),
 which simply parses the output of `dx env`.
 
