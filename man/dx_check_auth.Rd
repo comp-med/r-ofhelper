@@ -4,7 +4,10 @@
 \alias{dx_check_auth}
 \title{Check DNAnexus Authentication}
 \usage{
-dx_check_auth()
+dx_check_auth(...)
+}
+\arguments{
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if authenticated, aborts if not

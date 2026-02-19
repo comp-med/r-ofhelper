@@ -4,11 +4,13 @@
 \alias{dx_set_binary}
 \title{Set DNAnexus Binary Path}
 \usage{
-dx_set_binary(dx_binary = NULL)
+dx_set_binary(dx_binary = NULL, ...)
 }
 \arguments{
 \item{dx_binary}{Character string specifying the path to the dx binary.
 If NULL (default), assumes "dx" is in PATH.}
+
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if successful

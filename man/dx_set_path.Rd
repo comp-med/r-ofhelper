@@ -4,10 +4,12 @@
 \alias{dx_set_path}
 \title{Set DNAnexus Path}
 \usage{
-dx_set_path(dx_path = NULL)
+dx_set_path(dx_path = NULL, ...)
 }
 \arguments{
 \item{dx_path}{Character string specifying the DNAnexus project path.}
+
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if successful, aborts on failure

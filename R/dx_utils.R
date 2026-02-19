@@ -133,6 +133,7 @@ dx_is_initialized <- function() {
 #' Sets the path to the DNAnexus dx binary. This is typically called internally
 #' by dx_init().
 #'
+#' @param ... parameters to pass to `dx_run_cmd`
 #' @param dx_binary Character string specifying the path to the dx binary.
 #'   If NULL (default), assumes "dx" is in PATH.
 #'
@@ -247,6 +248,7 @@ dx_clear_env <- function() {
 #' Authenticates with DNAnexus using a provided token.
 #'
 #' @param dx_token Character string specifying the DNAnexus authentication token.
+#' @param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if successful, FALSE otherwise
 #' @export
@@ -296,6 +298,7 @@ dx_list_projects <- dx_find_projects
 #' Selects a DNAnexus project to work with.
 #'
 #' @param dx_project_id Character string specifying the DNAnexus project ID.
+#' @param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if successful, aborts on failure
 #' @export
@@ -333,6 +336,7 @@ dx_set_project <- function(dx_project_id = NULL, ...) {
 #' Sets the working directory within the DNAnexus project.
 #'
 #' @param dx_path Character string specifying the DNAnexus project path.
+#' @param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if successful, aborts on failure
 #' @export

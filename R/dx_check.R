@@ -74,6 +74,7 @@ dx_check_connection <- function() {
 #'
 #' @param dx_binary Character string specifying the path to the dx binary.
 #'   If NULL (default), uses the cached binary path.
+#'@param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if binary is valid, aborts on failure
 #' @export
@@ -105,6 +106,8 @@ dx_check_binary <- function(dx_binary = NULL, ...) {
 #'
 #' Verifies that the DNAnexus environment is properly authenticated.
 #' This function checks if a valid authentication token is available.
+#'
+#'@param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if authenticated, aborts if not
 #' @export
@@ -158,6 +161,8 @@ dx_check_project <- function() {
 #'
 #' Verifies that the current working directory path in DNAnexus is valid and accessible.
 #' This function ensures that the cached path matches the current environment path.
+#'
+#'@param ... parameters to pass to `dx_run_cmd`
 #'
 #' @return Invisible TRUE if path is valid, aborts on failure
 #' @export

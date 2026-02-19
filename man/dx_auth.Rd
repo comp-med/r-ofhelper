@@ -4,10 +4,12 @@
 \alias{dx_auth}
 \title{Authenticate with DNAnexus}
 \usage{
-dx_auth(dx_token = NULL)
+dx_auth(dx_token = NULL, ...)
 }
 \arguments{
 \item{dx_token}{Character string specifying the DNAnexus authentication token.}
+
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if successful, FALSE otherwise

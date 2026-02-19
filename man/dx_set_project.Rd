@@ -4,10 +4,12 @@
 \alias{dx_set_project}
 \title{Set DNAnexus Project}
 \usage{
-dx_set_project(dx_project_id = NULL)
+dx_set_project(dx_project_id = NULL, ...)
 }
 \arguments{
 \item{dx_project_id}{Character string specifying the DNAnexus project ID.}
+
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if successful, aborts on failure

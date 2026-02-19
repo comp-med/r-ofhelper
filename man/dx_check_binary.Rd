@@ -4,11 +4,13 @@
 \alias{dx_check_binary}
 \title{Check DNAnexus Binary}
 \usage{
-dx_check_binary(dx_binary = NULL)
+dx_check_binary(dx_binary = NULL, ...)
 }
 \arguments{
 \item{dx_binary}{Character string specifying the path to the dx binary.
 If NULL (default), uses the cached binary path.}
+
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if binary is valid, aborts on failure

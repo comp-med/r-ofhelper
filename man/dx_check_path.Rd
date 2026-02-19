@@ -4,7 +4,10 @@
 \alias{dx_check_path}
 \title{Check DNAnexus Path}
 \usage{
-dx_check_path()
+dx_check_path(...)
+}
+\arguments{
+\item{...}{parameters to pass to `dx_run_cmd`}
 }
 \value{
 Invisible TRUE if path is valid, aborts on failure
