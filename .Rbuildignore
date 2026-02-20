@@ -13,3 +13,4 @@
 ^pkgdown$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
+^\.lintr$
