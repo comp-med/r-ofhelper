@@ -8,13 +8,13 @@
 ## Citation
 
 Beuchel C (2026). *ofhelper: Working with and on DNAnexus's Our Future
-Health Trusted Research Environment*. R package version 0.3.3,
+Health Trusted Research Environment*. R package version 0.3.4,
 <https://comp-med.github.io/r-ofhelper/>.
 
     @Manual{,
       title = {ofhelper: Working with and on DNAnexus's Our Future Health Trusted Research Environment},
       author = {Carl Beuchel},
       year = {2026},
-      note = {R package version 0.3.3},
+      note = {R package version 0.3.4},
       url = {https://comp-med.github.io/r-ofhelper/},
     }
