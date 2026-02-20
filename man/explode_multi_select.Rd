@@ -6,7 +6,7 @@
 \usage{
 explode_multi_select(
   x,
-  answer_separators = c(",", "|"),
+  answer_separators = "|",
   long_format = FALSE,
   na_is_none_of_the_above = TRUE
 )
@@ -16,7 +16,7 @@ explode_multi_select(
 multiple answers separated by either commas (`,`) or pipes (`|`).}
 
 \item{answer_separators}{Character vector specifying separators to split answers.
-Default is c(",", "|").}
+Default is "|" since "," are used within the answers.}
 
 \item{long_format}{Logical. If \code{TRUE}, returns data in long format with
 three columns: \code{index}, \code{original}, and \code{variable} (name of
