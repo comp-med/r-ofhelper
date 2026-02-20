@@ -17,6 +17,7 @@ create_multi_select_vec <- function(
   max_answers = 10,
   fraction_missing = 0.1
 ) {
+  num_missing <- fraction_missing * vec_length
   vec_length <- vec_length / max_answers
   ten_lists <- vector(mode = "list", vec_length)
   for (j in seq_len(vec_length)) {
@@ -32,6 +33,6 @@ create_multi_select_vec <- function(
   }
   multi_var <- unlist(ten_lists)
   multi_var <- glue::glue("[{multi_var}]")
-  multi_var[sample(seq_along(multi_var), vec_length * fraction_missing)] <- "NA"
+  multi_var[sample(seq_along(multi_var), num_missing)] <- "NA"
   multi_var
 }

@@ -8,18 +8,9 @@
 #'   multiple answers separated by either commas (`,`) or pipes (`|`).
 #' @param answer_separators Character vector specifying separators to split answers.
 #'   Default is "|" since "," are used within the answers.
-#' @param long_format Logical. If \code{TRUE}, returns data in long format with
-#'   three columns: \code{index}, \code{original}, and \code{variable} (name of
-#'   the dummy-coded variable) and \code{value} (binary indicator). If \code{FALSE},
-#'   returns wide format with one column per unique value.
-#' @param na_is_none_of_the_above Logical. If \code{TRUE}, treats "NA" values as
-#'   "none of the above" (all dummy variables FALSE). If \code{FALSE}, treats "NA"
-#'   values as missing (all dummy variables NA).
 #'
-#' @return A data.table with either:
+#' @return A data.table with
 #'   - Wide format: one row per input element, one column per unique value (binary)
-#'   - Long format: three columns (\code{index}, \code{original}, \code{variable}, \code{value})
-#'   - Additional columns: \code{original} (original input) and \code{index} (row index)
 #'
 #' @export
 #'
@@ -38,9 +29,7 @@
 #' }
 explode_multi_select <- function(
   x,
-  answer_separators = "|",
-  long_format = FALSE,
-  na_is_none_of_the_above = TRUE
+  answer_separators = "|"
 ) {
   # TODO this should be a separate function
   specials <- "([.|()\\^{}+$*?]|\\[|\\]|\\\\)"
@@ -73,16 +62,10 @@ explode_multi_select <- function(
       perl = TRUE
     )
     data.table::set(x = res, j = k, value = dummy)
-
-    # This turns FALSE into NA based on the stated assumption
-    # This needs to be tracked downstream
-    if (isFALSE(na_is_none_of_the_above)) {
-      data.table::set(x = res, i = which(x == "NA"), j = k, value = NA)
-      data.table::set(x = res, i = which(is.na(x)), j = k, value = NA)
-    }
-  }
-  if (long_format) {
-    res <- data.table::melt.data.table(res, id.vars = c("index", "original"))
+    # Make sure we don't miss any NAs by setting both NA and "NA" from x to NA
+    # in the dummy
+    data.table::set(x = res, i = which(x == "NA"), j = k, value = NA)
+    data.table::set(x = res, i = which(is.na(x)), j = k, value = NA)
   }
 
   res

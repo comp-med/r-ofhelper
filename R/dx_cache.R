@@ -4,18 +4,20 @@
 #'
 #' @return An environment with slots for storing DNAnexus configuration
 init_dx_cache <- function() {
-  rlang::env(
-    dx_binary = NULL,
-    dx_project_id = NULL,
-    dx_project_name = NULL,
-    dx_path = NULL,
-    dx_user = NULL,
-    dx_server_host = NULL,
-    dx_initialized = FALSE
+  rlang::new_environment(
+    list(
+      dx_binary = NULL,
+      dx_project_id = NULL,
+      dx_project_name = NULL,
+      dx_path = NULL,
+      dx_user = NULL,
+      dx_server_host = NULL,
+      dx_initialized = FALSE
+    ),
+    parent = rlang::global_env()
   )
 }
 .dx_cache <- init_dx_cache()
-
 
 #' Reset the DNAnexus cache
 #'
