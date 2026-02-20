@@ -353,7 +353,8 @@ dx_set_path <- function(dx_path = NULL, ...) {
   cd_sucess <- dx_run_cmd(
     c("cd", dx_path),
     dx_stderr = FALSE,
-    dx_stdout = FALSE
+    dx_stdout = FALSE,
+    ...
   )$exit_code
   if (cd_sucess != 0) {
     rlang::abort("Could not set path")
