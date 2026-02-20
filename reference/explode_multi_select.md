@@ -10,7 +10,7 @@ variables. Each unique value becomes a binary column indicating presence
 ``` r
 explode_multi_select(
   x,
-  answer_separators = c(",", "|"),
+  answer_separators = "|",
   long_format = FALSE,
   na_is_none_of_the_above = TRUE
 )
@@ -27,7 +27,7 @@ explode_multi_select(
 - answer_separators:
 
   Character vector specifying separators to split answers. Default is
-  c(",", "\|").
+  "\|" since "," are used within the answers.
 
 - long_format:
 
