@@ -8,7 +8,12 @@ variables. Each unique value becomes a binary column indicating presence
 ## Usage
 
 ``` r
-explode_multi_select(x, answer_separators = "|")
+explode_multi_select(
+  x,
+  answer_separators = c(",", "|"),
+  long_format = FALSE,
+  na_is_none_of_the_above = TRUE
+)
 ```
 
 ## Arguments
@@ -22,12 +27,27 @@ explode_multi_select(x, answer_separators = "|")
 - answer_separators:
 
   Character vector specifying separators to split answers. Default is
-  "\|" since "," are used within the answers.
+  c(",", "\|").
+
+- long_format:
+
+  Logical. If `TRUE`, returns data in long format with three columns:
+  `index`, `original`, and `variable` (name of the dummy-coded variable)
+  and `value` (binary indicator). If `FALSE`, returns wide format with
+  one column per unique value.
+
+- na_is_none_of_the_above:
+
+  Logical. If `TRUE`, treats "NA" values as "none of the above" (all
+  dummy variables FALSE). If `FALSE`, treats "NA" values as missing (all
+  dummy variables NA).
 
 ## Value
 
-A data.table with - Wide format: one row per input element, one column
-per unique value (binary)
+A data.table with either: - Wide format: one row per input element, one
+column per unique value (binary) - Long format: three columns (`index`,
+`original`, `variable`, `value`) - Additional columns: `original`
+(original input) and `index` (row index)
 
 ## Examples
 
