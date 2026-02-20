@@ -11,7 +11,7 @@ a binary column indicating presence (TRUE) or absence (FALSE) of that value."></
 
     <a class="navbar-brand me-2" href="../index.html">ofhelper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,12 +47,7 @@ a binary column indicating presence (TRUE) or absence (FALSE) of that value.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">explode_multi_select</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  answer_separators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">","</span>, <span class="st">"|"</span><span class="op">)</span>,</span>
-<span>  long_format <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  na_is_none_of_the_above <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">explode_multi_select</span><span class="op">(</span><span class="va">x</span>, answer_separators <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -66,28 +61,13 @@ multiple answers separated by either commas (`,`) or pipes (`|`).</p></dd>
 
 <dt id="arg-answer-separators">answer_separators<a class="anchor" aria-label="anchor" href="#arg-answer-separators"></a></dt>
 <dd><p>Character vector specifying separators to split answers.
-Default is c(",", "|").</p></dd>
-
-
-<dt id="arg-long-format">long_format<a class="anchor" aria-label="anchor" href="#arg-long-format"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, returns data in long format with
-three columns: <code>index</code>, <code>original</code>, and <code>variable</code> (name of
-the dummy-coded variable) and <code>value</code> (binary indicator). If <code>FALSE</code>,
-returns wide format with one column per unique value.</p></dd>
-
-
-<dt id="arg-na-is-none-of-the-above">na_is_none_of_the_above<a class="anchor" aria-label="anchor" href="#arg-na-is-none-of-the-above"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, treats "NA" values as
-"none of the above" (all dummy variables FALSE). If <code>FALSE</code>, treats "NA"
-values as missing (all dummy variables NA).</p></dd>
+Default is "|" since "," are used within the answers.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data.table with either:
-  - Wide format: one row per input element, one column per unique value (binary)
-  - Long format: three columns (<code>index</code>, <code>original</code>, <code>variable</code>, <code>value</code>)
-  - Additional columns: <code>original</code> (original input) and <code>index</code> (row index)</p>
+    <p>A data.table with
+  - Wide format: one row per input element, one column per unique value (binary)</p>
     </div>
 
     <div class="section level2">
