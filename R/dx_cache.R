@@ -17,6 +17,8 @@ init_dx_cache <- function() {
     parent = rlang::global_env()
   )
 }
+
+# TODO: I don't know if this is idiomatic. Might be OK to remove
 .dx_cache <- init_dx_cache()
 
 #' Reset the DNAnexus cache

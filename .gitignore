@@ -7,3 +7,4 @@ ofhelper.Rcheck/
 docs
 inst/doc
 **/.quarto/
+.Rprofile

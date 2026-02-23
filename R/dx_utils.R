@@ -46,7 +46,7 @@ dx_init <- function(
   # loading the package
   if (!exists(".dx_cache", mode = "environment")) {
     .dx_cache <- init_dx_cache()
-    assign(".dx_cache ", .dx_cache, envir = rlang::global_env())
+    assign(".dx_cache", .dx_cache, envir = rlang::global_env())
   }
 
   # Bootstrap the binary path - circumventing checks
