@@ -40,7 +40,6 @@ dx_run_cmd <- function(
   .require_init = TRUE,
   .dx_binary = NULL
 ) {
-  # TODO - I'm not sure this makes sense
   if (isTRUE(.require_init)) {
     dx_is_initialized()
     dx_binary <- get_dx_cache("dx_binary")

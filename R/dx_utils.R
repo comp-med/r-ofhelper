@@ -42,10 +42,11 @@ dx_init <- function(
     dx_check_connection()
   }
 
-  # This is only relevant on the TRE, where it will not be initialized when
+  # This is relevant on the TRE, where it will not be initialized when
   # loading the package
   if (!exists(".dx_cache", mode = "environment")) {
     .dx_cache <- init_dx_cache()
+    assign(".dx_cache ", .dx_cache, envir = rlang::global_env())
   }
 
   # Bootstrap the binary path - circumventing checks
@@ -57,8 +58,7 @@ dx_init <- function(
 
   auth_success <- FALSE
   if (is.null(dx_token)) {
-    auth_present <- dx_check_auth(.require_init = FALSE)
-    auth_success <- ifelse(auth_present, TRUE, FALSE)
+    auth_success <- dx_check_auth(.require_init = FALSE)
   } else {
     auth_success <- dx_auth(dx_token, .require_init = FALSE)
   }
@@ -76,7 +76,7 @@ dx_init <- function(
       path_success <- dx_set_path(dx_path, .require_init = FALSE)
     }
   }
-  if (auth_success & bin_success) {
+  if (auth_success && bin_success) {
     set_dx_cache("dx_initialized" = TRUE)
   }
   if (!project_success) {
@@ -84,7 +84,7 @@ dx_init <- function(
       "Authenticated but no project set. Re-run `dx_init()` and specify a project ID or use `dx_set_project()`"
     )
   }
-  if (project_success & !path_success) {
+  if (project_success && !path_success) {
     rlang::inform(
       "Authenticated and project set but no path specified, so project root is used by default."
     )
@@ -149,7 +149,7 @@ dx_set_binary <- function(dx_binary = NULL, ...) {
   dx_binary <- dx_binary %||% "dx"
   dx_binary_works <- dx_check_binary(dx_binary, ...)
 
-  if (dx_binary_works != TRUE) {
+  if (isFALSE(dx_binary_works)) {
     rlang::abort(
       "`dx` utilities not found in `$PATH`. Please supply valid path to initialize"
     )
@@ -388,16 +388,14 @@ dx_ls <- function(directory = NULL) {
   dx_is_initialized()
   if (is.null(directory)) {
     dx_check_path()
-    return(dx_run_cmd("ls", dx_stderr = FALSE, fail_on_dx_error = TRUE)$stdout)
+    dx_run_cmd("ls", dx_stderr = FALSE, fail_on_dx_error = TRUE)$stdout
   } else {
-    return(
-      dx_run_cmd(
-        "ls",
-        directory,
-        dx_stderr = FALSE,
-        fail_on_dx_error = TRUE
-      )$stdout
-    )
+    dx_run_cmd(
+      "ls",
+      directory,
+      dx_stderr = FALSE,
+      fail_on_dx_error = TRUE
+    )$stdout
   }
 }
 
