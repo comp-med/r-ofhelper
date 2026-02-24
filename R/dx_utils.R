@@ -266,6 +266,10 @@ dx_auth <- function(dx_token = NULL, ...) {
     fail_on_dx_error = FALSE,
     ...
   )
+  if (auth_success$exit_code != 0) {
+    err_msg <- paste(auth_success$stderr, collapse = "; ")
+    rlang::warn(glue::glue("None-zero exit code with message: {err_msg}"))
+  }
   invisible(auth_success == 0)
 }
 
