@@ -18,9 +18,6 @@ init_dx_cache <- function() {
   )
 }
 
-# TODO: I don't know if this is idiomatic. Might be OK to remove
-.dx_cache <- init_dx_cache()
-
 #' Reset the DNAnexus cache
 #'
 #' Clears all stored DNAnexus configuration values, setting them to NULL
