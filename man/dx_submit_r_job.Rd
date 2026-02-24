@@ -11,7 +11,8 @@ dx_submit_r_job(
   session_name = NULL,
   tag = NULL,
   include_ofhelper = TRUE,
-  remote_inputs = NULL
+  remote_inputs = NULL,
+  app_id = "app-J6B38V00ybbkyqqp8XppK2yF"
 )
 }
 \arguments{
@@ -33,6 +34,9 @@ ofhelper package source code to ensure all required functions are available.}
 
 \item{remote_inputs}{Character vector of DNAnexus file paths to be downloaded
 into the worker. Default is NULL.}
+
+\item{app_id}{Character. App ID of the Jupyter Workstation DNAnexus App.
+Defaults to an ID that might be subject to change.}
 }
 \value{
 Job ID of the submitted DNAnexus job

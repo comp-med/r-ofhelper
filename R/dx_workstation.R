@@ -11,6 +11,8 @@
 #' @param instance_type Character string specifying the DNAnexus instance type.
 #'   Must be a valid instance type from the TRE rate card. Default is
 #'   "azure:mem1_ssd2_v2_x2".
+#' @param app_id Character. App ID of the Jupyter Workstation DNAnexus App.
+#'   Defaults to an ID that might be subject to change.
 #'
 #' @return Character string with the job ID of the launched workstation session
 #' @export
@@ -32,7 +34,8 @@ dx_launch_workstation <- function(
   priority = "normal",
   session_name = "jupyter_workstation",
   session_length_minutes = 180,
-  instance_type = "azure:mem1_ssd2_v2_x2"
+  instance_type = "azure:mem1_ssd2_v2_x2",
+  app_id = "app-J6B38V00ybbkyqqp8XppK2yF"
 ) {
   dx_is_initialized()
 
@@ -53,9 +56,6 @@ dx_launch_workstation <- function(
       "Invalid instance type. Check `tre_rate_card() for valid instances.`"
     ))
   }
-
-  # Hard-coded app_id since it will not change
-  app_id <- "app-J3BZ4xQ0ZGP6kqbXB9G89BFz"
 
   # Build the command arguments
   app_args <- c(

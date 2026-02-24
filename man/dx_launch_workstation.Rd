@@ -8,7 +8,8 @@ dx_launch_workstation(
   priority = "normal",
   session_name = "jupyter_workstation",
   session_length_minutes = 180,
-  instance_type = "azure:mem1_ssd2_v2_x2"
+  instance_type = "azure:mem1_ssd2_v2_x2",
+  app_id = "app-J6B38V00ybbkyqqp8XppK2yF"
 )
 }
 \arguments{
@@ -24,6 +25,9 @@ Default is 180 (3 hours).}
 \item{instance_type}{Character string specifying the DNAnexus instance type.
 Must be a valid instance type from the TRE rate card. Default is
 "azure:mem1_ssd2_v2_x2".}
+
+\item{app_id}{Character. App ID of the Jupyter Workstation DNAnexus App.
+Defaults to an ID that might be subject to change.}
 }
 \value{
 Character string with the job ID of the launched workstation session
