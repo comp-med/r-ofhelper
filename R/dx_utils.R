@@ -81,7 +81,10 @@ dx_init <- function(
   }
   if (!project_success) {
     rlang::warn(
-      "Authenticated but no project set. Re-run `dx_init()` and specify a project ID or use `dx_set_project()`"
+      glue::glue(
+        "Authenticated but no project set. Re-run `dx_init()` and specify ",
+        "a project ID or use `dx_set_project()`"
+      )
     )
   }
   if (project_success && !path_success) {
