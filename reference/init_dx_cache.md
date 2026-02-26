@@ -1,6 +1,7 @@
 # Initialize the DNAnexus cache environment
 
-Creates a new environment to store DNAnexus configuration values.
+Creates a new environment \`.dx_cache\` to store DNAnexus configuration
+values.
 
 ## Usage
 
@@ -10,4 +11,4 @@ init_dx_cache()
 
 ## Value
 
-An environment with slots for storing DNAnexus configuration
+the freshly initialized cache environment
