@@ -42,12 +42,12 @@ dx_init <- function(
     dx_check_connection()
   }
 
-  # This is relevant on the TRE, where it will not be initialized when
-  # loading the package
+  # This is now the initial place where the cache is set up
   if (!exists(".dx_cache", mode = "environment")) {
-    .dx_cache <- init_dx_cache()
-    assign(".dx_cache", .dx_cache, envir = rlang::global_env())
+    env <- init_dx_cache()
+    assign(".dx_cache", env, envir = rlang::env_parent())
   }
+  # TODO: maybe clearing the cache here makes sense, too
 
   # Bootstrap the binary path - circumventing checks
   bin_success <- dx_set_binary(

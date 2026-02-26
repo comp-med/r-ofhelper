@@ -1,21 +1,28 @@
 #' Initialize the DNAnexus cache environment
 #'
-#' Creates a new environment to store DNAnexus configuration values.
+#' Creates a new environment `.dx_cache` to store DNAnexus configuration values.
 #'
-#' @return An environment with slots for storing DNAnexus configuration
+#' @return the freshly initialized cache environment
 init_dx_cache <- function() {
-  rlang::new_environment(
-    list(
-      dx_binary = NULL,
-      dx_project_id = NULL,
-      dx_project_name = NULL,
-      dx_path = NULL,
-      dx_user = NULL,
-      dx_server_host = NULL,
-      dx_initialized = FALSE
-    ),
-    parent = rlang::global_env()
+  env <- rlang::env(
+    dx_binary = NULL,
+    dx_project_id = NULL,
+    dx_project_name = NULL,
+    dx_path = NULL,
+    dx_user = NULL,
+    dx_server_host = NULL,
+    dx_initialized = FALSE
   )
+
+  env_exists <- exists(
+    "env",
+    mode = "environment"
+  )
+  if (!env_exists) {
+    rlang::abort("The cache could not be initialized correctly.")
+  }
+
+  invisible(env)
 }
 
 #' Reset the DNAnexus cache

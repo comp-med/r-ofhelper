@@ -17,6 +17,9 @@ is_multi_select <- NULL
 meaning <- NULL
 type <- NULL
 
+# Init the cache at package loading
+.dx_cache <- init_dx_cache()
+
 # For mocking with testthat
 system2 <- NULL
 readLines <- NULL

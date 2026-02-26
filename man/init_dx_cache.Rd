@@ -7,8 +7,8 @@
 init_dx_cache()
 }
 \value{
-An environment with slots for storing DNAnexus configuration
+the freshly initialized cache environment
 }
 \description{
-Creates a new environment to store DNAnexus configuration values.
+Creates a new environment `.dx_cache` to store DNAnexus configuration values.
 }

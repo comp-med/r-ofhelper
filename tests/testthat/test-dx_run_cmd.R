@@ -2,7 +2,7 @@ test_that("dx_run_cmd executes commands correctly with mocking", {
   skip_on_cran()
 
   # This is a mock initialization to avoid failure
-  .dx_cache <- init_dx_cache()
+  init_dx_cache()
   set_dx_cache("dx_initialized" = TRUE)
   local_mocked_bindings(
     system2 = function(
