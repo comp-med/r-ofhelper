@@ -1,5 +1,5 @@
+# This is here to get rid of a check note
 utils::globalVariables(".")
-
 
 #' Decompress gzipped files
 #'
@@ -46,5 +46,5 @@ decompress_gzip <- function(files) {
     "Decompressed files: {paste(decompressed_files, collapse = ', ')}"
   ))
 
-  return(invisible(TRUE))
+  invisible(TRUE)
 }
