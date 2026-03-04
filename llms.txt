@@ -161,6 +161,8 @@ for your local environment and might include additional dependencies.
   : Decode Raw OFH Data File
 - [`decode_single_select()`](https://comp-med.github.io/r-ofhelper/reference/decode_single_select.md)
   : Decode Single-Select Variables
+- [`decompress_gzip()`](https://comp-med.github.io/r-ofhelper/reference/decompress_gzip.md)
+  : Decompress gzipped files
 - [`dx_auth()`](https://comp-med.github.io/r-ofhelper/reference/dx_auth.md)
   : Authenticate with DNAnexus
 - [`dx_check()`](https://comp-med.github.io/r-ofhelper/reference/dx_check.md)

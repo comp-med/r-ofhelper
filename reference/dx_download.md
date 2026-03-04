@@ -7,7 +7,12 @@ command.
 ## Usage
 
 ``` r
-dx_download(files, local_dir = ".", overwrite_existing = TRUE)
+dx_download(
+  files,
+  local_dir = ".",
+  overwrite_existing = TRUE,
+  unzip_files = FALSE
+)
 ```
 
 ## Arguments
@@ -25,6 +30,13 @@ dx_download(files, local_dir = ".", overwrite_existing = TRUE)
 
   Logical. If TRUE (default), overwrites existing local files with the
   same name. If FALSE, skips files that already exist.
+
+- unzip_files:
+
+  Logical. If FALSE (default) does nothing. If TRUE, files with the
+  '.gz' extension will be decompressed using the \`gzip\` utility. OFH
+  decided to remove \`R.utils\` from the JupyterLab app, so
+  decompression is no longer possible from within R (thanks guys!).
 
 ## Value
 
