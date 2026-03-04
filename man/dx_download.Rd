@@ -4,7 +4,12 @@
 \alias{dx_download}
 \title{Download Files from DNAnexus}
 \usage{
-dx_download(files, local_dir = ".", overwrite_existing = TRUE)
+dx_download(
+  files,
+  local_dir = ".",
+  overwrite_existing = TRUE,
+  unzip_files = FALSE
+)
 }
 \arguments{
 \item{files}{Character vector of DNAnexus file identifiers or paths to download.}
@@ -14,6 +19,11 @@ If NULL (default), uses the current working directory.}
 
 \item{overwrite_existing}{Logical. If TRUE (default), overwrites existing local files
 with the same name. If FALSE, skips files that already exist.}
+
+\item{unzip_files}{Logical. If FALSE (default) does nothing. If TRUE, files
+with the '.gz' extension will be decompressed using the `gzip` utility. OFH
+decided to remove `R.utils` from the JupyterLab app, so decompression is no
+longer possible from within R (thanks guys!).}
 }
 \value{
 Character vector containing the download command output (stdout)
