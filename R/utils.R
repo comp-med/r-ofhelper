@@ -13,7 +13,11 @@ decompress_gzip <- function(files) {
     rlang::abort("All files should end on `.gz`")
   }
 
-  gz_bin <- "gzip"
+  gz_bin <- Sys.which("gzip")
+  if (gz_bin == "") {
+    rlang::abort("`gzip` not found in $PATH")
+  }
+
   gz_check <- system2(
     command = gz_bin,
     args = "--help",
