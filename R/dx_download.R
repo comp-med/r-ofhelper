@@ -8,6 +8,10 @@
 #'   If NULL (default), uses the current working directory.
 #' @param overwrite_existing Logical. If TRUE (default), overwrites existing local files
 #'   with the same name. If FALSE, skips files that already exist.
+#' @param unzip_files Logical. If FALSE (default) does nothing. If TRUE, files
+#'   with the '.gz' extension will be decompressed using the `gzip` utility. OFH
+#'   decided to remove `R.utils` from the JupyterLab app, so decompression is no
+#'   longer possible from within R (thanks guys!).
 #'
 #' @return Character vector containing the download command output (stdout)
 #' @export
@@ -26,7 +30,8 @@
 dx_download <- function(
   files,
   local_dir = ".",
-  overwrite_existing = TRUE
+  overwrite_existing = TRUE,
+  unzip_files = FALSE
 ) {
   dx_is_initialized()
 
@@ -58,4 +63,14 @@ dx_download <- function(
     dx_stderr = FALSE,
     fail_on_dx_error = TRUE
   )
+
+  if (unzip_files == TRUE) {
+    if (local_dir != ".") {
+      files <- fs::path(local_dir, files)
+    }
+    gzipped_files <- files[fs::path_ext(files) == "gz"]
+    decompress_gzip(gzipped_files)
+  }
+
+  invisible(TRUE)
 }
