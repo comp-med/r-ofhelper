@@ -30,8 +30,8 @@ decompress_gzip <- function(files) {
   gz_success <- system2(
     command = gz_bin,
     args = c("-d", files),
-    stdout = NULL,
-    stderr = NULL
+    stdout = "",
+    stderr = ""
   )
   if (gz_success != 0) {
     rlang::abort("`gzip` failed to extract files")

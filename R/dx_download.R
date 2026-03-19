@@ -65,6 +65,7 @@ dx_download <- function(
   )
 
   if (unzip_files) {
+    files <- fs::path_file(files)
     if (local_dir != ".") {
       files <- fs::path(local_dir, files)
     }
