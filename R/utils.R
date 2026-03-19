@@ -9,7 +9,7 @@ utils::globalVariables(".")
 #'
 #' @returns TRUE on success
 decompress_gzip <- function(files) {
-  if (!any(fs::path_ext(files) != "gz")) {
+  if (any(fs::path_ext(files) != "gz")) {
     rlang::abort("All files should end on `.gz`")
   }
 
