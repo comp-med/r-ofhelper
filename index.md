@@ -33,6 +33,8 @@ Function documentation is also available at
   - [`dx_launch_workstation()`](https://comp-med.github.io/r-ofhelper/reference/dx_launch_workstation.md)
 - **Submit R jobs with custom scripts**
   - [`dx_submit_r_job()`](https://comp-med.github.io/r-ofhelper/reference/dx_submit_r_job.md)
+- \*\* Submit Swiss Army Knife jobs\*\*
+  - [`dx_run_swiss_army_knife()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_swiss_army_knife.md)
 - **DNAnexus Operations**:
   - Functions starting with: `dx_*`
   - [`dx_run_cmd()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_cmd.md)

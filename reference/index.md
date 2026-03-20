@@ -62,6 +62,8 @@
   : Remount DNAnexus Project
 - [`dx_run_cmd()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_cmd.md)
   : Run Arbitrary DX Commands
+- [`dx_run_swiss_army_knife()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_swiss_army_knife.md)
+  : Submit a Swiss Army Knife DNAnexus Job
 - [`dx_set_binary()`](https://comp-med.github.io/r-ofhelper/reference/dx_set_binary.md)
   : Set DNAnexus Binary Path
 - [`dx_set_env()`](https://comp-med.github.io/r-ofhelper/reference/dx_set_env.md)
