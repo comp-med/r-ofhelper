@@ -35,6 +35,8 @@ Function documentation is also available at
   - `dx_launch_workstation()`
 - **Submit R jobs with custom scripts**
   - `dx_submit_r_job()`
+- ** Submit Swiss Army Knife jobs**
+  - `dx_run_swiss_army_knife()`
 - **DNAnexus Operations**:
   - Functions starting with: `dx_*`
   - `dx_run_cmd()` can be used to execute arbitrary `dx` commands slightly 
