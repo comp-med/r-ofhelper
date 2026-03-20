@@ -151,10 +151,20 @@ for your local environment and might include additional dependencies.
   : Clean OFH Data Dictionary
 - [`correct_column_type()`](https://comp-med.github.io/r-ofhelper/reference/correct_column_type.md)
   : Correct Data Column Type
+- [`create_bgen_file_names()`](https://comp-med.github.io/r-ofhelper/reference/create_bgen_file_names.md)
+  : Create OFH imputed genomic file BGEN file names
 - [`create_cmd_input_string()`](https://comp-med.github.io/r-ofhelper/reference/create_cmd_input_string.md)
   : Create Command Input String for Jupyter Workstation
+- [`create_genomic_file_batch_ids()`](https://comp-med.github.io/r-ofhelper/reference/create_genomic_file_batch_ids.md)
+  : Create batch ID string for genomic files
+- [`create_genomic_file_prefix()`](https://comp-med.github.io/r-ofhelper/reference/create_genomic_file_prefix.md)
+  : Create genomic file prefix
+- [`create_imputed_file_prefix()`](https://comp-med.github.io/r-ofhelper/reference/create_imputed_file_prefix.md)
+  : Create OFH imputed genomic file prefix
 - [`create_ofhelper_string()`](https://comp-med.github.io/r-ofhelper/reference/create_ofhelper_string.md)
   : Create Complete ofhelper Package Source String
+- [`create_sample_file_names()`](https://comp-med.github.io/r-ofhelper/reference/create_sample_file_names.md)
+  : Create OFH imputed genomic file BGEN Sample file names
 - [`decode_multi_select()`](https://comp-med.github.io/r-ofhelper/reference/decode_multi_select.md)
   : Decode Multi-Select Variables
 - [`decode_ofh_variable()`](https://comp-med.github.io/r-ofhelper/reference/decode_ofh_variable.md)
