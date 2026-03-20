@@ -2,8 +2,12 @@
 
 export(clean_codings_table)
 export(clean_data_dictionary)
+export(create_bgen_file_names)
 export(create_cmd_input_string)
+export(create_genomic_file_prefix)
+export(create_imputed_file_prefix)
 export(create_ofhelper_string)
+export(create_sample_file_names)
 export(decode_multi_select)
 export(decode_ofh_variable)
 export(decode_raw_ofh_file)
