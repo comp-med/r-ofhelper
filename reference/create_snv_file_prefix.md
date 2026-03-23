@@ -1,11 +1,11 @@
-# Create OFH imputed genomic file prefix
+# Create OFH called genotype file prefix
 
-Create OFH imputed genomic file prefix
+Create OFH called genotype file prefix
 
 ## Usage
 
 ``` r
-create_imputed_file_prefix(chr, n_batches)
+create_snv_file_prefix(chr, n_batches)
 ```
 
 ## Arguments
@@ -22,4 +22,4 @@ create_imputed_file_prefix(chr, n_batches)
 
 ## Value
 
-Formatted character strings for imputed genotype files.
+Formatted character strings for SNV files

@@ -1,25 +1,21 @@
-# Create OFH imputed genomic file BGEN file names
+# Create OFH genomic file BGEN file names
 
-Create OFH imputed genomic file BGEN file names
+This function simply adds the \`.bgen\` ending to the supplied file
+prefix
 
 ## Usage
 
 ``` r
-create_bgen_file_names(chr, n_batches)
+create_bgen_file_names(file_prefix)
 ```
 
 ## Arguments
 
-- chr:
+- file_prefix:
 
-  Character. The chromosome identifier, Ensembl style: chr1, chr2, ...
-  chrX
-
-- n_batches:
-
-  Integer. Number of batches for which IDs should be generated.
-  Enumerates from 1..\`n_batches\`
+  Character. Vector of file prefixes that the \`.bgen\` ending will be
+  applied to.
 
 ## Value
 
-OFH imputed BGEN file names
+BGEN file names

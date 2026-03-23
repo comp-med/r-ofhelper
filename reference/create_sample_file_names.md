@@ -5,21 +5,16 @@ Create OFH imputed genomic file BGEN Sample file names
 ## Usage
 
 ``` r
-create_sample_file_names(chr, n_batches)
+create_sample_file_names(file_prefix)
 ```
 
 ## Arguments
 
-- chr:
+- file_prefix:
 
-  Character. The chromosome identifier, Ensembl style: chr1, chr2, ...
-  chrX
-
-- n_batches:
-
-  Integer. Number of batches for which IDs should be generated.
-  Enumerates from 1..\`n_batches\`
+  Character. Vector of file prefixes that the \`.sample\` ending will be
+  applied to.
 
 ## Value
 
-OFH imputed BGEN Sample file names
+BGEN Sample file names
