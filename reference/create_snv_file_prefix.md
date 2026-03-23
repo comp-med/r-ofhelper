@@ -5,10 +5,15 @@ Create OFH called genotype file prefix
 ## Usage
 
 ``` r
-create_snv_file_prefix(chr, n_batches)
+create_snv_file_prefix(version = "v9", chr, n_batches)
 ```
 
 ## Arguments
+
+- version:
+
+  Character. File version, default is "v9". Will change depending on
+  which data release is being used in each project
 
 - chr:
 

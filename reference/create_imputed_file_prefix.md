@@ -5,10 +5,15 @@ Create OFH imputed genomic file prefix
 ## Usage
 
 ``` r
-create_imputed_file_prefix(chr, n_batches)
+create_imputed_file_prefix(version = "v5", chr, n_batches)
 ```
 
 ## Arguments
+
+- version:
+
+  Character. File version, default is "v5". Will change depending on
+  which data release is being used in each project
 
 - chr:
 
