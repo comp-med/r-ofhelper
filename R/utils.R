@@ -86,13 +86,16 @@ create_genomic_file_prefix <- function(prefix, chr, n_batches) {
 
 #' Create OFH imputed genomic file prefix
 #'
+#' @param version Character. File version, default is "v5". Will change
+#'   depending on which data release is being used in each project
 #' @inheritParams create_genomic_file_prefix
 #'
 #' @returns Formatted character strings for imputed genotype files.
 #' @export
-create_imputed_file_prefix <- function(chr, n_batches) {
+create_imputed_file_prefix <- function(version = "v5", chr, n_batches) {
   create_genomic_file_prefix(
-    prefix = "ofh_imputed.v5.{chr}-{batch}",
+    # TODO: Version is updated and should not be hard-coded
+    prefix = "ofh_imputed.{version}.{chr}-{batch}",
     chr,
     n_batches
   )
@@ -100,14 +103,17 @@ create_imputed_file_prefix <- function(chr, n_batches) {
 
 #' Create OFH called genotype file prefix
 #'
+#' @param version Character. File version, default is "v9". Will change
+#'   depending on which data release is being used in each project
 #' @inheritParams create_genomic_file_prefix
 #'
 #' @returns Formatted character strings for SNV files
 #' @export
 #'
-create_snv_file_prefix <- function(chr, n_batches) {
+create_snv_file_prefix <- function(version = "v9", chr, n_batches) {
   create_genomic_file_prefix(
-    prefix = "ofh_snv.v9.{chr}-{batch}",
+    # TODO: Version is updated and should not be hard-coded
+    prefix = "ofh_snv.{version}.{chr}-{batch}",
     chr,
     n_batches
   )
