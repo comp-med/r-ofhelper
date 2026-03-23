@@ -88,7 +88,7 @@ create_genomic_file_prefix <- function(prefix, chr, n_batches) {
 #'
 #' @inheritParams create_genomic_file_prefix
 #'
-#' @returns Formatted character strings.
+#' @returns Formatted character strings for imputed genotype files.
 #' @export
 create_imputed_file_prefix <- function(chr, n_batches) {
   create_genomic_file_prefix(
@@ -98,26 +98,43 @@ create_imputed_file_prefix <- function(chr, n_batches) {
   )
 }
 
-#' Create OFH imputed genomic file BGEN file names
+#' Create OFH called genotype file prefix
 #'
 #' @inheritParams create_genomic_file_prefix
 #'
-#' @returns OFH imputed BGEN file names
+#' @returns Formatted character strings for SNV files
 #' @export
 #'
-create_bgen_file_names <- function(chr, n_batches) {
-  bgen_prefix <- create_imputed_file_prefix(chr, n_batches)
-  glue::glue("{bgen_prefix}.bgen")
+create_snv_file_prefix <- function(chr, n_batches) {
+  create_genomic_file_prefix(
+    prefix = "ofh_snv.v9.{chr}-{batch}",
+    chr,
+    n_batches
+  )
+}
+
+#' Create OFH genomic file BGEN file names
+#'
+#' This function simply adds the `.bgen` ending to the supplied file prefix
+#'
+#' @param file_prefix Character. Vector of file prefixes that the `.bgen` ending
+#'   will be applied to.
+#'
+#' @returns BGEN file names
+#' @export
+#'
+create_bgen_file_names <- function(file_prefix) {
+  glue::glue("{file_prefix}.bgen")
 }
 
 #' Create OFH imputed genomic file BGEN Sample file names
 #'
-#' @inheritParams create_genomic_file_prefix
+#' @param file_prefix Character. Vector of file prefixes that the `.sample`
+#'   ending will be applied to.
 #'
-#' @returns OFH imputed BGEN Sample file names
+#' @returns BGEN Sample file names
 #' @export
 #'
-create_sample_file_names <- function(chr, n_batches) {
-  sample_prefix <- create_imputed_file_prefix(chr, n_batches)
-  glue::glue("{sample_prefix}.sample")
+create_sample_file_names <- function(file_prefix) {
+  glue::glue("{file_prefix}.sample")
 }

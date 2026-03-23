@@ -2,19 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{create_bgen_file_names}
 \alias{create_bgen_file_names}
-\title{Create OFH imputed genomic file BGEN file names}
+\title{Create OFH genomic file BGEN file names}
 \usage{
-create_bgen_file_names(chr, n_batches)
+create_bgen_file_names(file_prefix)
 }
 \arguments{
-\item{chr}{Character. The chromosome identifier, Ensembl style: chr1, chr2, ... chrX}
-
-\item{n_batches}{Integer. Number of batches for which IDs should be
-generated. Enumerates from 1..`n_batches`}
+\item{file_prefix}{Character. Vector of file prefixes that the `.bgen` ending
+will be applied to.}
 }
 \value{
-OFH imputed BGEN file names
+BGEN file names
 }
 \description{
-Create OFH imputed genomic file BGEN file names
+This function simply adds the `.bgen` ending to the supplied file prefix
 }
