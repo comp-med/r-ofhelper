@@ -4,9 +4,12 @@
 \alias{create_snv_file_prefix}
 \title{Create OFH called genotype file prefix}
 \usage{
-create_snv_file_prefix(chr, n_batches)
+create_snv_file_prefix(version = "v9", chr, n_batches)
 }
 \arguments{
+\item{version}{Character. File version, default is "v9". Will change
+depending on which data release is being used in each project}
+
 \item{chr}{Character. The chromosome identifier, Ensembl style: chr1, chr2, ... chrX}
 
 \item{n_batches}{Integer. Number of batches for which IDs should be
