@@ -6,6 +6,8 @@
   : Clean OFH Codings Table
 - [`clean_data_dictionary()`](https://comp-med.github.io/r-ofhelper/reference/clean_data_dictionary.md)
   : Clean OFH Data Dictionary
+- [`collapse_cmd_args()`](https://comp-med.github.io/r-ofhelper/reference/collapse_cmd_args.md)
+  : Collapse Command Arguments
 - [`correct_column_type()`](https://comp-med.github.io/r-ofhelper/reference/correct_column_type.md)
   : Correct Data Column Type
 - [`create_bgen_file_names()`](https://comp-med.github.io/r-ofhelper/reference/create_bgen_file_names.md)
