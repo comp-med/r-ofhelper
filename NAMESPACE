@@ -2,6 +2,7 @@
 
 export(clean_codings_table)
 export(clean_data_dictionary)
+export(collapse_cmd_args)
 export(create_bgen_file_names)
 export(create_cmd_input_string)
 export(create_genomic_file_prefix)

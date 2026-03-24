@@ -49,7 +49,7 @@ dx_submit_r_job <- function(
   tag = NULL,
   include_ofhelper = TRUE,
   remote_inputs = NULL,
-  app_id = "app-J6B38V00ybbkyqqp8XppK2yF"
+  app_id = "dxjupyterlab"
 ) {
   # Validate DNAnexus initialization
   dx_is_initialized()

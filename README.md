@@ -35,7 +35,7 @@ Function documentation is also available at
   - `dx_launch_workstation()`
 - **Submit R jobs with custom scripts**
   - `dx_submit_r_job()`
-- ** Submit Swiss Army Knife jobs**
+- **Submit Swiss Army Knife jobs**
   - `dx_run_swiss_army_knife()`
 - **DNAnexus Operations**:
   - Functions starting with: `dx_*`
@@ -130,11 +130,13 @@ environment and might include additional dependencies.
 - `glue`
 - `withr`
 
+## AI Disclosure
+
+Due to the straight forward nature of parts of the package, some minor utility
+functions and some documentation was generated using a locally deployed LLM.
+
 ## TODOs
 
 * Look for TODO tags in the functions!
-* add `behind_proxy` flag or something to filter out the message from dx about that
-* Tests are mostly mock-tests right now
+* Tests are mostly mock-tests right now and very much lacking
 * Integration tests with `dx` are not present yet
-* Due to the straight forward nature of the package, most function documentation was generated using an LLM, so expect errors
-

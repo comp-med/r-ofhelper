@@ -1,6 +1,31 @@
 # This is here to get rid of a check note
 utils::globalVariables(".")
 
+#' Collapse Command Arguments
+#'
+#' When submitting jobs to the Swiss Army Knife, this function is a convenience
+#' function to collapse the function arguments into a single call before
+#' submitting the call to [dx_run_swiss_army_knife()].
+#'
+#' @param cmd Character. The command to be run, e.g. `plink2`
+#' @param args Character. Vector of the arguments to `cmd`.
+#'
+#' @returns A single character string that can be passed to the `-icmd` flag of
+#'   the Swiss Army Knife
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' args <- "plink2"
+#' cmd <- c("pfile", "ofh_data", "--make-bed", "--out", "ofh_data_bed")
+#'
+#' collapse_cmd_args(args, cmd)
+#' }
+collapse_cmd_args <- function(cmd, args) {
+  args <- paste(args, collapse = " ")
+  paste(cmd, args, collapse = " ")
+}
+
 #' Decompress gzipped files
 #'
 #' Decompress gzipped files using the `gzip` utility
