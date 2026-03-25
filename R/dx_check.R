@@ -49,8 +49,8 @@ dx_check <- function(check_connectivity = TRUE) {
 #' }
 dx_check_connection <- function() {
   dx_url <- "https://api.dnanexus.com"
-  tryCatch(
-    url_result <- curlGetHeaders(dx_url, timeout = 2L),
+  url_result <- tryCatch(
+    curlGetHeaders(dx_url, timeout = 2L),
     error = function(e) {
       rlang::abort(
         "Connection to https://api.dnanexus.com could not be established"
