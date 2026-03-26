@@ -23,8 +23,9 @@ If FALSE (default), returns only the closest matching instance.}
 }
 \value{
 Character string with DNAnexus instance type identifier when
-  \code{return_all_matching = FALSE}, or data.table with all matching instances
-  when \code{return_all_matching = TRUE}.
+  \code{return_all_matching = FALSE}, or data.table with all matching
+  instances when \code{return_all_matching = TRUE}. Will return the cheapest
+  instance according to on-demand price that meets the requirements
 }
 \description{
 Find the most suitable DNAnexus instance type based on resource requirements.

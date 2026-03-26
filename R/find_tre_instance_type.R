@@ -10,8 +10,9 @@
 #'   If FALSE (default), returns only the closest matching instance.
 #'
 #' @return Character string with DNAnexus instance type identifier when
-#'   \code{return_all_matching = FALSE}, or data.table with all matching instances
-#'   when \code{return_all_matching = TRUE}.
+#'   \code{return_all_matching = FALSE}, or data.table with all matching
+#'   instances when \code{return_all_matching = TRUE}. Will return the cheapest
+#'   instance according to on-demand price that meets the requirements
 #' @export
 #'
 #' @examples
@@ -50,10 +51,10 @@ find_tre_instance_type <- function(
 
   data.table::setkey(
     rate_card,
+    "on_demand_rate_gpb_per_h",
     "n_cpus",
     "ram_gb",
-    "disk_storage_gb",
-    "spot_rate_gpb_per_h"
+    "disk_storage_gb"
   )
   closest_instance <- unlist(
     rate_card[
