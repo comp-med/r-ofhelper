@@ -4,11 +4,14 @@
 \alias{create_genomic_file_prefix}
 \title{Create genomic file prefix}
 \usage{
-create_genomic_file_prefix(prefix, chr, n_batches)
+create_genomic_file_prefix(prefix, version, chr, n_batches)
 }
 \arguments{
 \item{prefix}{Character. [glue::glue()] style string for formatting, e.g.
-"ofh_imputed.v5.\{chr\}-\{batch\}"}
+"ofh_imputed.\{version\}.\{chr\}-\{batch\}". Needs to contain `version`,
+`chr` & `batch`}
+
+\item{version}{Character. The release version of the genomic data, e.g. `v9`}
 
 \item{chr}{Character. The chromosome identifier, Ensembl style: chr1, chr2, ... chrX}
 
