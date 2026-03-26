@@ -10,6 +10,8 @@
   : Collapse Command Arguments
 - [`correct_column_type()`](https://comp-med.github.io/r-ofhelper/reference/correct_column_type.md)
   : Correct Data Column Type
+- [`create_bgen_annotation()`](https://comp-med.github.io/r-ofhelper/reference/create_bgen_annotation.md)
+  : Create BGEN File Annotation
 - [`create_bgen_file_names()`](https://comp-med.github.io/r-ofhelper/reference/create_bgen_file_names.md)
   : Create OFH genomic file BGEN file names
 - [`create_cmd_input_string()`](https://comp-med.github.io/r-ofhelper/reference/create_cmd_input_string.md)
