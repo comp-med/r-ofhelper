@@ -4,16 +4,21 @@
 #' prepares and executes R scripts in the DNAnexus environment using the Jupyter
 #' workstation app.
 #'
-#' @param script_path Character string specifying the path to the R script to be executed
+#' @param script_path Character string specifying the path to the R script to be
+#'   executed
+#' @param script_args Character. An optional vector of command line arguments to supply
+#'   to the script that can then be processed within the script e.g. via
+#'   [commandArgs()]
 #' @param instance_type Character string specifying the DNAnexus instance type.
 #'   If NULL (default), uses the lowest instance from the rate card.
-#' @param priority Character string specifying job priority ("low", "normal", "high").
-#'   Default is "normal".
+#' @param priority Character string specifying job priority ("low", "normal",
+#'   "high"). Default is "normal".
 #' @param session_name Character string specifying the job name. Default is
 #'   'r_job_<timestamp>'.
 #' @param tag Character string for tagging the job. Default uses timestamp.
 #' @param include_ofhelper Logical. If TRUE (default), includes the complete
-#'   ofhelper package source code to ensure all required functions are available.
+#'   ofhelper package source code to ensure all required functions are
+#'   available.
 #' @param remote_inputs Character vector of DNAnexus file paths to be downloaded
 #'   into the worker. Default is NULL.
 #' @param app_id Character. App ID of the Jupyter Workstation DNAnexus App.
@@ -43,6 +48,7 @@
 #' }
 dx_submit_r_job <- function(
   script_path,
+  script_args = NULL,
   instance_type = NULL,
   priority = "normal",
   session_name = NULL,
@@ -99,9 +105,15 @@ dx_submit_r_job <- function(
 
   script_content <- create_cmd_input_string(script_path, include_ofhelper)
 
+  if (!is.null(script_args)) {
+    script_args <- paste(script_args, collapse = " ")
+  } else {
+    script_args <- ""
+  }
+
   # Create execution command
   script_cmd <- glue::glue(
-    "echo {shQuote(script_content, type = 'csh')} | Rscript - "
+    "echo {shQuote(script_content, type = 'csh')} | Rscript - {script_args}"
   )
 
   # Build dx run arguments

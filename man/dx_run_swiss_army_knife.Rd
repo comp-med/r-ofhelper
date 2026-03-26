@@ -39,8 +39,8 @@ will be saved in. If `NULL`, default to the current directory that
 \item{instance_type}{Character string specifying the DNAnexus instance type.
 If NULL (default), uses the lowest instance from the rate card.}
 
-\item{priority}{Character string specifying job priority ("low", "normal", "high").
-Default is "normal".}
+\item{priority}{Character string specifying job priority ("low", "normal",
+"high"). Default is "normal".}
 
 \item{session_name}{Character string specifying the job name. Default is
 'r_job_<timestamp>'.}

@@ -6,6 +6,7 @@
 \usage{
 dx_submit_r_job(
   script_path,
+  script_args = NULL,
   instance_type = NULL,
   priority = "normal",
   session_name = NULL,
@@ -16,13 +17,18 @@ dx_submit_r_job(
 )
 }
 \arguments{
-\item{script_path}{Character string specifying the path to the R script to be executed}
+\item{script_path}{Character string specifying the path to the R script to be
+executed}
+
+\item{script_args}{Character. An optional vector of command line arguments to supply
+to the script that can then be processed within the script e.g. via
+[commandArgs()]}
 
 \item{instance_type}{Character string specifying the DNAnexus instance type.
 If NULL (default), uses the lowest instance from the rate card.}
 
-\item{priority}{Character string specifying job priority ("low", "normal", "high").
-Default is "normal".}
+\item{priority}{Character string specifying job priority ("low", "normal",
+"high"). Default is "normal".}
 
 \item{session_name}{Character string specifying the job name. Default is
 'r_job_<timestamp>'.}
@@ -30,7 +36,8 @@ Default is "normal".}
 \item{tag}{Character string for tagging the job. Default uses timestamp.}
 
 \item{include_ofhelper}{Logical. If TRUE (default), includes the complete
-ofhelper package source code to ensure all required functions are available.}
+ofhelper package source code to ensure all required functions are
+available.}
 
 \item{remote_inputs}{Character vector of DNAnexus file paths to be downloaded
 into the worker. Default is NULL.}
