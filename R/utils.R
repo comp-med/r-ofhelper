@@ -74,6 +74,79 @@ decompress_gzip <- function(files) {
   invisible(TRUE)
 }
 
+#' Create BGEN File Annotation
+#'
+#' This function tries to parse an OFH directory for BGEN files and creates an
+#' annotation table that makes processing the data simpler.
+#'
+#' @param project_id Character. An DNAnexus project ID where the data was
+#'   dispensed.
+#' @param bgen_dir Character. The path to the raw BGEN files. Should be either
+#'   `/snv_bgen/` or `/imputed_bgen/`
+#'
+#' @returns A data.table with the full paths to the BGEN files and some parsed
+#'   information
+#' @export
+#'
+create_bgen_annotation <- function(
+  project_id,
+  bgen_dir
+) {
+  data_path <- fs::path(glue::glue("{project_id}:"), bgen_dir)
+  all_files <- dx_ls(data_path)
+
+  annot <- stringr::str_split_fixed(
+    string = all_files,
+    pattern = "\\.|\\-",
+    n = 6
+  )
+  annot <- data.table::as.data.table(annot)
+  data.table::setnames(
+    annot,
+    c("prefix", "version", "chr", "batch", "ext_1", "ext_2")
+  )
+  annot[,
+    ext := data.table::fifelse(
+      ext_2 == "",
+      ext_1,
+      paste(ext_1, ext_2, sep = ".")
+    )
+  ]
+  annot$ext_1 <- NULL
+  annot$ext_2 <- NULL
+  annot[, file_name := all_files]
+
+  if (data.table::uniqueN(annot$prefix) != 1) {
+    rlang::abort("Expected single unique file prefix")
+  }
+
+  annot <- data.table::dcast(
+    annot,
+    "prefix + version + chr + batch ~ ext",
+    value.var = "file_name"
+  )
+
+  annot[, `:=`(
+    file_project = project_id,
+    bgen_dir = bgen_dir
+  )]
+
+  annot[, `:=`(
+    full_bgen_file_path = fs::path(
+      paste0(file_project, ":"),
+      bgen_dir,
+      bgen
+    ),
+    full_sample_file_path = fs::path(
+      paste0(file_project, ":"),
+      bgen_dir,
+      sample
+    )
+  )]
+
+  annot
+}
+
 
 #' Create batch ID string for genomic files
 #'

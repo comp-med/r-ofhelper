@@ -16,6 +16,13 @@ coding_name <- NULL
 is_multi_select <- NULL
 meaning <- NULL
 type <- NULL
+ext <- NULL
+ext_2 <- NULL
+ext_1 <- NULL
+file_name <- NULL
+file_project <- NULL
+bgen <- NULL
+
 
 # Init the cache at package loading
 .dx_cache <- init_dx_cache()
