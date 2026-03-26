@@ -9,6 +9,7 @@ using the Jupyter workstation app.
 ``` r
 dx_submit_r_job(
   script_path,
+  script_args = NULL,
   instance_type = NULL,
   priority = "normal",
   session_name = NULL,
@@ -24,6 +25,12 @@ dx_submit_r_job(
 - script_path:
 
   Character string specifying the path to the R script to be executed
+
+- script_args:
+
+  Character. An optional vector of command line arguments to supply to
+  the script that can then be processed within the script e.g. via
+  \[commandArgs()\]
 
 - instance_type:
 
