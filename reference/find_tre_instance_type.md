@@ -38,7 +38,8 @@ find_tre_instance_type(
 
 Character string with DNAnexus instance type identifier when
 `return_all_matching = FALSE`, or data.table with all matching instances
-when `return_all_matching = TRUE`.
+when `return_all_matching = TRUE`. Will return the cheapest instance
+according to on-demand price that meets the requirements
 
 ## Examples
 

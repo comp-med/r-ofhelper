@@ -6,7 +6,7 @@ used to
 ## Usage
 
 ``` r
-create_genomic_file_prefix(prefix, chr, n_batches)
+create_genomic_file_prefix(prefix, version, chr, n_batches)
 ```
 
 ## Arguments
@@ -14,7 +14,12 @@ create_genomic_file_prefix(prefix, chr, n_batches)
 - prefix:
 
   Character. \[glue::glue()\] style string for formatting, e.g.
-  "ofh_imputed.v5.{chr}-{batch}"
+  "ofh_imputed.{version}.{chr}-{batch}". Needs to contain \`version\`,
+  \`chr\` & \`batch\`
+
+- version:
+
+  Character. The release version of the genomic data, e.g. \`v9\`
 
 - chr:
 
