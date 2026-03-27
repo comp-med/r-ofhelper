@@ -112,5 +112,7 @@
   : Reset the DNAnexus cache
 - [`set_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/set_dx_cache.md)
   : Set values in the DNAnexus cache
+- [`tre_path()`](https://comp-med.github.io/r-ofhelper/reference/tre_path.md)
+  : Create TRE-compatible path
 - [`tre_rate_card()`](https://comp-med.github.io/r-ofhelper/reference/tre_rate_card.md)
   : Get TRE Rate Card
