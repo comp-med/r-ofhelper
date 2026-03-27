@@ -1,6 +1,30 @@
 # This is here to get rid of a check note
 utils::globalVariables(".")
 
+#' Create TRE-compatible path
+#'
+#' This is a thin wrapper around [fs::path()] that creates a full path
+#' consisting of the project ID and the full path by appending a colon `:` to
+#' the project ID before adding the path, e.g. `project:/path/to/file`
+#'
+#' @param project Character. The TRE project ID where the path is located.
+#' @param ... Character. Character vectors that will be passed to [fs::path()]
+#'   that make up the full path.
+#'
+#' @returns Character. A single character string describing a path in the form
+#'   "project:/path/to/file"
+#' @export
+#'
+#' @examples
+#' tre_path("project-12345", "path", "to", "some", "file")
+#'
+tre_path <- function(
+  project,
+  ...
+) {
+  fs::path(glue::glue("{project}:"), ...)
+}
+
 #' Collapse Command Arguments
 #'
 #' When submitting jobs to the Swiss Army Knife, this function is a convenience
