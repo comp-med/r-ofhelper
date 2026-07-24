@@ -446,5 +446,8 @@ dx_parse_env <- function() {
   dx_env_vars <- Sys.getenv(
     dx_env_vars
   )
-  paste(names(dx_env_vars), shQuote(dx_env_vars), sep = "=")
+  dx_env_vars <- paste(names(dx_env_vars), shQuote(dx_env_vars), sep = "=")
+
+  # This is what actually solves my issue! Unsetting https_proxy\
+  c(dx_env_vars, "https_proxy=")
 }
