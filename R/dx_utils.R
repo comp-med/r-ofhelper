@@ -426,3 +426,25 @@ dx_remount_project <- function() {
     "/home/dnanexus/dxfuse -readOnly /mnt /home/dnanexus/.dxfuse_manifest.json"
   )
 }
+
+
+#' Parse DNAnexus-specific Environmental Variables
+#'
+#' This is a convenience function that parses the environmental variables
+#' returned by `dx env` for use with [dx_run_cmd].
+#'
+#' @returns Character vector containing relevant variables formatted as `VARIABLE=VALUE`
+#'
+dx_parse_env <- function() {
+  dx_env_vars <- c(
+    "DX_SECURITY_CONTEXT",
+    "DX_APISERVER_PROTOCOL",
+    "DX_APISERVER_HOST",
+    "DX_APISERVER_PORT",
+    "DX_PROJECT_CONTEXT_ID"
+  )
+  dx_env_vars <- Sys.getenv(
+    dx_env_vars
+  )
+  paste(names(dx_env_vars), shQuote(dx_env_vars), sep = "=")
+}

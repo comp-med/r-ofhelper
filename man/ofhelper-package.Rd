@@ -18,5 +18,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Carl Beuchel \email{carl.beuchel@charite.de} (\href{https://orcid.org/0000-0003-3437-9963}{ORCID})
 
+Authors:
+\itemize{
+  \item Carl Beuchel \email{carl.beuchel@charite.de} (\href{https://orcid.org/0000-0003-3437-9963}{ORCID})
+}
+
 }
 \keyword{internal}

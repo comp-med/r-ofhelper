@@ -8,6 +8,7 @@ test_that("dx_run_cmd executes commands correctly with mocking", {
     system2 = function(
       dx_binary,
       args,
+      env,
       stdout,
       stderr
     ) {
@@ -29,7 +30,7 @@ test_that("dx_run_cmd handles command failures gracefully", {
 
   # Mock system2 to simulate command failure
   local_mocked_bindings(
-    system2 = function(binary, args, stdout = TRUE, stderr = TRUE) {
+    system2 = function(binary, args, env, stdout = TRUE, stderr = TRUE) {
       # Return non-zero exit code to simulate failure
       1
     }
@@ -50,6 +51,7 @@ test_that("dx_run_cmd returns output correctly", {
     system2 = function(
       dx_binary,
       args,
+      env,
       stdout,
       stderr
     ) {
@@ -75,6 +77,7 @@ test_that("dx_run_cmd returns errors correctly if set", {
     system2 = function(
       dx_binary,
       args,
+      env,
       stdout,
       stderr
     ) {

@@ -61,6 +61,7 @@ dx_run_cmd <- function(
   exit_code <- system2(
     dx_binary,
     args,
+    env = dx_parse_env(),
     stdout = tmp_stdout,
     stderr = tmp_stderr
   )
