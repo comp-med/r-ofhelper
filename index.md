@@ -90,6 +90,7 @@ whereis dx
 Locally, you can install the packacke using:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("comp-med/r-ofhelper")
 ```
@@ -108,6 +109,7 @@ Locally, run the following command to create a string containing all
 functions. Write that to a file and upload it to the TRE.
 
 ``` r
+
 # `ofhelper_string` contains all functions of this package. Submit those to the airlock.
 ofhelper_string <- create_ofhelper_string()
 writeLines(ofhelper_string, "upload_this_via_the_airlock.txt")

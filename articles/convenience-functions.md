@@ -1,6 +1,7 @@
 # Convenience Functions
 
 ``` r
+
 library(ofhelper)
 ```
 
@@ -24,6 +25,7 @@ main advantages are:
     exit code, output to STDOUT and output to STDERR
 
 ``` r
+
 # Make sure you initialize first by providing your dx binary path and project ID
 dx_init(
 #   [...]
@@ -47,6 +49,7 @@ By default, the function will throw an error when a command fails and
 return the error message.
 
 ``` r
+
 # you can also simply use `dx_ls`, but it's a good example
 dx_run_cmd("ls", "does-not-exist")
 #> Error in `dx_run_cmd()`:
@@ -61,6 +64,7 @@ If you do not want the to throw an error, set the `fail_on_dx_error` to
 failure.
 
 ``` r
+
 dx_run_cmd("ls", "does-not-exist", fail_on_dx_error = FALSE)
 #> $exit_code [1] 3
 #>

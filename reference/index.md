@@ -74,6 +74,8 @@
   : Launch a DNAnexus Workstation Session
 - [`dx_ls()`](https://comp-med.github.io/r-ofhelper/reference/dx_ls.md)
   : List Contents of DNAnexus Directory
+- [`dx_parse_env()`](https://comp-med.github.io/r-ofhelper/reference/dx_parse_env.md)
+  : Parse DNAnexus-specific Environmental Variables
 - [`dx_remount_project()`](https://comp-med.github.io/r-ofhelper/reference/dx_remount_project.md)
   : Remount DNAnexus Project
 - [`dx_run_cmd()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_cmd.md)

@@ -8,6 +8,7 @@ existing `dx` session, but it is important to first initialize with the
 function.
 
 ``` r
+
 library("ofhelper")
 
 # required if not in $PATH
@@ -45,6 +46,7 @@ directly check the status of `dx`, run
 which simply parses the output of `dx env`.
 
 ``` r
+
 get_dx_cache()
 #> [1] "/PATH/TO/dx"
 #> 
@@ -75,6 +77,7 @@ You can also get the worker job URL using
 [`get_workstation_worker_url()`](https://comp-med.github.io/r-ofhelper/reference/get_workstation_worker_url.md).
 
 ``` r
+
 my_instance <- find_tre_instance_type(
   required_n_cpus = 8,
   required_gb_ram = 64, 
@@ -98,6 +101,7 @@ function. This simplifies to required workflow by not having to paste
 code to an interactive session the code changes slightly.
 
 ``` r
+
 # Create script you'd want to execute on DNAnexus
 script_file <- tempfile(pattern = "r_job", fileext = ".R")
 writeLines("sessionInfo()", script_file)
@@ -118,6 +122,7 @@ database and exported as tabular data. See
 for a more detailed description of the process.
 
 ``` r
+
 # The function requires the record ID of your project as input
 export_entities(
   dataset_or_cohort_or_dashboard = "record-1234ABCD5678",
@@ -144,6 +149,7 @@ and
 are provided.
 
 ``` r
+
 # TODO
 # ...
 ```

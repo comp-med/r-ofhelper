@@ -90,6 +90,7 @@ whereis dx
 Locally, you can install the packacke using:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("comp-med/r-ofhelper")
 ```
@@ -108,6 +109,7 @@ Locally, run the following command to create a string containing all
 functions. Write that to a file and upload it to the TRE.
 
 ``` r
+
 # `ofhelper_string` contains all functions of this package. Submit those to the airlock.
 ofhelper_string <- create_ofhelper_string()
 writeLines(ofhelper_string, "upload_this_via_the_airlock.txt")
@@ -219,6 +221,8 @@ deployed LLM.
   : Launch a DNAnexus Workstation Session
 - [`dx_ls()`](https://comp-med.github.io/r-ofhelper/reference/dx_ls.md)
   : List Contents of DNAnexus Directory
+- [`dx_parse_env()`](https://comp-med.github.io/r-ofhelper/reference/dx_parse_env.md)
+  : Parse DNAnexus-specific Environmental Variables
 - [`dx_remount_project()`](https://comp-med.github.io/r-ofhelper/reference/dx_remount_project.md)
   : Remount DNAnexus Project
 - [`dx_run_cmd()`](https://comp-med.github.io/r-ofhelper/reference/dx_run_cmd.md)
