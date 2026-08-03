@@ -42,7 +42,6 @@
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_is_initialized.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_launch_workstation.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_ls.html</loc></url>
-<url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_parse_env.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_remount_project.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_run_cmd.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/dx_run_swiss_army_knife.html</loc></url>
@@ -62,6 +61,7 @@
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/ofhelper-package.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/rate_card.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/remove_dx_cache.html</loc></url>
+<url><loc>https://comp-med.github.io/r-ofhelper/reference/remove_tre_proxy_env_var.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/reset_dx_cache.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/set_dx_cache.html</loc></url>
 <url><loc>https://comp-med.github.io/r-ofhelper/reference/tre_path.html</loc></url>
