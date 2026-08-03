@@ -61,7 +61,7 @@ dx_run_cmd <- function(
   exit_code <- system2(
     dx_binary,
     args,
-    env = dx_parse_env(),
+    env = remove_tre_proxy_env_var(), # NOTE: This might be a temporary fix
     stdout = tmp_stdout,
     stderr = tmp_stderr
   )

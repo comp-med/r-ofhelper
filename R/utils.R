@@ -1,6 +1,31 @@
 # This is here to get rid of a check note
 utils::globalVariables(".")
 
+
+
+#' Remove proxy environment variable on OFH TRE
+#'
+#' This is a convenience function that removes the environmental for the https
+#' proxy when a shell command is run within an R session on the OFH DNAnexus TRE.
+#' This is done to mitigate an error when running `dx` commands that seems to be
+#' caused by this variable.
+#'
+#'
+#' @returns Character vector containing relevant variables formatted as `VARIABLE=VALUE`
+#'
+remove_tre_proxy_env_var <- function() {
+
+  tre_proxy <- "http://10.0.3.1:8000"
+  proxy_vars <- c("HTTPS_PROXY", "https_proxy")
+  proxy_vars <- Sys.getenv(proxy_vars)
+  on_tre <- tre_proxy %in% proxy_vars
+
+  if (on_tre) {
+    return("https_proxy=")
+  }
+  c()
+}
+
 #' Create TRE-compatible path
 #'
 #' This is a thin wrapper around [fs::path()] that creates a full path
@@ -19,8 +44,8 @@ utils::globalVariables(".")
 #' tre_path("project-12345", "path", "to", "some", "file")
 #'
 tre_path <- function(
-  project,
-  ...
+    project,
+    ...
 ) {
   fs::path(glue::glue("{project}:"), ...)
 }
@@ -113,8 +138,8 @@ decompress_gzip <- function(files) {
 #' @export
 #'
 create_bgen_annotation <- function(
-  project_id,
-  bgen_dir
+    project_id,
+    bgen_dir
 ) {
   data_path <- fs::path(glue::glue("{project_id}:"), bgen_dir)
   all_files <- dx_ls(data_path)
@@ -130,11 +155,11 @@ create_bgen_annotation <- function(
     c("prefix", "version", "chr", "batch", "ext_1", "ext_2")
   )
   annot[,
-    ext := data.table::fifelse(
-      ext_2 == "",
-      ext_1,
-      paste(ext_1, ext_2, sep = ".")
-    )
+        ext := data.table::fifelse(
+          ext_2 == "",
+          ext_1,
+          paste(ext_1, ext_2, sep = ".")
+        )
   ]
   annot$ext_1 <- NULL
   annot$ext_2 <- NULL
