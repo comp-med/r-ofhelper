@@ -47,6 +47,9 @@ dx_download <- function(
 
   # Build arguments for dx download
   args <- c("download")
+  if (overwrite_existing) {
+    args <- c(args, "-f")
+  }
 
   # Add file identifiers
   args <- c(args, files)

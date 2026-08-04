@@ -52,8 +52,7 @@ dx_init <- function(
   # Bootstrap the binary path - circumventing checks
   bin_success <- dx_set_binary(
     dx_binary,
-    .require_init = FALSE,
-    .dx_binary = dx_binary
+    .require_init = FALSE
   )
 
   auth_success <- FALSE

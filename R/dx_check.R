@@ -93,6 +93,7 @@ dx_check_binary <- function(dx_binary = NULL, ...) {
     rlang::abort("Use `dx_set_binary` fist")
   }
   dx_exit <- dx_run_cmd(
+    .dx_binary = dx_binary,
     "--version",
     dx_stdout = FALSE,
     dx_stderr = FALSE,
@@ -123,7 +124,7 @@ dx_check_auth <- function(...) {
     fail_on_dx_error = FALSE,
     ...
   )$exit_code
-  dx_not_logged_in <- "You are not logged in; run \"dx login\" to obtain a token."
+
   if (dx_status != 0) {
     rlang::abort("Not logged it. Run `dx_init()` with your auth token")
   }
