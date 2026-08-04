@@ -20,3 +20,8 @@ Useful links:
 
 **Maintainer**: Carl Beuchel <carl.beuchel@charite.de>
 ([ORCID](https://orcid.org/0000-0003-3437-9963))
+
+Authors:
+
+- Carl Beuchel <carl.beuchel@charite.de>
+  ([ORCID](https://orcid.org/0000-0003-3437-9963))
