@@ -11,7 +11,7 @@ dx_launch_workstation(
   session_name = "jupyter_workstation",
   session_length_minutes = 180,
   instance_type = "azure:mem1_ssd2_v2_x2",
-  app_id = "app-J6B38V00ybbkyqqp8XppK2yF"
+  app_id = "dxjupyterlab"
 )
 ```
 
@@ -40,8 +40,9 @@ dx_launch_workstation(
 
 - app_id:
 
-  Character. App ID of the Jupyter Workstation DNAnexus App. Defaults to
-  an ID that might be subject to change.
+  Character. App ID of the Jupyter Workstation DNAnexus App. Defaults
+  \`dxjupyterlab\`, i.e. the latest available version, but an ID of a
+  specific version can also be used.
 
 ## Value
 

@@ -63,8 +63,9 @@ dx_submit_r_job(
 
 - app_id:
 
-  Character. App ID of the Jupyter Workstation DNAnexus App. Defaults to
-  an ID that might be subject to change.
+  Character. App ID of the Jupyter Workstation DNAnexus App. Defaults
+  \`dxjupyterlab\`, i.e. the latest available version, but an ID of a
+  specific version can also be used.
 
 ## Value
 

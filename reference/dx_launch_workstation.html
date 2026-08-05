@@ -47,7 +47,7 @@
 <span>  session_name <span class="op">=</span> <span class="st">"jupyter_workstation"</span>,</span>
 <span>  session_length_minutes <span class="op">=</span> <span class="fl">180</span>,</span>
 <span>  instance_type <span class="op">=</span> <span class="st">"azure:mem1_ssd2_v2_x2"</span>,</span>
-<span>  app_id <span class="op">=</span> <span class="st">"app-J6B38V00ybbkyqqp8XppK2yF"</span></span>
+<span>  app_id <span class="op">=</span> <span class="st">"dxjupyterlab"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,7 +78,8 @@ Must be a valid instance type from the TRE rate card. Default is
 
 <dt id="arg-app-id">app_id<a class="anchor" aria-label="anchor" href="#arg-app-id"></a></dt>
 <dd><p>Character. App ID of the Jupyter Workstation DNAnexus App.
-Defaults to an ID that might be subject to change.</p></dd>
+Defaults `dxjupyterlab`, i.e. the latest available version,
+but an ID of a specific version can also be used.</p></dd>
 
 </dl></div>
     <div class="section level2">

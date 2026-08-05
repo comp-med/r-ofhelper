@@ -18,7 +18,7 @@ dx_run_swiss_army_knife(
   priority = "normal",
   session_name = NULL,
   tag = NULL,
-  app_id = NULL
+  app_id = "swiss-army-knife"
 )
 ```
 
@@ -73,8 +73,9 @@ dx_run_swiss_army_knife(
 
 - app_id:
 
-  Character. App ID of the Swiss Army Knife app. If \`NULL\` (Default),
-  it will use the latest version by just passing \`swiss-army-knife\`
+  Character. App ID of the Swiss Army Knife app. Defaults to
+  \`swiss-army-knife\`, i.e. the latest available version of the app.
+  For reasons of reproducibilty, an ID for a tagged version can be used.
 
 ## Value
 
