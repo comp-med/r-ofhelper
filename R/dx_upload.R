@@ -110,7 +110,7 @@ dx_upload <- function(
   }
 
   # Execute dx upload command
-  res <- dx_run_cmd(
+  dx_run_cmd(
     args,
     fail_on_dx_error = TRUE,
     dx_stdout = FALSE,

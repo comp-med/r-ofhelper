@@ -22,7 +22,8 @@
 #' @param remote_inputs Character vector of DNAnexus file paths to be downloaded
 #'   into the worker. Default is NULL.
 #' @param app_id Character. App ID of the Jupyter Workstation DNAnexus App.
-#'   Defaults to an ID that might be subject to change.
+#'   Defaults `dxjupyterlab`, i.e. the latest available version,
+#'   but an ID of a specific version can also be used.
 #'
 #' @return Job ID of the submitted DNAnexus job
 #' @export

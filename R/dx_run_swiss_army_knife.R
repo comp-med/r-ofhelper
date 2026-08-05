@@ -18,9 +18,9 @@
 #' @param destination_path Character. The directory of the project the result files
 #'   will be saved in. If `NULL`, default to the current directory that
 #'   `ofhelper` has cached.
-#' @param app_id Character. App ID of the Swiss Army Knife app. If `NULL`
-#'   (Default), it will use the latest version by just passing
-#'   `swiss-army-knife`
+#' @param app_id Character. App ID of the Swiss Army Knife app.
+#'   Defaults to `swiss-army-knife`, i.e. the latest available version of the app.
+#'   For reasons of reproducibilty, an ID for a tagged version can be used.
 #' @inheritParams dx_submit_r_job
 #'
 #' @return Job ID of the submitted DNAnexus job
@@ -35,10 +35,8 @@ dx_run_swiss_army_knife <- function(
   priority = "normal",
   session_name = NULL,
   tag = NULL,
-  app_id = NULL
+  app_id = "swiss-army-knife"
 ) {
-  app_id <- app_id %||% "swiss-army-knife"
-
   # TODO - create function
   # Validate priority
   valid_priorities <- c("low", "normal", "high")
