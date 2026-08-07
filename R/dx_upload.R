@@ -41,6 +41,11 @@ dx_upload <- function(
     file_paths <- as.character(files)
   }
 
+  # Add target path if specified
+  if (is.null(target_dir)) {
+    target_dir <- "./"
+  }
+
   # Expand glob patterns to actual file paths
   expanded_files <- c()
   for (file_path in file_paths) {
@@ -71,7 +76,18 @@ dx_upload <- function(
       find_result <- tryCatch(
         {
           dx_run_cmd(
-            c("find", "data", "--name", file_name, "--class", "file"),
+            c(
+              "find",
+              "data",
+              "--name",
+              file_name,
+              "--class",
+              "file",
+              "--brief",
+              "--path",
+              target_dir,
+              "--norecurse"
+            ),
             fail_on_dx_error = TRUE,
             dx_stderr = FALSE
           )$stdout
@@ -85,21 +101,18 @@ dx_upload <- function(
       # If we found existing files with the same name, delete them
       if (!is.null(find_result) && length(find_result) > 0) {
         # Delete the existing file(s)
-        res <- dx_run_cmd("rm", "-f", file_name, fail_on_dx_error = TRUE)
+        res <- dx_run_cmd(
+          "rm",
+          "-f",
+          fs::path(target_dir, file_name),
+          fail_on_dx_error = TRUE
+        )
       }
     }
   }
 
   # Build arguments for dx upload
-  args <- c("upload")
-
-  # Add file paths
-  args <- c(args, existing_files)
-
-  # Add target path if specified
-  if (!is.null(target_dir)) {
-    args <- c(args, "--path", target_dir)
-  }
+  args <- c("upload", "--path", paste0(target_dir, "/"), existing_files)
 
   # Execute dx upload command
   dx_run_cmd(
