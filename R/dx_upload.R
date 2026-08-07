@@ -61,14 +61,6 @@ dx_upload <- function(
     rlang::abort("No valid files to upload")
   }
 
-  # Set target directory
-  cached_dx_path <- get_dx_cache("dx_path")
-  dx_path <- if (is.null(target_dir)) cached_dx_path else target_dir
-  if (dx_path != cached_dx_path) {
-    dx_check_path()
-    dx_set_path(dx_path)
-  }
-
   # Handle overwrite logic for each file
   if (overwrite_old_files) {
     # Check for existing files and remove them if they exist
@@ -106,7 +98,7 @@ dx_upload <- function(
 
   # Add target path if specified
   if (!is.null(target_dir)) {
-    args <- c(args, target_dir)
+    args <- c(args, "--path", target_dir)
   }
 
   # Execute dx upload command
