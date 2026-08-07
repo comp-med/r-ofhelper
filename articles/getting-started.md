@@ -100,6 +100,14 @@ To submit an R script from your local environment, you can use the
 function. This simplifies to required workflow by not having to paste
 code to an interactive session the code changes slightly.
 
+The recommended workflow for improving reproducibility would be:
+
+1.  Create a script on the OFH TRE that performs some task
+2.  Export the script via the airlock, thus ensuring it complies with
+    all rules
+3.  Download the script to your local machine or HPC environment
+4.  When need arises, re-run the script directly from your local machine
+
 ``` r
 
 # Create script you'd want to execute on DNAnexus
