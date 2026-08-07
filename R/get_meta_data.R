@@ -5,7 +5,7 @@ get_meta_data <- function(
   dx_binary <- get_dx_cache("dx_binary")
   project_id <- project_id %||% get_dx_cache("dx_project_id")
 
-  dataset_path = paste(project_id, record_id, sep = ":")
+  dataset_path <- paste(project_id, record_id, sep = ":")
   cmd <- paste("dx extract_dataset", dataset_path, "-ddd --delimiter ','")
   system(cmd, intern = TRUE)
 
