@@ -2,5 +2,5 @@
 repo = "https://github.com/etiennebacher/jarl-pre-commit"
 rev = "0.5.0"
 hooks = [
-  { id = "jarl-check" },
+  { id = "jarl-check", exclude = "vignettes/" },
 ]
