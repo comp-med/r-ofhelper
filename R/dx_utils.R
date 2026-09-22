@@ -14,6 +14,11 @@
 #'   If NULL (default), uses project root.
 #' @param check_connectivity Logical. If TRUE (default), checks connectivity before
 #'   initialization.
+#' @param init_config_path Character. Path to a JSON file containing the
+#'   required parameters for session initialization. Since this will not save
+#'   the session Token, this can only be used to re-initialize a session, not
+#'   for the first-time setup. Can only be used when all the other input
+#'   parameters are NULL.
 #'
 #' @return Invisible TRUE if successful, aborts on failure
 #' @export
@@ -36,7 +41,8 @@ dx_init <- function(
   dx_token = NULL,
   dx_project = NULL,
   dx_path = NULL,
-  check_connectivity = TRUE
+  check_connectivity = TRUE,
+  init_config_path = NULL
 ) {
   if (check_connectivity) {
     dx_check_connection()
@@ -48,6 +54,30 @@ dx_init <- function(
     assign(".dx_cache", env, envir = rlang::env_parent())
   }
   # TODO: maybe clearing the cache here makes sense, too
+
+  if (
+    !is.null(init_config_path) &&
+      (!is.null(dx_binary) ||
+        !is.null(dx_token) ||
+        !is.null(dx_project) ||
+        !is.null(dx_path))
+  ) {
+    rlang::abort("Please supply either parameters or path to config file")
+  }
+
+  if (
+    !is.null(init_config_path) &&
+      (is.null(dx_binary) &&
+        is.null(dx_token) &&
+        is.null(dx_project) &&
+        is.null(dx_path))
+  ) {
+    dx_cache <- read_dx_init_config(path = init_config_path)
+    dx_binary <- dx_cache$dx_binary
+    dx_project <- dx_cache$dx_project
+    dx_path <- dx_cache$dx_path
+    rm(dx_cache)
+  }
 
   # Bootstrap the binary path - circumventing checks
   bin_success <- dx_set_binary(
@@ -424,4 +454,55 @@ dx_remount_project <- function() {
   system(
     "/home/dnanexus/dxfuse -readOnly /mnt /home/dnanexus/.dxfuse_manifest.json"
   )
+}
+
+#' Write `dx_init` parameters to JSON
+#'
+#' @param path Character string with the name for the JSON file to be written
+#'
+#' @returns Writes a JSON file with the information needed by [ofhelper::dx_init]
+#' @export
+write_dx_init_config <- function(
+  path = "ofhelper-config.json",
+  overwrite_existing = FALSE
+) {
+  dx_check(check_connectivity = FALSE)
+
+  if (fs::file_exists(path) && overwrite_existing) {
+    rlang::abort("Config already exists and `overwrite_existing == FALSE`")
+  }
+
+  dx_cache <- get_dx_cache()
+  dx_cache <- dx_cache[c("dx_binary", "dx_project_id", "dx_path")]
+  dx_cache_json <- jsonlite::toJSON(dx_cache)
+  dx_cache_json <- jsonlite::prettify(dx_cache_json)
+  writeLines(dx_cache_json, con = path)
+  invisible(TRUE)
+}
+
+#' Read config JSON for initialization
+#'
+#' @param path Character. Path to valid JSON file created using [ofhelper::write_dx_init_config].
+#'
+#' @returns Named list containing fields required for [ofhelper::dx_init]
+read_dx_init_config <- function(path = "ofhelper-config.json") {
+  if (!fs::file_exists(path)) {
+    rlang::abort("File does not exist")
+  }
+
+  dx_cache <- jsonlite::read_json(path, simplifyVector = TRUE)
+
+  required_fields <- c("dx_binary", "dx_project_id", "dx_path")
+  required_fields_present <- required_fields %in% names(dx_cache)
+
+  if (!all(required_fields_present)) {
+    rlang::abort(
+      glue::glue(
+        "File missing field(s): ",
+        "{paste(required_fields[!required_fields_present], collapse = ', ')}"
+      )
+    )
+  }
+
+  dx_cache
 }

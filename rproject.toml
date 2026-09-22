@@ -9,11 +9,6 @@ repositories = [
     {alias = "CRAN", url = "https://cran.uni-muenster.de/"},
 ]
 
-# A list of packages to install and any additional configuration
-# Examples:
-    # "dplyr",
-    # {name = "dplyr", repository = "CRAN"},
-    # {name = "dplyr", git = "https://github.com/tidyverse/dplyr.git", tag = "v1.1.4"},
 dependencies = [
     "data.table",
     "fs",
