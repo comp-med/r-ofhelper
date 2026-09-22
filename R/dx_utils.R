@@ -459,6 +459,8 @@ dx_remount_project <- function() {
 #' Write `dx_init` parameters to JSON
 #'
 #' @param path Character string with the name for the JSON file to be written
+#' @param overwrite_existing Logical Check if config file already exists and should be
+#'   overwritten
 #'
 #' @returns Writes a JSON file with the information needed by [ofhelper::dx_init]
 #' @export

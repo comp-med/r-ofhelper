@@ -8,6 +8,9 @@ write_dx_init_config(path = "ofhelper-config.json", overwrite_existing = FALSE)
 }
 \arguments{
 \item{path}{Character string with the name for the JSON file to be written}
+
+\item{overwrite_existing}{Logical Check if config file already exists and should be
+overwritten}
 }
 \value{
 Writes a JSON file with the information needed by [ofhelper::dx_init]
