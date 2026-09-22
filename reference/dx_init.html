@@ -11,7 +11,7 @@ can be used."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">ofhelper</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@ can be used.</p>
 <span>  dx_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dx_project <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dx_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  check_connectivity <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  check_connectivity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  init_config_path <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -84,6 +85,14 @@ If NULL (default), uses project root.</p></dd>
 <dt id="arg-check-connectivity">check_connectivity<a class="anchor" aria-label="anchor" href="#arg-check-connectivity"></a></dt>
 <dd><p>Logical. If TRUE (default), checks connectivity before
 initialization.</p></dd>
+
+
+<dt id="arg-init-config-path">init_config_path<a class="anchor" aria-label="anchor" href="#arg-init-config-path"></a></dt>
+<dd><p>Character. Path to a JSON file containing the
+required parameters for session initialization. Since this will not save
+the session Token, this can only be used to re-initialize a session, not
+for the first-time setup. Can only be used when all the other input
+parameters are NULL.</p></dd>
 
 </dl></div>
     <div class="section level2">

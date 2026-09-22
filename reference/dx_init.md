@@ -12,7 +12,8 @@ dx_init(
   dx_token = NULL,
   dx_project = NULL,
   dx_path = NULL,
-  check_connectivity = TRUE
+  check_connectivity = TRUE,
+  init_config_path = NULL
 )
 ```
 
@@ -41,6 +42,14 @@ dx_init(
 - check_connectivity:
 
   Logical. If TRUE (default), checks connectivity before initialization.
+
+- init_config_path:
+
+  Character. Path to a JSON file containing the required parameters for
+  session initialization. Since this will not save the session Token,
+  this can only be used to re-initialize a session, not for the
+  first-time setup. Can only be used when all the other input parameters
+  are NULL.
 
 ## Value
 

@@ -253,6 +253,8 @@ deployed LLM.
   : Initialize the DNAnexus cache environment
 - [`rate_card`](https://comp-med.github.io/r-ofhelper/reference/rate_card.md)
   : Our Future Health TRE rate card
+- [`read_dx_init_config()`](https://comp-med.github.io/r-ofhelper/reference/read_dx_init_config.md)
+  : Read config JSON for initialization
 - [`remove_dx_cache()`](https://comp-med.github.io/r-ofhelper/reference/remove_dx_cache.md)
   : Remove all entries from the DNAnexus cache
 - [`remove_tre_proxy_env_var()`](https://comp-med.github.io/r-ofhelper/reference/remove_tre_proxy_env_var.md)
@@ -265,6 +267,8 @@ deployed LLM.
   : Create TRE-compatible path
 - [`tre_rate_card()`](https://comp-med.github.io/r-ofhelper/reference/tre_rate_card.md)
   : Get TRE Rate Card
+- [`write_dx_init_config()`](https://comp-med.github.io/r-ofhelper/reference/write_dx_init_config.md)
+  : Write \`dx_init\` parameters to JSON
 
 # Articles
 
