@@ -508,3 +508,31 @@ read_dx_init_config <- function(path = "ofhelper-config.json") {
 
   dx_cache
 }
+
+#' Access DNAnexus persistent user cache
+#'
+#' Read the current user's DNAnexus configuration saved in their user home's
+#' environment.json file.
+#'
+#' @param file Path to the environment.json file. Default value gives the
+#'   expected location.
+#' @param return_token Logical. Whether or not to include the secret access
+#'   token in the output. Omits the token by default.
+#'
+#' @returns A named list with the DNAnexus session state data
+#' @export
+read_dx_env <- function(
+  file = "~/.dnanexus_config/environment.json",
+  return_token = FALSE
+) {
+  if (!fs::file_exists(file)) {
+    rlang::abort("File does not exist")
+  }
+  dx_env <- jsonlite::read_json(file, simplifyVector = TRUE)
+
+  if (!return_token) {
+    dx_env$DX_SECURITY_CONTEXT <- NULL
+  }
+
+  dx_env
+}
